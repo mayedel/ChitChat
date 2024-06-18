@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Prueba: View {
+struct ContentView: View {
 <<<<<<< HEAD
     @State private var login = ""
     @State private var password = ""

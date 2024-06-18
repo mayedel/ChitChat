@@ -21,7 +21,7 @@ class APIManager: APIManagerProtocol {
         self.session = session
     }
     
-    //borrar luego
+    //borrar luego probar jsonenconding
     static func defaultSession() -> Session {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60

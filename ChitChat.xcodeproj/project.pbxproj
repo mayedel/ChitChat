@@ -111,12 +111,12 @@
 			isa = PBXGroup;
 			children = (
 				6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */,
+				6C7067622C21EA3300FE4978 /* Prueba.swift */,
 				6CA1E2B42C08F5CD0023546E /* Assets.xcassets */,
 				6CA1E2B62C08F5CD0023546E /* Preview Content */,
 				6C5333212C1B557900CA76C4 /* Data */,
 				6C9F1BF52C219D2500DF0E7B /* Mappers */,
 				6C9F1BF02C21987400DF0E7B /* Model */,
-				6C7067622C21EA3300FE4978 /* Prueba.swift */,
 			);
 			path = ChitChat;
 			sourceTree = "<group>";

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol ChatsAPIServiceProtocol {
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
@@ -22,12 +23,12 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     }
     
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        let headers = ["token": token]
-        apiManager.request(endpoint: "api/chats", method: "GET", headers: headers, body: nil, completion: completion)
+        let headers: HTTPHeaders = ["token": token]
+        apiManager.request(endpoint: "api/chats", method: .get, headers: headers, body: nil, completion: completion)
     }
     
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void) {
-        let headers = ["token": token]
+        let headers: HTTPHeaders = ["token": token]
         let body = ["source": source, "target": target]
         
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
@@ -35,7 +36,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
             return
         }
         
-        apiManager.request(endpoint: "api/chats", method: "POST", headers: headers, body: bodyData) { (result: Result<CreateChatResponse, Error>) in
+        apiManager.request(endpoint: "api/chats", method: .post, headers: headers, body: bodyData) { (result: Result<ChatResponse, Error>) in
             switch result {
             case .success(let response):
                 completion(.success((response.success, response.created, response.chat)))
@@ -46,8 +47,8 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     }
     
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let headers = ["token": token]
-        apiManager.request(endpoint: "api/chats/\(id)", method: "DELETE", headers: headers, body: nil) { (result: Result<DeleteChatResponse, Error>) in
+        let headers: HTTPHeaders = ["token": token]
+        apiManager.request(endpoint: "api/chats/\(id)", method: .delete, headers: headers, body: nil) { (result: Result<DeleteChatResponse, Error>) in
             switch result {
             case .success(let response):
                 completion(.success(response.success))
@@ -57,8 +58,9 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
+    
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        let headers = ["token": token]
-        apiManager.request(endpoint: "api/chats/list", method: "GET", headers: headers, body: nil, completion: completion)
+        let headers: HTTPHeaders = ["token": token]
+        apiManager.request(endpoint: "api/chats/list", method: .get, headers: headers, body: nil, completion: completion)
     }
 }

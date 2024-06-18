@@ -8,9 +8,11 @@
 import Foundation
 
 protocol DataProviderProtocol {
-    func getUsers(completion: @escaping (Result<[User], Error>) -> Void)
-    func getChats(completion: @escaping (Result<[Chat], Error>) -> Void)
-    func getMessages(for chatId: String, completion: @escaping (Result<[Message], Error]) -> Void)
+    func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void)
+    func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
+    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void)
+    func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
+    func getMessages(for chatId: String, token: String, completion: @escaping (Result<[Message], Error>) -> Void)
 }
 
 class DataProvider: DataProviderProtocol {
@@ -18,17 +20,16 @@ class DataProvider: DataProviderProtocol {
     private let chatsService: ChatsAPIServiceProtocol
     private let messagesService: MessagesAPIServiceProtocol
     
-    init(usersService: UsersAPIServiceProtocol, chatsService: ChatsAPIServiceProtocol, messagesService: MessagesAPIServiceProtocol) {
-        self.usersService = usersService
-        self.chatsService = chatsService
-        self.messagesService = messagesService
+    init(apiManager: APIManagerProtocol) {
+        self.usersService = UsersAPIService(apiManager: apiManager)
+        self.chatsService = ChatsAPIService(apiManager: apiManager)
+        self.messagesService = MessagesAPIService(apiManager: apiManager)
     }
     
-    func getUsers(completion: @escaping (Result<[User], Error]) -> Void) {
-        usersService.getUsers(token: "YOUR_TOKEN") { result in
+    func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        usersService.getUsers(token: token) { result in
             switch result {
-            case .success(let apiUsers):
-                let users = apiUsers.map { UserMapper.map(apiUser: $0) }
+            case .success(let users):
                 completion(.success(users))
             case .failure(let error):
                 completion(.failure(error))
@@ -36,11 +37,18 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func getChats(completion: @escaping (Result<[Chat], Error]) -> Void) {
-        chatsService.getChats(token: "YOUR_TOKEN") { result in
+    func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void) {
+        usersService.loginUser(login: login, password: password, completion: completion)
+    }
+    
+    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void) {
+            usersService.registerUser(user: user, token: token, completion: completion)
+        }
+    
+    func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
+        chatsService.getChats(token: token) { result in
             switch result {
-            case .success(let apiChats):
-                let chats = apiChats.map { ChatMapper.map(apiChat: $0) }
+            case .success(let chats):
                 completion(.success(chats))
             case .failure(let error):
                 completion(.failure(error))
@@ -48,11 +56,10 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func getMessages(for chatId: String, completion: @escaping (Result<[Message], Error]) -> Void) {
-        messagesService.getAllMessages(token: "YOUR_TOKEN") { result in
+    func getMessages(for chatId: String, token: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+        messagesService.getAllMessages(token: token) { result in
             switch result {
-            case .success(let apiMessages):
-                let messages = apiMessages.map { MessageMapper.map(apiMessage: $0) }
+            case .success(let messages):
                 completion(.success(messages))
             case .failure(let error):
                 completion(.failure(error))
@@ -60,4 +67,3 @@ class DataProvider: DataProviderProtocol {
         }
     }
 }
-

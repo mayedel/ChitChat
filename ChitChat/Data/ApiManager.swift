@@ -9,52 +9,57 @@ import Foundation
 import Alamofire
 
 protocol APIManagerProtocol {
-    func request<T: Decodable>(endpoint: String, method: String, headers: [String: String]?, body: Data?, completion: @escaping (Result<T, Error>) -> Void)
+    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void)
 }
 
 class APIManager: APIManagerProtocol {
-    // private let baseUrl = "https://mock-movilidad.vass.es/chatvass"
+    private let baseURL: String
+    private let session: Session
     
-    private let baseURL: URL
-    private let session: URLSession
-    
-    init(baseURL: URL, session: URLSession = .shared) {
+    init(baseURL: String = "https://mock-movilidad.vass.es/chatvass/", session: Session = APIManager.defaultSession()) {
         self.baseURL = baseURL
         self.session = session
     }
     
-    func request<T: Decodable>(endpoint: String, method: String, headers: [String: String]?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint, relativeTo: baseURL) else {
+    //borrar luego
+    static func defaultSession() -> Session {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 60
+        configuration.timeoutIntervalForResource = 60
+        return Session(configuration: configuration)
+    }
+    
+    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = method
-        headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
+        request.method = method
+        if let headers = headers {
+            request.headers = headers
+        }
         request.httpBody = body
         
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
+        session.request(request).validate().responseDecodable(of: T.self) { response in
+            if let statusCode = response.response?.statusCode {
+                print("HTTP Status Code: \(statusCode)")
+            }
+            if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                print("Response Data: \(responseString)")
             }
             
-            guard let data = data else {
-                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data"])))
-                return
-            }
-            
-            do {
-                let decodedResponse = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(decodedResponse))
-            } catch {
+            switch response.result {
+            case .success(let value):
+                completion(.success(value))
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let underlyingError = error.underlyingError {
+                    print("Underlying Error: \(underlyingError.localizedDescription)")
+                }
                 completion(.failure(error))
             }
         }
-        
-        task.resume()
     }
 }
-
-

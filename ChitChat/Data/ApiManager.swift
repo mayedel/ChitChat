@@ -10,6 +10,8 @@ import Alamofire
 
 protocol APIManagerProtocol {
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void)
+    func testGetUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void)
+
 }
 
 class APIManager: APIManagerProtocol {
@@ -64,4 +66,9 @@ class APIManager: APIManagerProtocol {
             }
         }
     }
+    func testGetUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
+           let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
+            print("Authorization Header: \(headers)")
+           request(endpoint: "api/users/profile", method: .get, headers: headers, body: nil, completion: completion)
+       }
 }

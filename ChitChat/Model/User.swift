@@ -9,16 +9,16 @@ import Foundation
 
 struct User: Codable {
     let id: String
-    let login: String
-    let password: String
-    let nick: String
-    let platform: String
+    let login: String?
+    let password: String?
+    let nick: String?
+    let platform: String?
     let avatar: String
     let uuid: String?
-    let token: String
+    let token: String?
     let online: Bool
-    let created: String
-    let updated: String
+    let created: String?
+    let updated: String?
 }
 
 struct UserLoginResponse: Codable {

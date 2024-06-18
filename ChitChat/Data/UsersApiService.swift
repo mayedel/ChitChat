@@ -27,7 +27,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders =  ["Authorization": "Bearer \(token)"]
         apiManager.request(endpoint: "api/users/profile", method: .get, headers: headers, body: nil, completion: completion)
     }
     

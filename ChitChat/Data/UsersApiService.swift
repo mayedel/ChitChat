@@ -15,7 +15,7 @@ protocol UsersAPIServiceProtocol {
     func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
     func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void)
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void)
-    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void)
+    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void)
     func uploadUser(id: String, token: String, file: Data, completion: @escaping (Result<String, Error>) -> Void)
 }
 
@@ -45,7 +45,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "*/*"
         ]
         
         apiManager.request(endpoint: "api/users/login", method: .post, headers: headers, body: bodyData) { (result: Result<UserLoginResponse, Error>) in
@@ -94,8 +94,11 @@ class UsersAPIService: UsersAPIServiceProtocol {
         }
     }
     
-    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Accept": "*/*"
+        ]
         let body: [String: Any] = [
             "login": user.login,
             "password": user.password,

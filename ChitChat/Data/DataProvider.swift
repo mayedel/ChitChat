@@ -10,7 +10,7 @@ import Foundation
 protocol DataProviderProtocol {
     func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void)
     func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
-    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void)
+    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void)
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
     func getMessages(for chatId: String, token: String, completion: @escaping (Result<[Message], Error>) -> Void)
 }
@@ -41,8 +41,8 @@ class DataProvider: DataProviderProtocol {
         usersService.loginUser(login: login, password: password, completion: completion)
     }
     
-    func registerUser(user: User, token: String, completion: @escaping (Result<User, Error>) -> Void) {
-            usersService.registerUser(user: user, token: token, completion: completion)
+    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+            usersService.registerUser(user: user, completion: completion)
         }
     
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {

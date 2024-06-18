@@ -40,6 +40,8 @@ class APIManager: APIManagerProtocol {
         if let headers = headers {
             request.headers = headers
         }
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
         request.httpBody = body
         
         session.request(request).validate().responseDecodable(of: T.self) { response in

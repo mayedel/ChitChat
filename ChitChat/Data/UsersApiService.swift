@@ -43,7 +43,12 @@ class UsersAPIService: UsersAPIServiceProtocol {
             return
         }
         
-        apiManager.request(endpoint: "api/users/login", method: .post, headers: nil, body: bodyData) { (result: Result<UserLoginResponse, Error>) in
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        apiManager.request(endpoint: "api/users/login", method: .post, headers: headers, body: bodyData) { (result: Result<UserLoginResponse, Error>) in
             switch result {
             case .success(let response):
                 completion(.success((response.token, response.user)))

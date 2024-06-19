@@ -9,41 +9,37 @@
 /* Begin PBXBuildFile section */
 		6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53331F2C1B557300CA76C4 /* ApiManager.swift */; };
 		6C5333252C1B566E00CA76C4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5333242C1B566E00CA76C4 /* Alamofire */; };
-		6C5333272C1B56A600CA76C4 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333262C1B56A600CA76C4 /* DataProvider.swift */; };
+		6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */; };
 		6C5333292C1B5AC000CA76C4 /* UsersApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */; };
 		6C53332B2C1B5ACD00CA76C4 /* ChatsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */; };
 		6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */; };
-		6C53332F2C1B5AEF00CA76C4 /* MappersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332E2C1B5AEF00CA76C4 /* MappersManager.swift */; };
 		6C7067632C21EA3300FE4978 /* Prueba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7067622C21EA3300FE4978 /* Prueba.swift */; };
 		6C9F1BEF2C21986F00DF0E7B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BEE2C21986F00DF0E7B /* User.swift */; };
 		6C9F1BF22C21989900DF0E7B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF12C21989900DF0E7B /* Chat.swift */; };
 		6C9F1BF42C2198B100DF0E7B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF32C2198B100DF0E7B /* Message.swift */; };
-		6C9F1BF72C219D5D00DF0E7B /* APIChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF62C219D5D00DF0E7B /* APIChat.swift */; };
-		6C9F1BF92C21A50300DF0E7B /* APIUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF82C21A50300DF0E7B /* APIUser.swift */; };
-		6C9F1BFB2C21A53800DF0E7B /* APIMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BFA2C21A53800DF0E7B /* APIMessages.swift */; };
 		6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */; };
 		6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B42C08F5CD0023546E /* Assets.xcassets */; };
 		6CA1E2B82C08F5CD0023546E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B72C08F5CD0023546E /* Preview Assets.xcassets */; };
+		6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */; };
+		6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C53331F2C1B557300CA76C4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
-		6C5333262C1B56A600CA76C4 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
 		6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersApiService.swift; sourceTree = "<group>"; };
 		6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsApiService.swift; sourceTree = "<group>"; };
 		6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesApiService.swift; sourceTree = "<group>"; };
-		6C53332E2C1B5AEF00CA76C4 /* MappersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappersManager.swift; sourceTree = "<group>"; };
 		6C7067622C21EA3300FE4978 /* Prueba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prueba.swift; sourceTree = "<group>"; };
 		6C9F1BEE2C21986F00DF0E7B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C9F1BF12C21989900DF0E7B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		6C9F1BF32C2198B100DF0E7B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		6C9F1BF62C219D5D00DF0E7B /* APIChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIChat.swift; sourceTree = "<group>"; };
-		6C9F1BF82C21A50300DF0E7B /* APIUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUser.swift; sourceTree = "<group>"; };
-		6C9F1BFA2C21A53800DF0E7B /* APIMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMessages.swift; sourceTree = "<group>"; };
 		6CA1E2AD2C08F5C90023546E /* ChitChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChitChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChitChatApp.swift; sourceTree = "<group>"; };
 		6CA1E2B42C08F5CD0023546E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CA1E2B72C08F5CD0023546E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataProvider.swift; sourceTree = "<group>"; };
+		6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +58,10 @@
 			isa = PBXGroup;
 			children = (
 				6C53331F2C1B557300CA76C4 /* ApiManager.swift */,
-				6C5333262C1B56A600CA76C4 /* DataProvider.swift */,
 				6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */,
 				6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */,
 				6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */,
+				6CAE37EE2C235E7800E3AE16 /* Provider */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -78,17 +74,6 @@
 				6C9F1BF32C2198B100DF0E7B /* Message.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		6C9F1BF52C219D2500DF0E7B /* Mappers */ = {
-			isa = PBXGroup;
-			children = (
-				6C9F1BF82C21A50300DF0E7B /* APIUser.swift */,
-				6C9F1BFA2C21A53800DF0E7B /* APIMessages.swift */,
-				6C9F1BF62C219D5D00DF0E7B /* APIChat.swift */,
-				6C53332E2C1B5AEF00CA76C4 /* MappersManager.swift */,
-			);
-			path = Mappers;
 			sourceTree = "<group>";
 		};
 		6CA1E2A42C08F5C90023546E = {
@@ -115,7 +100,6 @@
 				6CA1E2B42C08F5CD0023546E /* Assets.xcassets */,
 				6CA1E2B62C08F5CD0023546E /* Preview Content */,
 				6C5333212C1B557900CA76C4 /* Data */,
-				6C9F1BF52C219D2500DF0E7B /* Mappers */,
 				6C9F1BF02C21987400DF0E7B /* Model */,
 			);
 			path = ChitChat;
@@ -127,6 +111,16 @@
 				6CA1E2B72C08F5CD0023546E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6CAE37EE2C235E7800E3AE16 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */,
+				6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */,
+				6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,9 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7067632C21EA3300FE4978 /* Prueba.swift in Sources */,
-				6C53332F2C1B5AEF00CA76C4 /* MappersManager.swift in Sources */,
-				6C9F1BF92C21A50300DF0E7B /* APIUser.swift in Sources */,
-				6C9F1BFB2C21A53800DF0E7B /* APIMessages.swift in Sources */,
+				6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */,
 				6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */,
 				6C53332B2C1B5ACD00CA76C4 /* ChatsApiService.swift in Sources */,
 				6C9F1BF22C21989900DF0E7B /* Chat.swift in Sources */,
@@ -216,8 +208,8 @@
 				6C9F1BF42C2198B100DF0E7B /* Message.swift in Sources */,
 				6C9F1BEF2C21986F00DF0E7B /* User.swift in Sources */,
 				6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */,
-				6C9F1BF72C219D5D00DF0E7B /* APIChat.swift in Sources */,
-				6C5333272C1B56A600CA76C4 /* DataProvider.swift in Sources */,
+				6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */,
+				6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */,
 				6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

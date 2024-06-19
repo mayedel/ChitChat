@@ -1,5 +1,5 @@
 //
-//  DataProvider.swift
+//  UserDataProvider.swift
 //  ChitChat
 //
 //  Created by María Espejo on 13/6/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DataProviderProtocol {
+protocol UserDataProviderProtocol {
     func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void)
     func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void)
     func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
@@ -16,25 +16,13 @@ protocol DataProviderProtocol {
     func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void)
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void)
     func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, Error>) -> Void)
-        
-    func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
-    func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void)
-    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void)
-    func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
-    
-    func getMessages(for chatId: String, token: String, completion: @escaping (Result<[Message], Error>) -> Void)
 }
 
-class DataProvider: DataProviderProtocol {
+class UserDataProvider: UserDataProviderProtocol {
     private let usersService: UsersAPIServiceProtocol
-    private let chatsService: ChatsAPIServiceProtocol
-    private let messagesService: MessagesAPIServiceProtocol
     
     init(apiManager: APIManagerProtocol) {
         self.usersService = UsersAPIService(apiManager: apiManager)
-        self.chatsService = ChatsAPIService(apiManager: apiManager)
-        self.messagesService = MessagesAPIService(apiManager: apiManager)
     }
     
     func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
@@ -125,76 +113,4 @@ class DataProvider: DataProviderProtocol {
         }
     }
 
-
-
-    
-    func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        chatsService.getChats(token: token) { result in
-            switch result {
-            case .success(let chats):
-                completion(.success(chats))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void) {
-        chatsService.createChat(source: source, target: target, token: token) { result in
-            switch result {
-            case .success(let chatResponse):
-                completion(.success(chatResponse))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        chatsService.deleteChat(id: id, token: token) { result in
-            switch result {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
-        chatsService.getChatViews(token: token) { result in
-            switch result {
-            case .success(let chatViews):
-                completion(.success(chatViews))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        chatsService.getActiveChats(token: token) { result in
-            switch result {
-            case .success(let chats):
-                completion(.success(chats))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
-
-    
-    
-    
-    func getMessages(for chatId: String, token: String, completion: @escaping (Result<[Message], Error>) -> Void) {
-        messagesService.getAllMessages(token: token) { result in
-            switch result {
-            case .success(let messages):
-                completion(.success(messages))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
 }

@@ -22,30 +22,11 @@ class APIManager: APIManagerProtocol {
         self.session = session
     }
     
-    //borrar luego probar jsonenconding
-    //    static func defaultSession() -> Session {
-    //        let configuration = URLSessionConfiguration.default
-    //        configuration.timeoutIntervalForRequest = 60
-    //        configuration.timeoutIntervalForResource = 60
-    //        return Session(configuration: configuration)
-    //    }
-    
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
-        guard var urlComponents = URLComponents(string: baseURL) else {
-                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid Base URL"])))
-                return
-            }
-        
-        urlComponents.path = endpoint
-        urlComponents.scheme = "https"
-        
-        guard let url = urlComponents.url else {
+        guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
-        
-        print("Request URL: \(url.absoluteString)") // Log para verificar la URL generada
-        
         
         var request = URLRequest(url: url)
         request.method = method

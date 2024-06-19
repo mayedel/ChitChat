@@ -47,7 +47,6 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
-    //Error 401 Unauthorized. Tampoco funciona en Postman.
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats/\(id)", method: .delete, headers: headers, body: nil) { (result: Result<DeleteChatResponse, Error>) in

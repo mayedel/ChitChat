@@ -27,12 +27,12 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let headers: HTTPHeaders =  ["Authorization": "Bearer \(token)"]
+        let headers: HTTPHeaders =  ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users/profile", method: .get, headers: headers, body: nil, completion: completion)
     }
     
     func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users", method: .get, headers: headers, body: nil, completion: completion)
     }
     
@@ -59,7 +59,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users/biometric", method: .post, headers: headers, body: nil) { (result: Result<UserLoginResponse, Error>) in
             switch result {
             case .success(let response):
@@ -71,7 +71,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users/logout", method: .post, headers: headers, body: nil) { (result: Result<MessageResponse, Error>) in
             switch result {
             case .success(let response):
@@ -83,7 +83,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users/online", method: .put, headers: headers, body: nil) { (result: Result<MessageResponse, Error>) in
             switch result {
             case .success(let response):
@@ -125,7 +125,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     }
     
     func uploadUser(id: String, token: String, file: Data, completion: @escaping (Result<String, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/users/upload/\(id)", method: .post, headers: headers, body: file) { (result: Result<MessageResponse, Error>) in
             switch result {
             case .success(let response):

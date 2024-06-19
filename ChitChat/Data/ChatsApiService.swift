@@ -23,12 +23,12 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     }
     
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats", method: .get, headers: headers, body: nil, completion: completion)
     }
     
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         let body = ["source": source, "target": target]
         
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
@@ -47,7 +47,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     }
     
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats/\(id)", method: .delete, headers: headers, body: nil) { (result: Result<DeleteChatResponse, Error>) in
             switch result {
             case .success(let response):
@@ -60,7 +60,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     
     
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
-        let headers: HTTPHeaders = ["token": token]
+        let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats/list", method: .get, headers: headers, body: nil, completion: completion)
     }
 }

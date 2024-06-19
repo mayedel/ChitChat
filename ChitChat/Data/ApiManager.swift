@@ -10,25 +10,25 @@ import Alamofire
 
 protocol APIManagerProtocol {
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void)
-    func testGetUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void)
+    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, Error>) -> Void)
 }
 
 class APIManager: APIManagerProtocol {
     private let baseURL: String
     private let session: Session
     
-    init(baseURL: String = "https://mock-movilidad.vass.es/chatvass/", session: Session = APIManager.defaultSession()) {
+    init(baseURL: String = "https://mock-movilidad.vass.es/chatvass/", session: Session = .default) {
         self.baseURL = baseURL
         self.session = session
     }
     
     //borrar luego probar jsonenconding
-    static func defaultSession() -> Session {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60
-        configuration.timeoutIntervalForResource = 60
-        return Session(configuration: configuration)
-    }
+    //    static func defaultSession() -> Session {
+    //        let configuration = URLSessionConfiguration.default
+    //        configuration.timeoutIntervalForRequest = 60
+    //        configuration.timeoutIntervalForResource = 60
+    //        return Session(configuration: configuration)
+    //    }
     
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
         guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
@@ -65,9 +65,43 @@ class APIManager: APIManagerProtocol {
             }
         }
     }
-    func testGetUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
-           let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-            print("Authorization Header: \(headers)")
-           request(endpoint: "api/users/profile", method: .get, headers: headers, body: nil, completion: completion)
-       }
+    
+    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+        
+        session.upload(multipartFormData: { multipartFormData in
+            if let parameters = parameters {
+                for (key, value) in parameters {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+            }
+            if let file = file {
+                multipartFormData.append(file, withName: "file", fileName: "file.txt", mimeType: "text/plain")
+            }
+        }, to: url, headers: headers)
+            .validate()
+            .responseDecodable(of: T.self) { response in
+                if let statusCode = response.response?.statusCode {
+                    print("HTTP Status Code: \(statusCode)")
+                }
+                if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                    print("Response Data: \(responseString)")
+                }
+                
+                switch response.result {
+                case .success(let value):
+                    completion(.success(value))
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    if let underlyingError = error.underlyingError {
+                        print("Underlying Error: \(underlyingError.localizedDescription)")
+                    }
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 }

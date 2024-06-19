@@ -16,7 +16,7 @@ protocol UsersAPIServiceProtocol {
     func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void)
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void)
     func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void)
-    func uploadUser(id: String, token: String, file: Data, completion: @escaping (Result<String, Error>) -> Void)
+    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, Error>) -> Void)
 }
 
 class UsersAPIService: UsersAPIServiceProtocol {
@@ -84,7 +84,7 @@ class UsersAPIService: UsersAPIServiceProtocol {
     
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/users/online", method: .put, headers: headers, body: nil) { (result: Result<MessageResponse, Error>) in
+        apiManager.request(endpoint: "api/users/online/true", method: .put, headers: headers, body: nil) { (result: Result<MessageResponse, Error>) in
             switch result {
             case .success(let response):
                 completion(.success(response.message))
@@ -100,11 +100,11 @@ class UsersAPIService: UsersAPIServiceProtocol {
             "Accept": "*/*"
         ]
         let body: [String: Any] = [
-            "login": user.login,
-            "password": user.password,
-            "nick": user.nick,
+            "login": user.login ?? " ",
+            "password": user.password ?? " ",
+            "nick": user.nick ?? " ",
             "avatar": user.avatar,
-            "platform": user.platform,
+            "platform": user.platform ?? " ",
             "uuid": user.uuid ?? "",
             "online": user.online
         ]
@@ -124,15 +124,19 @@ class UsersAPIService: UsersAPIServiceProtocol {
         }
     }
     
-    func uploadUser(id: String, token: String, file: Data, completion: @escaping (Result<String, Error>) -> Void) {
-        let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/users/upload/\(id)", method: .post, headers: headers, body: file) { (result: Result<MessageResponse, Error>) in
-            switch result {
-            case .success(let response):
-                completion(.success(response.message))
-            case .failure(let error):
-                completion(.failure(error))
+    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, Error>) -> Void) {
+            let headers: HTTPHeaders = [
+                "Authorization": "\(token)",
+                "Content-Type": "multipart/form-data"
+            ]
+            
+            apiManager.upload(endpoint: "api/users/upload?id=\(id)", headers: headers, parameters: parameters, file: file) { (result: Result<MessageResponse, Error>) in
+                switch result {
+                case .success(let response):
+                    completion(.success(response.message))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
-    }
 }

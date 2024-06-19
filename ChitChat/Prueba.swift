@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Prueba: View {
-    @State private var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NSIsImlhdCI6MTcxODczNjkzMywiZXhwIjoxNzIxMzI4OTMzfQ.dGEfm2X0j89ykk7I1T8EiLA8-3y69jivQC-x6tDS8lU"
+    @State private var token = "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NSIsImlhdCI6MTcxODczNjkzMywiZXhwIjoxNzIxMzI4OTMzfQ.dGEfm2X0j89ykk7I1T8EiLA8-3y69jivQC-x6tDS8lU"
        @State private var resultMessage = ""
-       
-    
+    @State private var messages: [Message] = []
+        
     private let dataProvider: DataProviderProtocol = {
         let apiManager = APIManager()
         return DataProvider(apiManager: apiManager)
@@ -19,47 +19,45 @@ struct Prueba: View {
     
     var body: some View {
         VStack {
-            Button(action: uploadUser) {
-                            Text("Petición")
-                               .padding()
-                               .background(Color.green)
-                               .foregroundColor(.white)
-                               .cornerRadius(8)
-                       }
-                       .padding()
+            Button(action: getMessages) {
+                            Text("Get All Messages")
+                                .padding()
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .padding()
 
-                       Text(resultMessage)
-                           .padding()
-                           .foregroundColor(.red)
-                   }
-                   .padding()
-               }
+                        if !messages.isEmpty {
+                            List(messages) { message in
+                                VStack(alignment: .leading) {
+                                    Text("Message ID: \(message.id)")
+                                    Text("Chat ID: \(message.chat)")
+                                    Text("Source: \(message.source)")
+                                    Text("Message: \(message.message)")
+                                    Text("Date: \(message.date)")
+                                }
+                            }
+                        } else {
+                            Text(resultMessage)
+                                .padding()
+                                .foregroundColor(.red)
+                        }
+                    }
+                    .padding()
+                }
 
-    func uploadUser() {
-            let id = "665"
-            let parameters = [
-                "login": "newLogin",
-                "password": "newPassword",
-                "nick": "newNick",
-                "avatar": "newAvatar",
-                "platform": "iOS",
-                "uuid": "newUUID",
-                "online": "true"
-            ]
-            
-            let fileContent = "newPassword=12345"
-            let fileData = fileContent.data(using: .utf8)
-            
-            dataProvider.uploadUser(id: id, token: token, parameters: parameters, file: fileData) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let message):
-                        resultMessage = "Upload success: \(message)"
-                   case .failure(let error):
-                        resultMessage = "Error: \(error.localizedDescription)"
+                func getMessages() {
+                    dataProvider.getMessages(for: "", token: token) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let messages):
+                                self.messages = messages
+                                self.resultMessage = "Messages fetched successfully"
+                            case .failure(let error):
+                                self.resultMessage = "Error: \(error.localizedDescription)"
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-

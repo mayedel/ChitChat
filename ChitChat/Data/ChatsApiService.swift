@@ -12,6 +12,7 @@ protocol ChatsAPIServiceProtocol {
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void)
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void)
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
 }
 
@@ -46,6 +47,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
+    //Error 401 Unauthorized. Tampoco funciona en Postman.
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats/\(id)", method: .delete, headers: headers, body: nil) { (result: Result<DeleteChatResponse, Error>) in
@@ -58,6 +60,10 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
+    func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
+            let headers: HTTPHeaders = ["Authorization": "\(token)"]
+            apiManager.request(endpoint: "api/chats/view", method: .get, headers: headers, body: nil, completion: completion)
+        }
     
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]

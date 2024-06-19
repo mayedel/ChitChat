@@ -31,10 +31,21 @@ class APIManager: APIManagerProtocol {
     //    }
     
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
+        guard var urlComponents = URLComponents(string: baseURL) else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid Base URL"])))
+                return
+            }
+        
+        urlComponents.path = endpoint
+        urlComponents.scheme = "https"
+        
+        guard let url = urlComponents.url else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
+        
+        print("Request URL: \(url.absoluteString)") // Log para verificar la URL generada
+        
         
         var request = URLRequest(url: url)
         request.method = method

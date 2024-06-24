@@ -7,64 +7,6 @@
 
 import SwiftUI
 
-<<<<<<< HEAD
-struct Prueba: View {
-<<<<<<< HEAD
-    @State private var login = ""
-    @State private var password = ""
-    @State private var resultMessage = ""
-
-    let apiManager = APIManager()
-    var dataProvider: DataProviderProtocol {
-        DataProvider(apiManager: apiManager)
-    }
-
-    var body: some View {
-        VStack {
-            TextField("Login", text: $login)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button(action: loginUser) {
-                Text("Login")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-            .padding()
-
-            Text(resultMessage)
-                .padding()
-                .foregroundColor(.red)
-        }
-        .padding()
-    }
-
-    func loginUser() {
-        dataProvider.loginUser(login: login, password: password) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let (token, userPartial)):
-                    resultMessage = "Logged in! Token: \(token), User ID: \(userPartial.id)"
-                case .failure(let error):
-                    resultMessage = "Error: \(error.localizedDescription)"
-                }
-            }
-=======
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var useBiometrics: Bool = false
-    @State private var userExist: Bool = true
-    @State private var passCorrect: Bool = true
-    
-    
-    var body: some View {
-=======
 struct ContentView: View {
     @State private var username: String = ""
     @State private var password: String = ""
@@ -74,7 +16,6 @@ struct ContentView: View {
     
     
     var body: some View {
->>>>>>> 712d39e4166b63a5953b99d800c9d717f420ff08
         
         VStack{
             Image("logo")
@@ -134,20 +75,11 @@ struct ContentView: View {
                     Button(action: {
                         // Acción de registro
                     }) {
-<<<<<<< HEAD
                         Text("Regístrate")                            .font(.headline)
-=======
-                        Text("Regístrate")
-                            .font(.headline)
->>>>>>> 712d39e4166b63a5953b99d800c9d717f420ff08
                             .foregroundStyle(.black)
                     }
                 }
             }.padding(.horizontal, 50)
-<<<<<<< HEAD
->>>>>>> b1c44b92287349f69a99401134cad3d7404c8c3a
-=======
->>>>>>> 712d39e4166b63a5953b99d800c9d717f420ff08
         }
     }
 }

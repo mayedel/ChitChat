@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Prueba: View {
-        @State private var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MyIsImlhdCI6MTcxODcyMjc4MSwiZXhwIjoxNzIxMzE0NzgxfQ.uN6s5CGApRUqjl58Lpfro6lpUlvlaL0u4fvGYK6cQC4"
+        @State private var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NSIsImlhdCI6MTcxODc5MDQ2OSwiZXhwIjoxNzIxMzgyNDY5fQ.YKkE_rz6JRLmTEJuSyvf9OXuRUERTAGdkWkYbVzzEvQ"
         @State private var resultMessage = ""
     @State private var messages: [Message] = []
    

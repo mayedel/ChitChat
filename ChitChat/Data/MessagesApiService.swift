@@ -25,7 +25,7 @@ class MessagesAPIService: MessagesAPIServiceProtocol {
     //Problema redireccionamiento a HTTP
     func getAllMessages(token: String, completion: @escaping (Result<[Message], Error>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/messages", method: .get, headers: headers, body: nil, completion: completion)
+        apiManager.request(endpoint: "api/messages/", method: .get, headers: headers, body: nil, completion: completion)
     }
     
     func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {

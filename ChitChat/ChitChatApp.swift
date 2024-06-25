@@ -11,7 +11,7 @@ import SwiftUI
 struct ChitChatApp: App {
     var body: some Scene {
         WindowGroup {
-            Prueba()
+            ContentView()
         }
     }
 }

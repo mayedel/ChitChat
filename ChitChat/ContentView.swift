@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var useBiometrics: Bool = false
     @State private var userExist: Bool = true
     @State private var passCorrect: Bool = true
-    
+    @State private var errorMessage: String = ""
     
     var body: some View {
+        
         VStack{
             Image("logo")
                 .resizable()
@@ -57,7 +59,7 @@ struct ContentView: View {
                 }
                 VStack{
                     Button(action: {
-                        // Acción de login
+                        //login
                     }) {
                         Text("Login")
                             .font(.headline)
@@ -74,11 +76,6 @@ struct ContentView: View {
                     Button(action: {
                         // Acción de registro
                     }) {
-         Text("Regístrate")
-                            .font(.headline)
-
-                        Text("Regístrate")                            .font(.headline)
-
                         Text("Regístrate")
                             .font(.headline)
                             .foregroundStyle(.black)

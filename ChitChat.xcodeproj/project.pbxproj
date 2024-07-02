@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47AB65302C347D7200A8678D /* ActiveChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AB652F2C347D7200A8678D /* ActiveChatsView.swift */; };
 		47B58DF12C28A68A007AA752 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B58DF02C28A689007AA752 /* RegisterView.swift */; };
 		6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */; };
 		6CA1E2B32C08F5C90023546E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B22C08F5C90023546E /* ContentView.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47AB652F2C347D7200A8678D /* ActiveChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatsView.swift; sourceTree = "<group>"; };
 		47B58DF02C28A689007AA752 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		6CA1E2AD2C08F5C90023546E /* ChitChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChitChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChitChatApp.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */,
 				6CA1E2B22C08F5C90023546E /* ContentView.swift */,
 				47B58DF02C28A689007AA752 /* RegisterView.swift */,
+				47AB652F2C347D7200A8678D /* ActiveChatsView.swift */,
 				6CA1E2B42C08F5CD0023546E /* Assets.xcassets */,
 				6CA1E2B62C08F5CD0023546E /* Preview Content */,
 			);
@@ -147,6 +150,7 @@
 			files = (
 				47B58DF12C28A68A007AA752 /* RegisterView.swift in Sources */,
 				6CA1E2B32C08F5C90023546E /* ContentView.swift in Sources */,
+				47AB65302C347D7200A8678D /* ActiveChatsView.swift in Sources */,
 				6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

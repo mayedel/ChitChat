@@ -9,8 +9,8 @@ import Foundation
 import Alamofire
 
 protocol APIManagerProtocol {
-    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void)
-    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, Error>) -> Void)
+    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, AFError>) -> Void)
+    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, AFError>) -> Void)
 }
 
 class APIManager: APIManagerProtocol {
@@ -22,9 +22,9 @@ class APIManager: APIManagerProtocol {
         self.session = session
     }
     
-    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, Error>) -> Void) {
+    func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, AFError>) -> Void) {
         guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            completion(.failure(AFError.createURLRequestFailed(error: "Invalid URL" as! Error)))
             return
         }
         
@@ -44,7 +44,6 @@ class APIManager: APIManagerProtocol {
             if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
                 print("Response Data: \(responseString)")
             }
-            
             switch response.result {
             case .success(let value):
                 completion(.success(value))
@@ -58,9 +57,9 @@ class APIManager: APIManagerProtocol {
         }
     }
     
-    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, Error>) -> Void) {
+    func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, AFError>) -> Void) {
         guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            completion(.failure(AFError.createURLRequestFailed(error: "Invalid URL" as! Error)))
             return
         }
         

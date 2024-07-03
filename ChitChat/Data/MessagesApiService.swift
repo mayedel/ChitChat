@@ -9,53 +9,76 @@ import Foundation
 import Alamofire
 
 protocol MessagesAPIServiceProtocol {
-    func getAllMessages(token: String, completion: @escaping (Result<[Message], Error>) -> Void)
-    func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
-    func viewMessages(token: String, completion: @escaping (Result<[MessageView], Error>) -> Void)
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, Error>) -> Void)
+    func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
+    func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
+    func viewMessages(token: String, completion: @escaping (Result<[MessageView], ErrorModel>) -> Void)
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void)
 }
 
 class MessagesAPIService: MessagesAPIServiceProtocol {
     private let apiManager: APIManagerProtocol
+    private let errorMapper: ErrorMapper = ErrorMapper()
     
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
     }
     
     //Problema redireccionamiento a HTTP
-    func getAllMessages(token: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+    func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/messages/", method: .get, headers: headers, body: nil, completion: completion)
+        apiManager.request(endpoint: "api/messages/", method: .get, headers: headers, body: nil, completion: { (result: Result<[Message], AFError>) in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
+            }
+            
+        })
     }
     
-    func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         let body: [String: Any] = ["chat": chat, "source": source, "message": message]
         
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid body"])))
+            completion(.failure(errorMapper.mapErrorResponse(error: AFError.parameterEncoderFailed(reason: AFError.ParameterEncoderFailureReason.encoderFailed(error: "Invalid Error" as! Error)))))
             return
         }
         
-        apiManager.request(endpoint: "api/messages/new", method: .post, headers: headers, body: bodyData) { (result: Result<CreateMessageResponse, Error>) in
+        apiManager.request(endpoint: "api/messages/new", method: .post, headers: headers, body: bodyData) { (result: Result<CreateMessageResponse, AFError>) in
             switch result {
             case .success(let response):
                 completion(.success(response.success))
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
             }
         }
     }
     
-    func viewMessages(token: String, completion: @escaping (Result<[MessageView], Error>) -> Void) {
+    func viewMessages(token: String, completion: @escaping (Result<[MessageView], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/messages/view", method: .get, headers: headers, body: nil, completion: completion)
+        apiManager.request(endpoint: "api/messages/view", method: .get, headers: headers, body: nil, completion: { (result: Result<[MessageView], AFError>) in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
+            }
+        })
     }
     
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, Error>) -> Void) {
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         let endpoint = "api/messages/list/\(chatId)?offset=\(offset)&limit=\(limit)"
-        apiManager.request(endpoint: endpoint, method: .get, headers: headers, body: nil, completion: completion)
+        apiManager.request(endpoint: endpoint, method: .get, headers: headers, body: nil, completion: {  (result: Result<MessagesListResponse, AFError>) in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
+            }
+        })
     }
 
 }

@@ -21,18 +21,6 @@ struct User: Codable {
     let updated: String?
 }
 
-struct UserLoginResponse: Codable {
-    let token: String
-    let user: UserPartial
-}
-
-struct UserPartial: Codable {
-    let id: String
-    let nick: String
-    let avatar: String
-    let online: Bool
-}
-
 struct RegisterResponse: Codable {
     let success: Bool
     let user: User

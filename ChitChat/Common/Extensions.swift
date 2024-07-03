@@ -8,8 +8,3 @@
 import Foundation
 import SwiftUI
 
-extension View {
-    func toastView(toastView: ToastView, show: Binding<Bool>) -> some View {
-        self.modifier(ToastModifier.init(show: show, toastView: toastView))
-    }
-}

@@ -20,8 +20,7 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
     
     @Published var userExist: Bool = true
     @Published var passCorrect: Bool = true
-    
-    @Published var toast: Toast = Toast(style: ToastStyle.error, message: "Algún error")
+    @Published var error: String = ""
 
     private let loginUseCase: LoginUseCase
     
@@ -37,27 +36,23 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
                 self.userExist = true
                 self.passCorrect = true
                 self.token = data.token
-                self.generateToast(message: "Login creado correctamente", style: ToastStyle.error)
+                self.error =  "Login creado correctamente"
             case .failure(let error):
                 guard let code = error.code else { return }
                 switch code {
                 case 401:
-                    self.userExist = false
-                    self.passCorrect = true
-                    self.generateToast(message: error.message ?? "", style: ToastStyle.error)
-                case 400:
                     self.userExist = true
                     self.passCorrect = false
-                    self.generateToast(message: "Contraseña incorrecta", style: ToastStyle.error)
+                    self.error = "La contraseña es incorrecta"
+                case 400:
+                    self.userExist = false
+                    self.passCorrect = true
+                    self.error = "El usuario no existe"
                 default:
-                    self.generateToast(message: "Algún error", style: ToastStyle.error)
+                    self.error = "Algún error"
                 }
             }
         }
         completion()
-    }
-    
-    private func generateToast(message: String, style: ToastStyle) {
-        toast = Toast(style: style, message: message)
     }
 }

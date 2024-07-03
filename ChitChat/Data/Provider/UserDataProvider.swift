@@ -8,24 +8,25 @@
 import Foundation
 
 protocol UserDataProviderProtocol {
-    func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void)
-    func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void)
-    func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
-    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void)
-    func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void)
-    func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void)
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void)
-    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, Error>) -> Void)
+    func getUserProfile(token: String, completion: @escaping (Result<User, ErrorModel>) -> Void)
+    func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void)
+    func loginUser(login: String, password: String, completion: @escaping (Result<LoginModel, ErrorModel>) -> Void)
+    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void)
+    func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), ErrorModel>) -> Void)
+    func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
+    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
+    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, ErrorModel>) -> Void)
 }
 
 class UserDataProvider: UserDataProviderProtocol {
+    
     private let usersService: UsersAPIServiceProtocol
     
     init(apiManager: APIManagerProtocol) {
         self.usersService = UsersAPIService(apiManager: apiManager)
     }
     
-    func getUserProfile(token: String, completion: @escaping (Result<User, Error>) -> Void) {
+    func getUserProfile(token: String, completion: @escaping (Result<User, ErrorModel>) -> Void) {
         usersService.getUserProfile(token: token) { result in
             switch result {
             case .success(let user):
@@ -36,7 +37,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func getUsers(token: String, completion: @escaping (Result<[User], Error>) -> Void) {
+    func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
         usersService.getUsers(token: token) { result in
             switch result {
             case .success(let users):
@@ -47,7 +48,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func loginUser(login: String, password: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void) {
+    func loginUser(login: String, password: String, completion: @escaping (Result<LoginModel, ErrorModel>) -> Void) {
         usersService.loginUser(login: login, password: password) { result in
             switch result {
             case .success(let response):
@@ -58,7 +59,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func registerUser(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void) {
         usersService.registerUser(user: user) { result in
             switch result {
             case .success(let user):
@@ -69,7 +70,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), Error>) -> Void){
+    func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), ErrorModel>) -> Void){
         usersService.biometricLogin(token: token) { result in
             switch result {
             case .success(let response):
@@ -80,7 +81,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func logoutUser(token: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
         usersService.logoutUser(token: token) { result in
             switch result {
             case .success(let message):
@@ -91,7 +92,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
         usersService.changeOnlineStatus(token: token) { result in
             switch result {
             case .success(let message):
@@ -102,7 +103,7 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, Error>) -> Void) {
+    func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, ErrorModel>) -> Void) {
         usersService.uploadUser(id: id, token: token, parameters: parameters, file: file) { result in
             switch result {
             case .success(let message):

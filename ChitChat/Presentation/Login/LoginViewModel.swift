@@ -36,20 +36,20 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
                 self.userExist = true
                 self.passCorrect = true
                 self.token = data.token
-                self.error =  "Login creado correctamente"
+                self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
             case .failure(let error):
                 guard let code = error.code else { return }
                 switch code {
                 case 401:
                     self.userExist = true
                     self.passCorrect = false
-                    self.error = "La contraseña es incorrecta"
+                    self.error = LocalizedStringKey.init("PasswordError").stringValue()
                 case 400:
                     self.userExist = false
                     self.passCorrect = true
-                    self.error = "El usuario no existe"
+                    self.error = LocalizedStringKey.init("UserError").stringValue()
                 default:
-                    self.error = "Algún error"
+                    self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
                 }
             }
         }

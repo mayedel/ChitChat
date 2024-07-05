@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  ChitChat
+
+  Created by Andres Cordón on 5/7/24.
+  
+*/
+"InvalidUrlError" = "Url no válida";
+
+"UserError" = "Usuario no encontrado";
+"PasswordError" = "Contraseña incorrecta";
+
+
+//LOGIN
+"LoginDefaultError" = "Algún error";
+"LoginSuccess" = "Login correcto";
+
+"User" = "Usuario";
+"EnterYourUser" = "Ingresa tu usuario";
+"Password" = "Contraseña";
+"EnterYourPass" = "Ingresa tu contraseña";
+"Biometric" = "Acceso con biometría";
+"Login" = "Acceder";
+"DontHaveAnAccount" = "¿No tienes una cuenta?";
+"Register" = "Regístrate";
+"Error" = "Error";
+
+//REGISTRO
+"User Registration" = "Registro de usuario";
+"RepeatYourPassword" = "Repite tu contraseña";
+"EnterYourNick" = "Introduce tu nick";
+"EnterYourAvatar" = "Introduce tu avatar";
+"PasswordsDontMatch" = "Las contraseñas no coinciden";

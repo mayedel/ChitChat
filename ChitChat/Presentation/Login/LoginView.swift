@@ -22,39 +22,39 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             VStack{
-                Image("")
+                Image("logo")
                     .resizable()
                     .scaledToFit()
                     .padding(.top,20).frame(width: 200)
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Usuario")
+                    Text(LocalizedStringKey("User"))
                         .font(.headline)
-                    TextField("Ingresa tu usuario", text: $username)
+                    TextField(LocalizedStringKey("EnterYourUser"), text: $username)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(viewModel.userExist ? Color.gray : Color.red)
                         )
                     if(!viewModel.userExist) {
-                        Text("Usuario inexistente")
+                        Text(viewModel.error)
                             .foregroundColor(.red)
                     }
                     
-                    Text("Contraseña")
+                    Text(LocalizedStringKey("Password"))
                         .font(.headline)
-                    TextField("Ingresa tu contraseña", text: $password)
+                    TextField(LocalizedStringKey("EnterYourPass"), text: $password)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(viewModel.passCorrect ? Color.gray : Color.red)
                         )
                     if(!viewModel.passCorrect) {
-                        Text("Contraseña incorrecta").foregroundColor(.red)
+                        Text(viewModel.error).foregroundColor(.red)
                     }
                     
                     
                     HStack{
-                        Text("Acceso con biometría")
+                        Text(LocalizedStringKey("Biometric"))
                             .font(.headline)
                         Spacer()
                         Toggle("", isOn: $useBiometrics)
@@ -66,7 +66,7 @@ struct LoginView: View {
                                 presentAlert.toggle()
                             }
                         }) {
-                            Text("Login")
+                            Text(LocalizedStringKey("Login"))
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -77,11 +77,11 @@ struct LoginView: View {
                         .padding(.horizontal, 60)
                         .padding(.top, 16)
                         Spacer().frame(height: 200)
-                        Text("¿No tienes cuenta?")
+                        Text(LocalizedStringKey("DontHaveAnAccount"))
                         Button(action: {
                             // Acción de registro
                         }) {
-                            Text("Regístrate")
+                            Text(LocalizedStringKey("Register"))
                                 .font(.headline)
                                 .foregroundStyle(.black)
                         }
@@ -90,7 +90,7 @@ struct LoginView: View {
             }
             
             if presentAlert{
-                CustomAlert(presentAlert: $presentAlert, alertType: .error(title: "Error", message: viewModel.error)) {
+                CustomAlert(presentAlert: $presentAlert, alertType: .error(title: LocalizedStringKey("Error").stringValue(), message: viewModel.error)) {
                     presentAlert.toggle()
                 } rightButtonAction: {
                     presentAlert.toggle()

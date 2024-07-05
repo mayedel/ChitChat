@@ -23,36 +23,44 @@ struct RegisterView: View {
                 Image("back_arrow")
                     .resizable()
                     .frame(width: 30, height: 30)
-                Text("User Registration")
+                Text(LocalizedStringKey("User Registration").stringValue())
                     .font(.title2)
             }
             .padding(5)
             
             VStack(alignment: .leading, spacing: 10) {
-                RegistrationTextField(title: "Usuario", text: $username, validation: userExist)
+                RegistrationTextField(
+                    title: LocalizedStringKey("User").stringValue(),
+                    text: $username, validation: userExist,
+                    hint: LocalizedStringKey("EnterYourUser").stringValue()
+                )
                 if !userExist {
-                    Text("Usuario no disponible")
+                    Text(LocalizedStringKey("UserError"))
                         .foregroundColor(.red)
                 }
                 
-                RegistrationSecureField(title: "Contraseña", text: $password)
+                RegistrationSecureField(
+                    title: LocalizedStringKey("Password").stringValue(),
+                    text: $password,
+                    hint: LocalizedStringKey("EnterYourPass").stringValue()
+                )
                 
-                RegistrationSecureField(title: "Repite tu contraseña", text: $repeatPassword, validation: passCorrectRepeated, hint: "Repite tu contraseña")
+                RegistrationSecureField(title: LocalizedStringKey("RepeatYourPassword").stringValue(), text: $repeatPassword, validation: passCorrectRepeated, hint: LocalizedStringKey("RepeatYourPassword").stringValue())
                 if !passCorrectRepeated {
-                    Text("Las contraseñas no coinciden")
+                    Text(LocalizedStringKey("PasswordsDontMatch").stringValue())
                         .foregroundColor(.red)
                 }
                 
-                RegistrationTextField(title: "Nick", text: $nickname, validation: true)
+                RegistrationTextField(title: "Nick", text: $nickname, validation: true, hint: LocalizedStringKey("EnterYourNick").stringValue())
                 
-                RegistrationTextField(title: "Avatar", text: $avatar, validation: true)
+                RegistrationTextField(title: "Avatar", text: $avatar, validation: true, hint: LocalizedStringKey("EnterYourAvatar").stringValue())
             }
             .padding(15)
             
             Button(action: {
                 // Register action
             }) {
-                Text("Registrar")
+                Text(LocalizedStringKey("Register").stringValue())
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -71,12 +79,13 @@ struct RegistrationTextField: View {
     var title: String
     @Binding var text: String
     var validation: Bool
+    var hint: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.headline)
-            TextField("Ingresa tu \(title.lowercased())", text: $text)
+            TextField(hint, text: $text)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)

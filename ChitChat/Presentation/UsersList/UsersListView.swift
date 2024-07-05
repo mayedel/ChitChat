@@ -9,10 +9,12 @@ import SwiftUI
 import Combine
 
 struct UsersListView: View {
-    @State private var searchText = ""
-    @State private var contacts: [Contact] = [
-        Contact(name: "John Doe", avatar: "avatar_placeholder"),
-    ]
+    @StateObject private var viewModel = UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: UsersAPIService(apiManager: APIManager()) as UsersAPIServiceProtocol as! APIManagerProtocol as! APIManagerProtocol) as UserDataProviderProtocol as! UserDataProvider as! UserDataProvider as! UserDataProvider))
+    
+    //    @State private var searchText = ""
+    //    @State private var contacts: [Contact] = [
+    //        Contact(name: "John Doe", avatar: "avatar_placeholder"),
+    //    ]
     
     var body: some View {
         NavigationView {
@@ -27,7 +29,7 @@ struct UsersListView: View {
                 .padding([.top, .horizontal])
                 .background(Color(.systemGray6))
                 
-                SearchBar(text: $searchText)
+                SearchBar(text: $viewModel.searchText)
                 
                 Text("Find someone to chat with")
                     .font(.subheadline)
@@ -38,22 +40,17 @@ struct UsersListView: View {
                     .font(.headline)
                     .padding([.leading, .top], 16)
                 
-                List(filteredContacts) { contact in
-//                    NavigationLink(destination: ChatView(contact: contact)) {
-//                        ContactRow(contact: contact)
-//                    }
+                List(viewModel.filteredContacts) { contact in
+                    //                 NavigationLink(destination: ChatView(contact: contact)) {
+                    //                    ContactRow(contact: contact)
+                    //                }
                 }
                 .listStyle(PlainListStyle())
             }
             .navigationBarHidden(true)
-        }
-    }
-    
-    var filteredContacts: [Contact] {
-        if searchText.isEmpty {
-            return contacts
-        } else {
-            return contacts.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            .onAppear {
+        //        viewModel.getUsers(token: )
+            }
         }
     }
 }

@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-// Modelo de contacto
-struct Contact: Identifiable {
-    let id = UUID()
-    let name: String
-    let avatar: String
-}
-
 // Vista principal
 struct AddNewChatView: View {
     let contacts = [
@@ -91,6 +84,9 @@ struct AddNewChatView: View {
     }
 }
 
-#Preview {
-    AddNewChatView()
+
+struct AddNewChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddNewChatView()
+    }
 }

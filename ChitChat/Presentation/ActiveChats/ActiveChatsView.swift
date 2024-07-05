@@ -6,24 +6,6 @@
 
 import SwiftUI
 
-// Definición de colores personalizados
-extension Color {
-    static let customBlue = Color(red: 45/255, green: 156/255, blue: 219/255)
-    static let customGreen = Color(red: 76/255, green: 175/255, blue: 80/255)
-}
-
-// Modelo de conversación
-struct Conversation: Identifiable {
-    let id = UUID()
-    let name: String
-    let message: String
-    let time: String
-    let avatar: String
-    let isUnread: Bool
-    let date: String?
-    let isOnline: Bool
-}
-
 // Vista principal
 struct ActiveChatsView: View {
     
@@ -132,6 +114,8 @@ struct ActiveChatsView: View {
     }
 }
 
-#Preview {
-    ActiveChatsView()
+struct ActiveChatsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ActiveChatsView()
+    }
 }

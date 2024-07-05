@@ -8,14 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53331F2C1B557300CA76C4 /* ApiManager.swift */; };
-		6C5333252C1B566E00CA76C4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5333242C1B566E00CA76C4 /* Alamofire */; };
 		6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */; };
 		6C5333292C1B5AC000CA76C4 /* UsersApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */; };
 		6C53332B2C1B5ACD00CA76C4 /* ChatsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */; };
 		6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */; };
+		6C8E70C02C38680400AC903E /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70BF2C38680400AC903E /* UsersListView.swift */; };
+		6C8E70C32C38737300AC903E /* ActiveChatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70C22C38737300AC903E /* ActiveChatsModel.swift */; };
+		6C8E70C62C3873AF00AC903E /* AddNewChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70C52C3873AF00AC903E /* AddNewChatModel.swift */; };
 		6C9F1BEF2C21986F00DF0E7B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BEE2C21986F00DF0E7B /* User.swift */; };
 		6C9F1BF22C21989900DF0E7B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF12C21989900DF0E7B /* Chat.swift */; };
 		6C9F1BF42C2198B100DF0E7B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F1BF32C2198B100DF0E7B /* Message.swift */; };
+		6CA0D2982C38654700A72134 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA0D2972C38654700A72134 /* Alamofire */; };
 		6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */; };
 		6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B42C08F5CD0023546E /* Assets.xcassets */; };
 		6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */; };
@@ -43,6 +46,9 @@
 		6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersApiService.swift; sourceTree = "<group>"; };
 		6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsApiService.swift; sourceTree = "<group>"; };
 		6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesApiService.swift; sourceTree = "<group>"; };
+		6C8E70BF2C38680400AC903E /* UsersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListView.swift; sourceTree = "<group>"; };
+		6C8E70C22C38737300AC903E /* ActiveChatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatsModel.swift; sourceTree = "<group>"; };
+		6C8E70C52C3873AF00AC903E /* AddNewChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewChatModel.swift; sourceTree = "<group>"; };
 		6C9F1BEE2C21986F00DF0E7B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C9F1BF12C21989900DF0E7B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		6C9F1BF32C2198B100DF0E7B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -73,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C5333252C1B566E00CA76C4 /* Alamofire in Frameworks */,
+				6CA0D2982C38654700A72134 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +98,30 @@
 				6CAE37EE2C235E7800E3AE16 /* Provider */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		6C8E70BE2C3867CA00AC903E /* UsersList */ = {
+			isa = PBXGroup;
+			children = (
+				6C8E70BF2C38680400AC903E /* UsersListView.swift */,
+			);
+			path = UsersList;
+			sourceTree = "<group>";
+		};
+		6C8E70C12C38735300AC903E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C8E70C22C38737300AC903E /* ActiveChatsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C8E70C42C38739800AC903E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C8E70C52C3873AF00AC903E /* AddNewChatModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6C9F1BF02C21987400DF0E7B /* Model */ = {
@@ -146,6 +176,7 @@
 		7E3776F12C34152600EBAE55 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				6C8E70BE2C3867CA00AC903E /* UsersList */,
 				7E54138D2C3588210011AF3B /* Alert */,
 				7EE774172C35E1FE003DDBC2 /* Profile */,
 				7EE774162C35E1F7003DDBC2 /* ActiveChats */,
@@ -229,6 +260,7 @@
 		7EE774152C35E1EC003DDBC2 /* AddNewChat */ = {
 			isa = PBXGroup;
 			children = (
+				6C8E70C42C38739800AC903E /* Model */,
 				7EE7740E2C35E1C8003DDBC2 /* AddNewChatView.swift */,
 			);
 			path = AddNewChat;
@@ -237,6 +269,7 @@
 		7EE774162C35E1F7003DDBC2 /* ActiveChats */ = {
 			isa = PBXGroup;
 			children = (
+				6C8E70C12C38735300AC903E /* Model */,
 				7EE7740C2C35E1C8003DDBC2 /* ActiveChatsView.swift */,
 			);
 			path = ActiveChats;
@@ -267,7 +300,7 @@
 			);
 			name = ChitChat;
 			packageProductDependencies = (
-				6C5333242C1B566E00CA76C4 /* Alamofire */,
+				6CA0D2972C38654700A72134 /* Alamofire */,
 			);
 			productName = ChitChat;
 			productReference = 6CA1E2AD2C08F5C90023546E /* ChitChat.app */;
@@ -298,7 +331,7 @@
 			);
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
-				6C5333232C1B566E00CA76C4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6CA0D2962C38654700A72134 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6CA1E2AE2C08F5C90023546E /* Products */;
 			projectDirPath = "";
@@ -326,7 +359,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E5413962C358AFC0011AF3B /* Extensions.swift in Sources */,
+				6C8E70C02C38680400AC903E /* UsersListView.swift in Sources */,
 				6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */,
+				6C8E70C62C3873AF00AC903E /* AddNewChatModel.swift in Sources */,
 				7E3777032C346C8800EBAE55 /* ErrorModel.swift in Sources */,
 				7E3777082C3473E100EBAE55 /* LoginDTOMapper.swift in Sources */,
 				6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */,
@@ -345,6 +380,7 @@
 				7EE774122C35E1C9003DDBC2 /* AddNewChatView.swift in Sources */,
 				7EE774112C35E1C9003DDBC2 /* ProfileView.swift in Sources */,
 				6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */,
+				6C8E70C32C38737300AC903E /* ActiveChatsModel.swift in Sources */,
 				6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */,
 				6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */,
 				7EE774102C35E1C9003DDBC2 /* ActiveChatsView.swift in Sources */,
@@ -555,7 +591,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6C5333232C1B566E00CA76C4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		6CA0D2962C38654700A72134 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -566,9 +602,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6C5333242C1B566E00CA76C4 /* Alamofire */ = {
+		6CA0D2972C38654700A72134 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6C5333232C1B566E00CA76C4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 6CA0D2962C38654700A72134 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

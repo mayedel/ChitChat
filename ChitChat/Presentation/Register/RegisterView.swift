@@ -106,6 +106,8 @@ struct RegistrationSecureField: View {
     }
 }
 
-#Preview {
-    RegisterView()
+struct RegisterView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegisterView()
+    }
 }

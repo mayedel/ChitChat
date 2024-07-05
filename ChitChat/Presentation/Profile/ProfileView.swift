@@ -116,7 +116,3 @@ struct ProfileView_Previews: PreviewProvider {
     }
 }
 
-
-#Preview {
-    ProfileView()
-}

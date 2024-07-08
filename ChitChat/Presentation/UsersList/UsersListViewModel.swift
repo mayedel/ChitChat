@@ -18,7 +18,6 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     @Published var error: ErrorModel?
     @Published var searchText: String = ""
     private let userslistUseCase: UsersListUseCase
-     private let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NCIsImlhdCI6MTcyMDQ2MzMwNCwiZXhwIjoxNzIzMDU1MzA0fQ.DxUbswsrEpNVHT-_5Hi4qjAKDYNrMhdT7djHhk5ix_I"
     
     init(userslistUseCase: UsersListUseCase) {
         self.userslistUseCase = userslistUseCase
@@ -36,6 +35,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     
     
     func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyOCIsImlhdCI6MTcyMDQ2NjA0OCwiZXhwIjoxNzIzMDU4MDQ4fQ.687ZoLITfGwkAK9d5DuSnXRhZzj3c5XVKSmzFae9Xc4"
         userslistUseCase.getUsers(token: token) { [weak self] result in
             switch result {
             case .success(let users):

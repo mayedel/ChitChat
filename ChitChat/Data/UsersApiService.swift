@@ -41,6 +41,8 @@ class UsersAPIService: UsersAPIServiceProtocol {
     
     func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
+        print("Token: \(token)")
+        print("Headers: \(headers)")
         apiManager.request(endpoint: "api/users", method: .get, headers: headers, body: nil, completion: { (result: Result<[User], AFError>) in
             switch result {
             case .success(let response):

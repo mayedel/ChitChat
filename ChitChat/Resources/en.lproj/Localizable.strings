@@ -7,6 +7,8 @@
 */
 
 "InvalidUrlError" = "Invalid Url";
+"Accept" = "Accept";
+"Cancel" = "Cancel";
 
 "UserError" = "User not found";
 "PasswordError" = "Invalid password";
@@ -30,3 +32,15 @@
 "EnterYourNick" = "Enter your nick";
 "EnterYourAvatar" = "Enter your avatar";
 "PasswordsDontMatch" = "Passwords do not match";
+
+//ADD NEW CHAT
+"Contacts" = "Contacts";
+"SearchForPeople" = "Search for people";
+"FindSomeoneToChat" = "Find someone to chat with";
+"AwesomeToChatWith" = "Awesome to chat with";
+
+//ACTIVE CHATS
+"Conversations" = "Conversations";
+
+//PROFILE
+"Profile" = "Profile";

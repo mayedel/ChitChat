@@ -20,7 +20,7 @@ struct ProfileView: View {
                     }
                     
                     
-                    Text("Perfil")
+                    Text(LocalizedStringKey("Profile"))
                         .font(.title)
                     
                     Spacer()

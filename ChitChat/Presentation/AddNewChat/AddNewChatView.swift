@@ -27,7 +27,7 @@ struct AddNewChatView: View {
                 HStack {
                     Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
                     
-                    Text("Contactos")
+                    Text(LocalizedStringKey("Contacts"))
                         .font(.title)
                         .bold()
                     Spacer()
@@ -40,7 +40,7 @@ struct AddNewChatView: View {
                 
                 // Barra de búsqueda
                 HStack {
-                    TextField("Search for people", text: .constant(""))
+                    TextField(LocalizedStringKey("SearchForPeople"), text: .constant(""))
                         .padding(8)
                         .background(Color(.systemGray6))
                         .cornerRadius(8)
@@ -57,7 +57,7 @@ struct AddNewChatView: View {
                 
                 // Texto secundario
                 HStack {
-                    Text("Find someone to chat with")
+                    Text(LocalizedStringKey("FindSomeoneToChat"))
                         .foregroundColor(.gray)
                     Spacer()
                 }
@@ -65,7 +65,7 @@ struct AddNewChatView: View {
                 
                 // Lista de contactos
                 HStack {
-                    Text("Awesome to Chat With")
+                    Text(LocalizedStringKey("AwesomeToChatWith"))
                         .font(.headline)
                         .padding(.leading)
                     Spacer()

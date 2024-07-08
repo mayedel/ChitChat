@@ -23,7 +23,7 @@ struct RegisterView: View {
                 Image("back_arrow")
                     .resizable()
                     .frame(width: 30, height: 30)
-                Text(LocalizedStringKey("User Registration").stringValue())
+                Text(LocalizedStringKey("UserRegistration").stringValue())
                     .font(.title2)
             }
             .padding(5)

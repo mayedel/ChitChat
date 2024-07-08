@@ -6,6 +6,8 @@
   
 */
 "InvalidUrlError" = "Url no válida";
+"Accept" = "Aceptar";
+"Cancel" = "Cancelar";
 
 "UserError" = "Usuario no encontrado";
 "PasswordError" = "Contraseña incorrecta";
@@ -26,8 +28,20 @@
 "Error" = "Error";
 
 //REGISTRO
-"User Registration" = "Registro de usuario";
+"UserRegistration" = "Registro de usuario";
 "RepeatYourPassword" = "Repite tu contraseña";
 "EnterYourNick" = "Introduce tu nick";
 "EnterYourAvatar" = "Introduce tu avatar";
 "PasswordsDontMatch" = "Las contraseñas no coinciden";
+
+//ADD NEW CHAT
+"Contacts" = "Contactos";
+"SearchForPeople" = "Buscar personas";
+"FindSomeoneToChat" = "Encuentra a alguien con quien chatear";
+"AwesomeToChatWith" = "Increíble charlar con";
+
+//ACTIVE CHATS
+"Conversations" = "Conversaciones";
+
+//PROFILE
+"Profile" = "Perfil";

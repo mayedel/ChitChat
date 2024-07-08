@@ -48,10 +48,11 @@ struct ActiveChatsView: View {
                 .background(Color.white)
                 
                 Divider()
+                Spacer()
                 
                 // Subencabezado
                 HStack {
-                    Text("Conversaciones")
+                    Text(LocalizedStringKey("Conversations"))
                         .font(.headline)
                         .padding(.leading)
                     Spacer()

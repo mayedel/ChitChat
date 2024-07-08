@@ -34,16 +34,16 @@ enum AlertType {
         case .error( _, _):
             return ""
         case .success:
-            return "Cancelar"
+            return LocalizedStringKey("Cancel").stringValue()
         }
     }
     
     var rightActionText: String {
         switch self {
         case .error(title: _, message: _):
-            return "Aceptar"
+            return LocalizedStringKey("Accept").stringValue()
         case .success:
-            return "Aceptar"
+            return LocalizedStringKey("Accept").stringValue()
         }
     }
 }

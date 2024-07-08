@@ -32,3 +32,5 @@ extension LocalizedStringKey {
         return .localizedString(for: self.stringKey!, locale: locale)
     }
 }
+
+

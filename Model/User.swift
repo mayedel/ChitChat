@@ -29,3 +29,10 @@ struct RegisterResponse: Codable {
 struct MessageResponse: Codable {
     let message: String
 }
+
+struct UserList: Identifiable {
+    let id: UUID
+    let name: String
+    let avatar: String
+}
+

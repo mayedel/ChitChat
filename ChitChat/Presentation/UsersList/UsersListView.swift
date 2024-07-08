@@ -9,10 +9,12 @@ import SwiftUI
 import Combine
 
 struct UsersListView: View {
-    @State private var searchText = ""
-    @State private var contacts: [Contact] = [
-        Contact(name: "John Doe", avatar: "avatar_placeholder"),
-    ]
+    @StateObject private var viewModel: UsersListViewModel
+    
+    init(viewModel: UsersListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     
     var body: some View {
         NavigationView {
@@ -27,7 +29,7 @@ struct UsersListView: View {
                 .padding([.top, .horizontal])
                 .background(Color(.systemGray6))
                 
-                SearchBar(text: $searchText)
+                SearchBar(text: $viewModel.searchText)
                 
                 Text("Find someone to chat with")
                     .font(.subheadline)
@@ -38,22 +40,18 @@ struct UsersListView: View {
                     .font(.headline)
                     .padding([.leading, .top], 16)
                 
-                List(filteredContacts) { contact in
-//                    NavigationLink(destination: ChatView(contact: contact)) {
-//                        ContactRow(contact: contact)
-//                    }
+                List(viewModel.filteredContacts) { user in
+                    NavigationLink(destination: ConversationView(contact: user)) {
+                        ContactRow(contact: user)
+                    }
                 }
                 .listStyle(PlainListStyle())
             }
             .navigationBarHidden(true)
-        }
-    }
-    
-    var filteredContacts: [Contact] {
-        if searchText.isEmpty {
-            return contacts
-        } else {
-            return contacts.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            .onAppear {
+                viewModel.getUsers(token: "your_token_here") { result in
+                }
+            }
         }
     }
 }
@@ -81,9 +79,8 @@ struct SearchBar: View {
     }
 }
 
-
 struct ContactRow: View {
-    let contact: Contact
+    let contact: UserList
     
     var body: some View {
         HStack {
@@ -101,7 +98,7 @@ struct ContactRow: View {
 }
 
 struct ChatWithView: View {
-    let contact: Contact
+    let contact: UserList
     
     var body: some View {
         Text("Chat with \(contact.name)")
@@ -111,6 +108,6 @@ struct ChatWithView: View {
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
-        UsersListView()
+        UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
     }
 }

@@ -1,0 +1,46 @@
+/* 
+  Localizable.strings
+  ChitChat
+
+  Created by Andres Cordón on 5/7/24.
+  
+*/
+
+"InvalidUrlError" = "Invalid Url";
+"Accept" = "Accept";
+"Cancel" = "Cancel";
+
+"UserError" = "User not found";
+"PasswordError" = "Invalid password";
+
+//LOGIN
+"LoginDefaultError" = "Some error";
+"LoginSuccess" = "Login successful";
+"User" = "User";
+"EnterYourUser" = "Enter your user";
+"Password" = "Password";
+"EnterYourPass" = "Enter your password";
+"Biometric" = "Enter with biometric";
+"Login" = "Login";
+"DontHaveAnAccount" = "¿Don't have an account?";
+"Register" = "Register";
+"Error" = "Error";
+
+//REGISTRO
+"UserRegistration" = "User Registration";
+"RepeatYourPassword" = "Repeat your password";
+"EnterYourNick" = "Enter your nick";
+"EnterYourAvatar" = "Enter your avatar";
+"PasswordsDontMatch" = "Passwords do not match";
+
+//ADD NEW CHAT
+"Contacts" = "Contacts";
+"SearchForPeople" = "Search for people";
+"FindSomeoneToChat" = "Find someone to chat with";
+"AwesomeToChatWith" = "Awesome to chat with";
+
+//ACTIVE CHATS
+"Conversations" = "Conversations";
+
+//PROFILE
+"Profile" = "Profile";

@@ -32,6 +32,7 @@
 		7E3777062C34716E00EBAE55 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3777052C34716E00EBAE55 /* ErrorMapper.swift */; };
 		7E3777082C3473E100EBAE55 /* LoginDTOMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3777072C3473E100EBAE55 /* LoginDTOMapper.swift */; };
 		7E5413962C358AFC0011AF3B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5413952C358AFC0011AF3B /* Extensions.swift */; };
+		7E6F6DC32C380980001EFAB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E6F6DC12C380980001EFAB4 /* Localizable.strings */; };
 		7EE774092C35D869003DDBC2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE774082C35D869003DDBC2 /* AlertType.swift */; };
 		7EE7740B2C35DA85003DDBC2 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE7740A2C35DA85003DDBC2 /* CustomAlert.swift */; };
 		7EE774102C35E1C9003DDBC2 /* ActiveChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE7740C2C35E1C8003DDBC2 /* ActiveChatsView.swift */; };
@@ -66,6 +67,8 @@
 		7E3777052C34716E00EBAE55 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		7E3777072C3473E100EBAE55 /* LoginDTOMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTOMapper.swift; sourceTree = "<group>"; };
 		7E5413952C358AFC0011AF3B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7E6F6DC22C380980001EFAB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7E6F6DC42C3809AD001EFAB4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7EE774082C35D869003DDBC2 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		7EE7740A2C35DA85003DDBC2 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		7EE7740C2C35E1C8003DDBC2 /* ActiveChatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveChatsView.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 		6CA1E2AF2C08F5C90023546E /* ChitChat */ = {
 			isa = PBXGroup;
 			children = (
+				7E6F6DC02C3808FD001EFAB4 /* Resources */,
 				7E5413942C358AF10011AF3B /* Common */,
 				6C5333212C1B557900CA76C4 /* Data */,
 				7E3776F12C34152600EBAE55 /* Presentation */,
@@ -249,6 +253,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		7E6F6DC02C3808FD001EFAB4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7E6F6DC12C380980001EFAB4 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7EE774142C35E1E2003DDBC2 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +340,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
@@ -348,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */,
+				7E6F6DC32C380980001EFAB4 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +405,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7E6F6DC12C380980001EFAB4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E6F6DC22C380980001EFAB4 /* en */,
+				7E6F6DC42C3809AD001EFAB4 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6CA1E2B92C08F5CD0023546E /* Debug */ = {

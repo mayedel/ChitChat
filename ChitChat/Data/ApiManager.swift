@@ -24,7 +24,7 @@ class APIManager: APIManagerProtocol {
     
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, AFError>) -> Void) {
         guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
-            completion(.failure(AFError.createURLRequestFailed(error: "Invalid URL" as! Error)))
+            completion(.failure(AFError.createURLRequestFailed(error: NSLocale(localeIdentifier: "InvalidUrlError") as! Error)))
             return
         }
         
@@ -59,7 +59,7 @@ class APIManager: APIManagerProtocol {
     
     func upload<T: Decodable>(endpoint: String, headers: HTTPHeaders?, parameters: [String: String]?, file: Data?, completion: @escaping (Result<T, AFError>) -> Void) {
         guard let url = URL(string: endpoint, relativeTo: URL(string: baseURL)) else {
-            completion(.failure(AFError.createURLRequestFailed(error: "Invalid URL" as! Error)))
+            completion(.failure(AFError.createURLRequestFailed(error: NSLocale(localeIdentifier: "InvalidUrlError") as! Error)))
             return
         }
         

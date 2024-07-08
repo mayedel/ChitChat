@@ -18,6 +18,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     @Published var error: ErrorModel?
     @Published var searchText: String = ""
     private let userslistUseCase: UsersListUseCase
+     private let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NCIsImlhdCI6MTcyMDQ2MzMwNCwiZXhwIjoxNzIzMDU1MzA0fQ.DxUbswsrEpNVHT-_5Hi4qjAKDYNrMhdT7djHhk5ix_I"
     
     init(userslistUseCase: UsersListUseCase) {
         self.userslistUseCase = userslistUseCase

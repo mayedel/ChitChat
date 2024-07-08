@@ -16,11 +16,23 @@ protocol UsersListViewModelProtocol {
 class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     @Published var users: [User] = []
     @Published var error: ErrorModel?
+    @Published var searchText: String = ""
     private let userslistUseCase: UsersListUseCase
     
     init(userslistUseCase: UsersListUseCase) {
         self.userslistUseCase = userslistUseCase
     }
+    
+    var filteredContacts: [UserList] {
+        let mappedUsers = UserMapper.map(users: users)
+        
+        if searchText.isEmpty {
+            return mappedUsers
+        } else {
+            return mappedUsers.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
+    
     
     func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
         userslistUseCase.getUsers(token: token) { [weak self] result in

@@ -9,12 +9,12 @@ import SwiftUI
 import Combine
 
 struct UsersListView: View {
-    @StateObject private var viewModel = UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: UsersAPIService(apiManager: APIManager()) as UsersAPIServiceProtocol as! APIManagerProtocol as! APIManagerProtocol) as UserDataProviderProtocol as! UserDataProvider as! UserDataProvider as! UserDataProvider))
+    @StateObject private var viewModel: UsersListViewModel
     
-    //    @State private var searchText = ""
-    //    @State private var contacts: [Contact] = [
-    //        Contact(name: "John Doe", avatar: "avatar_placeholder"),
-    //    ]
+    init(viewModel: UsersListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     
     var body: some View {
         NavigationView {
@@ -40,16 +40,17 @@ struct UsersListView: View {
                     .font(.headline)
                     .padding([.leading, .top], 16)
                 
-                List(viewModel.filteredContacts) { contact in
-                    //                 NavigationLink(destination: ChatView(contact: contact)) {
-                    //                    ContactRow(contact: contact)
-                    //                }
+                List(viewModel.filteredContacts) { user in
+                    NavigationLink(destination: ConversationView(contact: user)) {
+                        ContactRow(contact: user)
+                    }
                 }
                 .listStyle(PlainListStyle())
             }
             .navigationBarHidden(true)
             .onAppear {
-        //        viewModel.getUsers(token: )
+                viewModel.getUsers(token: "your_token_here") { result in
+                }
             }
         }
     }
@@ -78,9 +79,8 @@ struct SearchBar: View {
     }
 }
 
-
 struct ContactRow: View {
-    let contact: Contact
+    let contact: UserList
     
     var body: some View {
         HStack {
@@ -98,7 +98,7 @@ struct ContactRow: View {
 }
 
 struct ChatWithView: View {
-    let contact: Contact
+    let contact: UserList
     
     var body: some View {
         Text("Chat with \(contact.name)")
@@ -108,6 +108,6 @@ struct ChatWithView: View {
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
-        UsersListView()
+        UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
     }
 }

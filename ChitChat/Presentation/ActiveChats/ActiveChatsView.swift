@@ -8,11 +8,11 @@ import SwiftUI
 
 struct ActiveChatsView: View {
     @StateObject private var viewModel: ActiveChatsViewModel
-
+    
     init(viewModel: ActiveChatsViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -36,15 +36,19 @@ struct ActiveChatsView: View {
                         .font(.headline)
                         .padding(.leading)
                     Spacer()
-                    Image(systemName: "magnifyingglass")
-                        .padding(.trailing)
+                  
                 }
                 .background(Color.white)
                 
-                List(viewModel.chats) { chat in
-                    NavigationLink(destination: ConversationView(contact: chat)) {
-                        ContactRow(contact: chat)
+                SearchBar(text: $viewModel.searchText)
+                
+                List {
+                    ForEach(viewModel.filteredConversations) { conversation in
+                        NavigationLink(destination: ConversationView(conversation: conversation)) {
+                            ConversationRow(conversation: conversation)
+                        }
                     }
+                    .onDelete(perform: deleteConversation)
                 }
                 .listStyle(PlainListStyle())
                 
@@ -66,44 +70,49 @@ struct ActiveChatsView: View {
             .background(Color.white)
             .navigationBarHidden(true)
             .onAppear {
-                viewModel.getActiveChats { result in
-                    if case .failure(let error) = result {
-                        print("Error al cargar chats: \(error)")
-                    }
-                }
+                viewModel.getActiveChats { _ in }
             }
+        }
+    }
+    
+    
+    private func deleteConversation(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let conversation = viewModel.filteredConversations[index]
+            viewModel.deleteChat(conversation: conversation)
         }
     }
 }
 
-struct ChatRow: View {
-    let chat: Chat
+
+struct ConversationRow: View {
+    let conversation: Conversation
     
     var body: some View {
         HStack {
-            if chat.isOnline {
-                Image(chat.avatar)
+            if conversation.isOnline {
+                Image(conversation.avatar)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 70, height: 70)
                     .overlay(Image("onlineIcon").resizable())
             } else {
-                Image(chat.avatar)
+                Image(conversation.avatar)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 70, height: 70)
                     .overlay(Image("offlineIcon").resizable())
             }
             VStack(alignment: .leading) {
-                Text(chat.name)
+                Text(conversation.name)
                     .font(.headline)
-                Text(chat.lastMessage)
+                Text(conversation.message)
                     .foregroundColor(.gray)
             }
             Spacer()
             VStack(alignment: .trailing) {
                 HStack {
-                    if chat.isUnread {
+                    if conversation.isUnread {
                         Circle()
                             .fill(Color.customBlue)
                             .frame(width: 20, height: 20)
@@ -113,12 +122,12 @@ struct ChatRow: View {
                                     .foregroundColor(.black)
                             )
                     }
-                    if let date = chat.date {
+                    if let date = conversation.date {
                         Text(date)
                             .foregroundColor(.gray)
                             .font(.caption)
                     } else {
-                        Text(chat.time)
+                        Text(conversation.time)
                             .foregroundColor(.gray)
                             .font(.caption)
                     }
@@ -129,18 +138,18 @@ struct ChatRow: View {
     }
 }
 
-struct ConversationView: View {
-    let chat: Chat
-    
-    var body: some View {
-        Text("Conversation with \(chat.name)")
-            .navigationTitle(chat.name)
-    }
-}
+//struct ConversationRowView: View {
+//    let chat: Chat
+//
+//    var body: some View {
+//        Text("Conversation with \(chat.name)")
+//            .navigationTitle(chat.name)
+//    }
+//}
 
 
 struct ActiveChatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveChatsView(viewModel: ActiveChatsViewModel(activechatstUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()))))
+        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()))))
     }
 }

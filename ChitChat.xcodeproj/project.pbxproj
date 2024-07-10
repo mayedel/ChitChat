@@ -26,6 +26,7 @@
 		6CA0D2982C38654700A72134 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA0D2972C38654700A72134 /* Alamofire */; };
 		6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */; };
 		6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B42C08F5CD0023546E /* Assets.xcassets */; };
+		6CA2207C2C3F0ADC00851097 /* Conversation2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA2207B2C3F0ADC00851097 /* Conversation2View.swift */; };
 		6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */; };
 		6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */; };
 		7E3776F32C34153400EBAE55 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3776F22C34153400EBAE55 /* LoginView.swift */; };
@@ -66,6 +67,7 @@
 		6CA1E2AD2C08F5C90023546E /* ChitChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChitChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChitChatApp.swift; sourceTree = "<group>"; };
 		6CA1E2B42C08F5CD0023546E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6CA2207B2C3F0ADC00851097 /* Conversation2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation2View.swift; sourceTree = "<group>"; };
 		6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataProvider.swift; sourceTree = "<group>"; };
 		6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataProvider.swift; sourceTree = "<group>"; };
 		7E3776F22C34153400EBAE55 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				7EE774142C35E1E2003DDBC2 /* Register */,
 				7E3776F72C34167800EBAE55 /* Login */,
 				6C6332AA2C3C62E00028C748 /* ConversationView.swift */,
+				6CA2207B2C3F0ADC00851097 /* Conversation2View.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				7E3776F62C34166100EBAE55 /* UserLoginDTO.swift in Sources */,
 				6C5333292C1B5AC000CA76C4 /* UsersApiService.swift in Sources */,
 				6C8E70C82C38759300AC903E /* UsersListViewModel.swift in Sources */,
+				6CA2207C2C3F0ADC00851097 /* Conversation2View.swift in Sources */,
 				7EE7740B2C35DA85003DDBC2 /* CustomAlert.swift in Sources */,
 				6C9F1BF42C2198B100DF0E7B /* Message.swift in Sources */,
 				6C8E70CB2C3875C000AC903E /* UsersListUseCase.swift in Sources */,

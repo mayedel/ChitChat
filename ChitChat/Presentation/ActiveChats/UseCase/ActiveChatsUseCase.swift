@@ -17,4 +17,9 @@ struct ActiveChatsUseCase {
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
         chatDataProvider.getActiveChats(token: token, completion: completion)
     }
+    
+    func deleteChat(id: Int, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        chatDataProvider.deleteChat(id: id, token: token, completion: completion)
+    }
+    
 }

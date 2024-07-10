@@ -36,22 +36,27 @@ struct ActiveChatsView: View {
                         .font(.headline)
                         .padding(.leading)
                     Spacer()
-                  
+                    
                 }
                 .background(Color.white)
                 
                 SearchBar(text: $viewModel.searchText)
                 
-                List {
-                    ForEach(viewModel.filteredConversations) { conversation in
-                        NavigationLink(destination: ConversationView(conversation: conversation)) {
-                            ConversationRow(conversation: conversation)
+                if viewModel.conversations.isEmpty {
+                    Text("No conversations found")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List {
+                        ForEach(viewModel.filteredConversations) { conversation in
+                            NavigationLink(destination: ConversationView(conversation: conversation)) {
+                                ConversationRow(conversation: conversation)
+                            }
                         }
+                        .onDelete(perform: deleteConversation)
                     }
-                    .onDelete(perform: deleteConversation)
+                    .listStyle(PlainListStyle())
                 }
-                .listStyle(PlainListStyle())
-                
                 HStack {
                     Spacer()
                     NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))) {

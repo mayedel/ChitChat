@@ -10,7 +10,7 @@ import Foundation
 protocol ChatDataProviderProtocol {
     func getChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void)
-    func deleteChat(id: Int, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void)
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
 }
@@ -44,7 +44,7 @@ class ChatDataProvider: ChatDataProviderProtocol {
         }
     }
     
-    func deleteChat(id: Int, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         chatsService.deleteChat(id: id, token: token) { result in
             switch result {
             case .success(let success):

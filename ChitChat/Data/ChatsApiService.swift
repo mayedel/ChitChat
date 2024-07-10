@@ -11,7 +11,7 @@ import Alamofire
 protocol ChatsAPIServiceProtocol {
     func getChats(token: String, completion: @escaping (Result<[Chat], ErrorModel>) -> Void)
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), ErrorModel>) -> Void)
-    func deleteChat(id: Int, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
+    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
     func getChatViews(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void)
     func getActiveChats(token: String, completion: @escaping (Result<[Chat], ErrorModel>) -> Void)
 }
@@ -56,7 +56,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
-    func deleteChat(id: Int, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void) {
+    func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         apiManager.request(endpoint: "api/chats/\(id)", method: .delete, headers: headers, body: nil) { (result: Result<DeleteChatResponse, AFError>) in
             switch result {

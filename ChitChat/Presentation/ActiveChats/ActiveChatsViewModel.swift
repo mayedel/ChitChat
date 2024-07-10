@@ -34,7 +34,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     }
     
     func getActiveChats(completion: @escaping (Result<[Chat], Error>) -> Void) {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyOCIsImlhdCI6MTcyMDQ2NjA0OCwiZXhwIjoxNzIzMDU4MDQ4fQ.687ZoLITfGwkAK9d5DuSnXRhZzj3c5XVKSmzFae9Xc4"
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
         chatsListUseCase.getActiveChats(token: token) { [weak self] result in
             switch result {
             case .success(let chats):
@@ -53,7 +53,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     }
     
     func deleteChat(conversation: Conversation) {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyOCIsImlhdCI6MTcyMDQ2NjA0OCwiZXhwIjoxNzIzMDU4MDQ4fQ.687ZoLITfGwkAK9d5DuSnXRhZzj3c5XVKSmzFae9Xc4"
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
         chatsListUseCase.deleteChat(id: conversation.id, token: token) { [weak self] result in
             switch result {
             case .success:

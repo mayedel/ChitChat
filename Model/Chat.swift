@@ -8,7 +8,7 @@
 import Foundation
 
 struct Chat: Identifiable, Codable {
-    let id: Int
+    let id: String
     let source: String
     let target: String
     let created: String
@@ -25,7 +25,7 @@ struct DeleteChatResponse: Codable {
 }
 
 struct ChatView: Identifiable, Decodable {
-    let id: Int
+    let id: String
     let chat: String
     let source: String
     let sourcenick: String
@@ -46,7 +46,7 @@ struct ChatView: Identifiable, Decodable {
     init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.chat = try container.decode(String.self, forKey: .chat)
-            self.id = Int(self.chat) ?? 0
+            self.id = self.chat
             self.source = try container.decode(String.self, forKey: .source)
             self.sourcenick = try container.decode(String.self, forKey: .sourcenick)
             self.sourceavatar = try container.decode(String.self, forKey: .sourceavatar)

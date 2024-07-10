@@ -8,7 +8,7 @@
 import Foundation
 
 struct Conversation: Identifiable {
-    let id: Int
+    let id: String
     let name: String
     let message: String
     let time: String

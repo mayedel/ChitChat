@@ -12,6 +12,8 @@
 		6C5333292C1B5AC000CA76C4 /* UsersApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */; };
 		6C53332B2C1B5ACD00CA76C4 /* ChatsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */; };
 		6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */; };
+		6C57108A2C3DB08600DD9E9D /* ActiveChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5710892C3DB08600DD9E9D /* ActiveChatsViewModel.swift */; };
+		6C57108D2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C57108C2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift */; };
 		6C6332AB2C3C62E00028C748 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6332AA2C3C62E00028C748 /* ConversationView.swift */; };
 		6C8E70C02C38680400AC903E /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70BF2C38680400AC903E /* UsersListView.swift */; };
 		6C8E70C32C38737300AC903E /* ActiveChatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70C22C38737300AC903E /* ActiveChatsModel.swift */; };
@@ -50,6 +52,8 @@
 		6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersApiService.swift; sourceTree = "<group>"; };
 		6C53332A2C1B5ACD00CA76C4 /* ChatsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsApiService.swift; sourceTree = "<group>"; };
 		6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesApiService.swift; sourceTree = "<group>"; };
+		6C5710892C3DB08600DD9E9D /* ActiveChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatsViewModel.swift; sourceTree = "<group>"; };
+		6C57108C2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatsUseCase.swift; sourceTree = "<group>"; };
 		6C6332AA2C3C62E00028C748 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		6C8E70BF2C38680400AC903E /* UsersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListView.swift; sourceTree = "<group>"; };
 		6C8E70C22C38737300AC903E /* ActiveChatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatsModel.swift; sourceTree = "<group>"; };
@@ -107,6 +111,14 @@
 				6CAE37EE2C235E7800E3AE16 /* Provider */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		6C57108B2C3DB1B100DD9E9D /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				6C57108C2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		6C8E70BE2C3867CA00AC903E /* UsersList */ = {
@@ -298,8 +310,10 @@
 		7EE774162C35E1F7003DDBC2 /* ActiveChats */ = {
 			isa = PBXGroup;
 			children = (
+				6C57108B2C3DB1B100DD9E9D /* UseCase */,
 				6C8E70C12C38735300AC903E /* Model */,
 				7EE7740C2C35E1C8003DDBC2 /* ActiveChatsView.swift */,
+				6C5710892C3DB08600DD9E9D /* ActiveChatsViewModel.swift */,
 			);
 			path = ActiveChats;
 			sourceTree = "<group>";
@@ -414,6 +428,7 @@
 				7EE774122C35E1C9003DDBC2 /* AddNewChatView.swift in Sources */,
 				7EE774112C35E1C9003DDBC2 /* ProfileView.swift in Sources */,
 				6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */,
+				6C57108D2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift in Sources */,
 				6C8E70C32C38737300AC903E /* ActiveChatsModel.swift in Sources */,
 				6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */,
 				6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */,
@@ -421,6 +436,7 @@
 				6CA1E2B12C08F5C90023546E /* ChitChatApp.swift in Sources */,
 				7E3777012C3453FA00EBAE55 /* LoginUseCase.swift in Sources */,
 				7EE774092C35D869003DDBC2 /* AlertType.swift in Sources */,
+				6C57108A2C3DB08600DD9E9D /* ActiveChatsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

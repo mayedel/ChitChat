@@ -46,7 +46,7 @@ struct ChatView: Identifiable, Decodable {
     init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.chat = try container.decode(String.self, forKey: .chat)
-            self.id = self.chat // Deriva id de chat
+            self.id = self.chat
             self.source = try container.decode(String.self, forKey: .source)
             self.sourcenick = try container.decode(String.self, forKey: .sourcenick)
             self.sourceavatar = try container.decode(String.self, forKey: .sourceavatar)

@@ -15,9 +15,6 @@ protocol LoginViewModel {
 
 class LoginViewModelImpl: LoginViewModel, ObservableObject {
     
-    
-    @Published var token: String = ""
-    
     @Published var userExist: Bool = true
     @Published var passCorrect: Bool = true
     @Published var error: String = ""
@@ -35,8 +32,8 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
             case .success(let data):
                 self.userExist = true
                 self.passCorrect = true
-                self.token = data.token
                 self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
+                ChitChatDefaultsManager.shared.token = data.token
             case .failure(let error):
                 guard let code = error.code else { return }
                 switch code {

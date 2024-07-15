@@ -52,6 +52,7 @@ struct ActiveChatsView: View {
                             NavigationLink(destination: ConversationView(conversation: conversation)) {
                                 ConversationRow(conversation: conversation)
                             }
+                            .listRowSeparator(.hidden)
                         }
                         .onDelete(perform: deleteConversation)
                     }

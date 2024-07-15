@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct ConversationView: View {
-    let contact: UserList
+  
+    let conversation: Conversation
     
     var body: some View {
            VStack {
-               Text("Chat with \(contact.name ?? "Unknown")")
-                   .font(.largeTitle)
-                   .padding()
-               
-               // Aquí puedes agregar más detalles de la conversación, como mensajes, etc.
-               Text("Conversation with \(contact.name ?? "Unknown") will appear here.")
-                   .padding()
+
+               Text("Conversation with \(conversation.name)")
+                           .navigationTitle(conversation.name)
            }
-           .navigationTitle(contact.name ?? "Unknown")
+
        }
    }
 

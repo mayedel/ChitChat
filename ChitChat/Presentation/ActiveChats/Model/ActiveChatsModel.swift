@@ -6,9 +6,9 @@
 //
 
 import Foundation
-// Modelo de conversación
+
 struct Conversation: Identifiable {
-    let id = UUID()
+    let id: String
     let name: String
     let message: String
     let time: String

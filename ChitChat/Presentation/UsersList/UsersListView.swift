@@ -19,29 +19,24 @@ struct UsersListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                HStack {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.black)
+            //    HStack {
+//                    Image(systemName: "chevron.left")
+//                        .foregroundColor(.black)
                     Text("Contactos")
                         .font(.largeTitle)
                         .bold()
-                }
-                .padding([.top, .horizontal])
-                .background(Color(.systemGray6))
+             //   }
+             //   .padding([.top, .horizontal])
+             //   .background(Color(.systemGray6))
                 
                 SearchBar(text: $viewModel.searchText)
-                
-                Text("Find someone to chat with")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 16)
-                
+       
                 Text("Awesome to Chat With")
                     .font(.headline)
                     .padding([.leading, .top], 16)
                 
                 List(viewModel.filteredContacts) { user in
-                    NavigationLink(destination: ConversationView(contact: user)) {
+                   NavigationLink(destination: Conversation2View(contact: user)) {
                         ContactRow(contact: user)
                     }
                 }
@@ -61,7 +56,7 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            TextField("Search for people", text: $text)
+            TextField("Find someone to chat with", text: $text)
                 .padding(7)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)

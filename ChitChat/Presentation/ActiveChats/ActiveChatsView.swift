@@ -78,7 +78,7 @@ struct ActiveChatsView: View {
             .onAppear {
                 viewModel.getActiveChats { _ in }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
     
     

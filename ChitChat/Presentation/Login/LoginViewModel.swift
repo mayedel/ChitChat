@@ -9,11 +9,11 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol LoginViewModel {
-    func userLogin(login: String, password: String, completion: @escaping () -> Void)
+protocol LoginViewModelProtocol {
+    func userLogin(login: String, password: String, completion: @escaping (Bool) -> Void)
 }
 
-class LoginViewModelImpl: LoginViewModel, ObservableObject {
+class LoginViewModel: LoginViewModelProtocol, ObservableObject {
     
     @Published var userExist: Bool = true
     @Published var passCorrect: Bool = true
@@ -26,7 +26,7 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
     }
 
     
-    func userLogin(login: String, password: String, completion: @escaping () -> Void) {
+    func userLogin(login: String, password: String, completion: @escaping (Bool) -> Void) {
         loginUseCase.userLogin(login: login, password: password) { response in
             switch response {
             case .success(let data):
@@ -34,6 +34,7 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
                 self.passCorrect = true
                 self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
                 ChitChatDefaultsManager.shared.token = data.token
+                completion(true)
             case .failure(let error):
                 guard let code = error.code else { return }
                 switch code {
@@ -48,8 +49,9 @@ class LoginViewModelImpl: LoginViewModel, ObservableObject {
                 default:
                     self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
                 }
+                completion(false)
             }
         }
-        completion()
+        
     }
 }

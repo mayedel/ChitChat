@@ -14,6 +14,17 @@ struct Chat: Identifiable, Codable {
     let created: String
 }
 
+struct Conversation: Identifiable {
+    let id: String
+    var name: String
+    var message: String
+    var time: String
+    let avatar: String
+    var isUnread: Bool
+    var date: String?
+    var isOnline: Bool
+}
+
 struct ChatResponse: Codable {
     let success: Bool
     let created: Bool
@@ -22,6 +33,12 @@ struct ChatResponse: Codable {
 
 struct DeleteChatResponse: Codable {
     let success: Bool
+}
+
+struct ChatDisplay {
+    let chatView: ChatView
+    var lastMessage: String?
+    var lastMessageDate: String?
 }
 
 struct ChatView: Identifiable, Decodable {
@@ -38,6 +55,7 @@ struct ChatView: Identifiable, Decodable {
     let targetonline: Bool
     let targettoken: String?
     let chatcreated: String
+    
 
     enum CodingKeys: String, CodingKey {
         case chat, source, sourcenick, sourceavatar, sourceonline, sourcetoken, target, targetnick, targetavatar, targetonline, targettoken, chatcreated

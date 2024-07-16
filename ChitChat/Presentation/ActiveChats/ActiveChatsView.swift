@@ -24,15 +24,14 @@ struct ActiveChatsView: View {
                     Image("userPicDefault")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 40, height: 40)
                 }
-                .padding()
+               // .padding()
                 .background(Color.white)
-                
-                Divider()
-                
+           
+                Spacer()
                 HStack {
-                    Text(LocalizedStringKey("Conversations"))
+                    Text(LocalizedStringKey("Conversaciones"))
                         .font(.headline)
                         .padding(.leading)
                     Spacer()
@@ -43,7 +42,7 @@ struct ActiveChatsView: View {
                 SearchBar(text: $viewModel.searchText)
                 
                 if viewModel.conversations.isEmpty {
-                    Text("No conversations found")
+                    Text("No se ha encontrado")
                         .foregroundColor(.gray)
                         .padding()
                 } else {
@@ -97,23 +96,27 @@ struct ConversationRow: View {
     var body: some View {
         HStack {
             if conversation.isOnline {
-                Image(conversation.avatar)
+                Image("userPicDefault")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 40, height: 40)
                     .overlay(Image("onlineIcon").resizable())
             } else {
-                Image(conversation.avatar)
+                Image("userPicDefault")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 40, height: 40)
                     .overlay(Image("offlineIcon").resizable())
             }
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(conversation.name)
                     .font(.headline)
+                    .fontWeight(.bold)
                 Text(conversation.message)
+                    .font(.subheadline)
                     .foregroundColor(.gray)
+                    .opacity(0.7) 
+                    .padding(.top, 2)
             }
             Spacer()
             VStack(alignment: .trailing) {
@@ -128,15 +131,9 @@ struct ConversationRow: View {
                                     .foregroundColor(.black)
                             )
                     }
-                    if let date = conversation.date {
-                        Text(date)
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                    } else {
-                        Text(conversation.time)
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                    }
+                    Text(conversation.time)
+                        .foregroundColor(.gray)
+                        .font(.caption)
                 }
             }
         }
@@ -144,18 +141,11 @@ struct ConversationRow: View {
     }
 }
 
-//struct ConversationRowView: View {
-//    let chat: Chat
-//
-//    var body: some View {
-//        Text("Conversation with \(chat.name)")
-//            .navigationTitle(chat.name)
-//    }
-//}
+
 
 
 struct ActiveChatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()))))
+        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()))))
     }
 }

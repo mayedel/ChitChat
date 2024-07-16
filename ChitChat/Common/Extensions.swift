@@ -39,3 +39,27 @@ extension Color {
     
 }
 
+
+extension DateFormatter {
+    static func formatDate(dateString: String?) -> String {
+        guard let dateString = dateString, !dateString.isEmpty else {
+            return "Hora no disponible"
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Configura el locale para parseo de fechas en formato ISO
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Asegura que la zona horaria esté en UTC
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" // Ajusta este formato para incluir milisegundos y 'Z'
+        if let date = dateFormatter.date(from: dateString) {
+            if Calendar.current.isDateInToday(date) {
+                dateFormatter.dateFormat = "HH:mm" // Formato para horas del día actual
+            } else {
+                dateFormatter.dateFormat = "dd/MM/yy" // Formato para fechas anteriores
+            }
+            return dateFormatter.string(from: date)
+        }
+        return "Fecha incorrecta"
+    }
+}
+
+

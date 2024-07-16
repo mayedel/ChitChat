@@ -12,7 +12,7 @@ protocol ChatDataProviderProtocol {
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), Error>) -> Void)
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void)
     func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void)
-    func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void)
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void)
 }
 
 class ChatDataProvider: ChatDataProviderProtocol {
@@ -66,7 +66,7 @@ class ChatDataProvider: ChatDataProviderProtocol {
         }
     }
     
-    func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
         chatsService.getActiveChats(token: token) { result in
             switch result {
             case .success(let chats):

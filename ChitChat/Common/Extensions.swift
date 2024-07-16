@@ -47,14 +47,14 @@ extension DateFormatter {
         }
 
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Configura el locale para parseo de fechas en formato ISO
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Asegura que la zona horaria esté en UTC
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" // Ajusta este formato para incluir milisegundos y 'Z'
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         if let date = dateFormatter.date(from: dateString) {
             if Calendar.current.isDateInToday(date) {
-                dateFormatter.dateFormat = "HH:mm" // Formato para horas del día actual
+                dateFormatter.dateFormat = "HH:mm"
             } else {
-                dateFormatter.dateFormat = "dd/MM/yy" // Formato para fechas anteriores
+                dateFormatter.dateFormat = "dd/MM/yy" 
             }
             return dateFormatter.string(from: date)
         }

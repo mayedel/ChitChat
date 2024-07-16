@@ -26,7 +26,6 @@ struct ActiveChatsView: View {
                         .scaledToFit()
                         .frame(width: 40, height: 40)
                 }
-               // .padding()
                 .background(Color.white)
            
                 Spacer()

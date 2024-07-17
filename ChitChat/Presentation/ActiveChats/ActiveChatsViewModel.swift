@@ -10,11 +10,11 @@ import Combine
 import SwiftUI
 
 protocol ChatsListViewModelProtocol {
-    func getActiveChats(completion: @escaping (Result<[Chat], Error>) -> Void)
+    func getActiveChats(completion: @escaping (Result<[Conversation], Error>) -> Void)
 }
 
 class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
-    @Published var chats: [Chat] = []
+    @Published var chats: [ChatView] = []
     @Published var conversations: [Conversation] = []
     @Published var error: Error?
     @Published var searchText: String = ""
@@ -33,24 +33,26 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
         }
     }
     
-    func getActiveChats(completion: @escaping (Result<[Chat], Error>) -> Void) {
+    func getActiveChats(completion: @escaping (Result<[Conversation], Error>) -> Void) {
         let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
         chatsListUseCase.getActiveChats(token: token) { [weak self] result in
             switch result {
             case .success(let chats):
                 DispatchQueue.main.async {
-                    self?.chats = chats
-                    self?.conversations = ChatMapper.map(chats: chats)
+                    let conversations = ChatMapper.map(chatViews: chats)
+                    self?.conversations = conversations
+                    self?.getLastMessage(token: token)
+                    completion(.success(conversations))
                 }
-                completion(.success(chats))
             case .failure(let error):
                 DispatchQueue.main.async {
                     self?.error = error
+                    completion(.failure(error))
                 }
-                completion(.failure(error))
             }
         }
     }
+    
     
     func deleteChat(conversation: Conversation) {
         let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
@@ -67,5 +69,39 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
             }
         }
     }
+    
+    func getLastMessage(token: String) {
+        let group = DispatchGroup()
+        var messagesDetails = [String: (message: String, date: String)]()
+        
+        for conversation in conversations {
+            group.enter()
+            let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+            let chatId = conversation.id
+            chatsListUseCase.getLastMessage(token: token, chatId: chatId) { result in
+                switch result {
+                case .success(let messageDetails):
+                    messagesDetails[chatId] = (message: messageDetails.message, date: messageDetails.date)
+                case .failure(let error):
+                    print("Error fetching last message for \(chatId): \(error)")
+                    messagesDetails[chatId] = (message: "No hay mensajes.", date: "")
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.conversations = self.conversations.map { conversation in
+                var updatedConversation = conversation
+                if let details = messagesDetails[conversation.id] {
+                    updatedConversation.message = details.message
+                    updatedConversation.time = DateFormatter.formatDate(dateString: details.date)
+                }
+                return updatedConversation
+            }
+        }
+    }
+    
+    
     
 }

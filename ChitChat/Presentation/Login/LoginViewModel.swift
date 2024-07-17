@@ -20,7 +20,7 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
     @Published var error: String = ""
 
     private let loginUseCase: LoginUseCase
-    
+   
     init(loginUseCase: LoginUseCase) {
         self.loginUseCase = loginUseCase
     }

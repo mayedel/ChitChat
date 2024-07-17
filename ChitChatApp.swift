@@ -11,7 +11,7 @@ import SwiftUI
 struct ChitChatApp: App {
     var body: some Scene {
         WindowGroup {
-           // ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()))))
+            LoginView(viewModel: LoginViewModel(loginUseCase: LoginUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
         }
     }
 }

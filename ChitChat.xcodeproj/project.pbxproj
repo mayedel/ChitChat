@@ -167,14 +167,14 @@
 				6C9F1BF12C21989900DF0E7B /* Chat.swift */,
 				6C9F1BF32C2198B100DF0E7B /* Message.swift */,
 			);
-			path = Model;
+			name = Model;
+			path = ../Model;
 			sourceTree = "<group>";
 		};
 		6CA1E2A42C08F5C90023546E = {
 			isa = PBXGroup;
 			children = (
 				6CA1E2AF2C08F5C90023546E /* ChitChat */,
-				6C9F1BF02C21987400DF0E7B /* Model */,
 				6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */,
 				6CA1E2B42C08F5CD0023546E /* Assets.xcassets */,
 				6CA1E2AE2C08F5C90023546E /* Products */,
@@ -192,6 +192,7 @@
 		6CA1E2AF2C08F5C90023546E /* ChitChat */ = {
 			isa = PBXGroup;
 			children = (
+				6C9F1BF02C21987400DF0E7B /* Model */,
 				7E6F6DC02C3808FD001EFAB4 /* Resources */,
 				7E5413942C358AF10011AF3B /* Common */,
 				6C5333212C1B557900CA76C4 /* Data */,

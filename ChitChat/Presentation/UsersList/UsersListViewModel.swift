@@ -35,7 +35,8 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     
     
     func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+       // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+        let token = ChitChatDefaultsManager.shared.token
         userslistUseCase.getUsers(token: token) { [weak self] result in
             switch result {
             case .success(let users):

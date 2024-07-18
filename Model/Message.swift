@@ -33,3 +33,10 @@ struct MessagesListResponse: Codable {
 struct CreateMessageResponse: Codable {
     let success: Bool
 }
+
+struct message: Identifiable {
+    let id = UUID()
+    let text: String
+    let isReceived: Bool
+    let time: String
+}

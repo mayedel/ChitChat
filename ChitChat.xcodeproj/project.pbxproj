@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		471C32382C4949A600BA02FD /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C32372C4949A600BA02FD /* ChatView.swift */; };
-		471C323B2C494A1900BA02FD /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 471C323A2C494A1900BA02FD /* Alamofire */; };
-		471C323D2C494A1900BA02FD /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 471C323C2C494A1900BA02FD /* AlamofireDynamic */; };
+		6C02FD3B2C497DB60004343C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6C02FD3A2C497DB60004343C /* Alamofire */; };
 		6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53331F2C1B557300CA76C4 /* ApiManager.swift */; };
 		6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */; };
 		6C5333292C1B5AC000CA76C4 /* UsersApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333282C1B5AC000CA76C4 /* UsersApiService.swift */; };
@@ -112,8 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				471C323B2C494A1900BA02FD /* Alamofire in Frameworks */,
-				471C323D2C494A1900BA02FD /* AlamofireDynamic in Frameworks */,
+				6C02FD3B2C497DB60004343C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +121,8 @@
 		471C32362C49499600BA02FD /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				6C6332AA2C3C62E00028C748 /* ConversationView.swift */,
+				6CA2207B2C3F0ADC00851097 /* Conversation2View.swift */,
 				471C32372C4949A600BA02FD /* ChatView.swift */,
 			);
 			path = Chat;
@@ -238,8 +238,6 @@
 				7EE774152C35E1EC003DDBC2 /* AddNewChat */,
 				7EE774142C35E1E2003DDBC2 /* Register */,
 				7E3776F72C34167800EBAE55 /* Login */,
-				6C6332AA2C3C62E00028C748 /* ConversationView.swift */,
-				6CA2207B2C3F0ADC00851097 /* Conversation2View.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -369,8 +367,7 @@
 			);
 			name = ChitChat;
 			packageProductDependencies = (
-				471C323A2C494A1900BA02FD /* Alamofire */,
-				471C323C2C494A1900BA02FD /* AlamofireDynamic */,
+				6C02FD3A2C497DB60004343C /* Alamofire */,
 			);
 			productName = ChitChat;
 			productReference = 6CA1E2AD2C08F5C90023546E /* ChitChat.app */;
@@ -402,7 +399,7 @@
 			);
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
-				471C32392C494A1900BA02FD /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6C02FD392C497DB60004343C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6CA1E2AE2C08F5C90023546E /* Products */;
 			projectDirPath = "";
@@ -683,26 +680,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		471C32392C494A1900BA02FD /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		6C02FD392C497DB60004343C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		471C323A2C494A1900BA02FD /* Alamofire */ = {
+		6C02FD3A2C497DB60004343C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 471C32392C494A1900BA02FD /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 6C02FD392C497DB60004343C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		471C323C2C494A1900BA02FD /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 471C32392C494A1900BA02FD /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-// Modelo de mensaje
-struct message: Identifiable {
-    let id = UUID()
-    let text: String
-    let isReceived: Bool
-    let time: String
-}
-
 // Vista principal de Chat
 struct chatView: View {
     @State private var messageText: String = ""
@@ -126,6 +118,9 @@ struct MessageBubble: View {
     }
 }
 
-#Preview {
-    chatView(userName: "Daniel", userImage: "userPicDefault", isOnline: false)
+struct chatView_Previews: PreviewProvider {
+    static var previews: some View {
+        chatView(userName: "Daniel", userImage: "userPicDefault", isOnline: false)
+    }
 }
+

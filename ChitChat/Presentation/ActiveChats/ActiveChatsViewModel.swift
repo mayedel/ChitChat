@@ -34,7 +34,8 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     }
     
     func getActiveChats(completion: @escaping (Result<[Conversation], Error>) -> Void) {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+        //let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+        let token = ChitChatDefaultsManager.shared.token
         chatsListUseCase.getActiveChats(token: token) { [weak self] result in
             switch result {
             case .success(let chats):
@@ -55,7 +56,8 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     
     
     func deleteChat(conversation: Conversation) {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+      //  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+        let token = ChitChatDefaultsManager.shared.token
         chatsListUseCase.deleteChat(id: conversation.id, token: token) { [weak self] result in
             switch result {
             case .success:
@@ -76,7 +78,8 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
         
         for conversation in conversations {
             group.enter()
-            let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+           // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMyIsImlhdCI6MTcyMDYzNzk4NywiZXhwIjoxNzIzMjI5OTg3fQ.hXfoJkQ7eEgvYBgZ4XG_shUxICO9gM0A5Gc2q51zunE"
+            let token = ChitChatDefaultsManager.shared.token
             let chatId = conversation.id
             chatsListUseCase.getLastMessage(token: token, chatId: chatId) { result in
                 switch result {

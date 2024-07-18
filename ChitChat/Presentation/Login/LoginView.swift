@@ -13,7 +13,6 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var useBiometrics: Bool = false
     @State var navigate = false
-
     
     @State var presentAlert = false
     

@@ -11,6 +11,7 @@ class ChitChatDefaultsManager {
     static let shared = ChitChatDefaultsManager()
     
     private let TOKENKEY = "TokenKey"
+    private let AVATARKEY = "AvatarKey"
     
     private let userDefaults: UserDefaults
     
@@ -27,6 +28,18 @@ class ChitChatDefaultsManager {
         }
         set {
             userDefaults.setValue(newValue, forKey: TOKENKEY)
+        }
+    }
+    
+    var avatar: String {
+        get {
+            if let avatar = userDefaults.string(forKey: AVATARKEY) {
+               return avatar
+            }
+            return ""
+        }
+        set {
+            userDefaults.setValue(newValue, forKey: AVATARKEY)
         }
     }
 }

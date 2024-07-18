@@ -15,7 +15,7 @@ protocol UsersAPIServiceProtocol {
     func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), ErrorModel>) -> Void)
     func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
-    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void)
+    func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void)
     func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, ErrorModel>) -> Void)
 }
 
@@ -110,18 +110,16 @@ class UsersAPIService: UsersAPIServiceProtocol {
         }
     }
     
-    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void) {
+    func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void) {
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Accept": "*/*"
         ]
         let body: [String: Any] = [
-            "login": user.login ?? " ",
-            "password": user.password ?? " ",
-            "nick": user.nick ?? " ",
-            "avatar": user.avatar,
-            "platform": user.platform ?? " ",
-            "uuid": user.uuid ?? "",
+            "login": user.login,
+            "password": user.password,
+            "nick": user.nick,
+            "platform": user.platform,
             "online": user.online
         ]
         
@@ -130,10 +128,10 @@ class UsersAPIService: UsersAPIServiceProtocol {
             return
         }
         
-        apiManager.request(endpoint: "api/users/register", method: .post, headers: headers, body: bodyData) { (result: Result<RegisterResponse, AFError>) in
+        apiManager.request(endpoint: "api/users/register", method: .post, headers: headers, body: bodyData) { (result: Result<UserRegisterResponse, AFError>) in
             switch result {
             case .success(let response):
-                completion(.success((response.user)))
+                completion(.success(RegisterDTOMapperImpl().map(response)))
             case .failure(let error):
                 completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
             }

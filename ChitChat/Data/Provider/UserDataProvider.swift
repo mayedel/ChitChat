@@ -11,7 +11,7 @@ protocol UserDataProviderProtocol {
     func getUserProfile(token: String, completion: @escaping (Result<User, ErrorModel>) -> Void)
     func getUsers(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void)
     func loginUser(login: String, password: String, completion: @escaping (Result<LoginModel, ErrorModel>) -> Void)
-    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void)
+    func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void)
     func biometricLogin(token: String, completion: @escaping (Result<(String, UserPartial), ErrorModel>) -> Void)
     func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
     func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
@@ -59,11 +59,11 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func registerUser(user: User, completion: @escaping (Result<User, ErrorModel>) -> Void) {
+    func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void) {
         usersService.registerUser(user: user) { result in
             switch result {
-            case .success(let user):
-                completion(.success(user))
+            case .success(let response):
+                completion(.success(response))
             case .failure(let error):
                 completion(.failure(error))
             }

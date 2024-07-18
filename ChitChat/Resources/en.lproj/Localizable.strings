@@ -32,6 +32,9 @@
 "EnterYourNick" = "Enter your nick";
 "EnterYourAvatar" = "Enter your avatar";
 "PasswordsDontMatch" = "Passwords do not match";
+"SelectAnAvatar" = "Select an avatar";
+"UsernameError" = "Enter a username";
+"UserExistError" = "User exist";
 
 //ADD NEW CHAT
 "Contacts" = "Contacts";

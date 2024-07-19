@@ -22,7 +22,7 @@
 "Password" = "Contraseña";
 "EnterYourPass" = "Ingresa tu contraseña";
 "Biometric" = "Acceso con biometría";
-"Login" = "Acceder";
+"Login" = "Login";
 "DontHaveAnAccount" = "¿No tienes una cuenta?";
 "Register" = "Regístrate";
 "Error" = "Error";

@@ -16,32 +16,26 @@ struct ActiveChatsView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                HStack {
-                    Text("ChitChat")
-                        .font(.title)
-                        .bold()
-                    Spacer()
-                    Image("userPicDefault")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                }
-                .background(Color.white)
-           
-                Spacer()
-                HStack {
-                    Text(LocalizedStringKey("Conversaciones"))
+                VStack{
+                    HStack{
+                        Text("ChitChat")
+                            .font(.title)
+                            .bold()
+                        Spacer()
+                        Image("userPicDefault")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 70, height: 70)
+                    }
+                    HStack{
+                        Text(LocalizedStringKey("Conversaciones"))
                         .font(.headline)
-                        .padding(.leading)
-                    Spacer()
-                    
-                }
-                .background(Color.white)
-                
-                SearchBar(text: $viewModel.searchText)
-                
+                        Spacer()
+                    }
+                }.padding(20)
+                SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
                 if viewModel.conversations.isEmpty {
-                    Text("No se ha encontrado")
+                    Text("No se han encontrado")
                         .foregroundColor(.gray)
                         .padding()
                 } else {
@@ -55,7 +49,11 @@ struct ActiveChatsView: View {
                         .onDelete(perform: deleteConversation)
                     }
                     .listStyle(PlainListStyle())
+                    
                 }
+                
+                Spacer()
+
                 HStack {
                     Spacer()
                     NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))) {
@@ -71,7 +69,6 @@ struct ActiveChatsView: View {
                     .padding()
                 }
             }
-            .background(Color.white)
             .navigationBarHidden(true)
             .onAppear {
                 viewModel.getActiveChats { _ in }
@@ -114,7 +111,7 @@ struct ConversationRow: View {
                 Text(conversation.message)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                    .opacity(0.7) 
+                    .opacity(0.7)
                     .padding(.top, 2)
             }
             Spacer()

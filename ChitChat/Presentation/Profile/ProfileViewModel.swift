@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 protocol ProfileViewModel {
-    func showProfile(token: String, completion: @escaping () -> Void)
+    func showProfile()
 }
 class ProfileViewModelImpl: ProfileViewModel, ObservableObject {
     
@@ -25,22 +25,20 @@ class ProfileViewModelImpl: ProfileViewModel, ObservableObject {
         self.profileUseCase = profileUsecase
     }
     
-    func showProfile(token: String, completion: @escaping () -> Void) {
+    func showProfile() {
         
-        profileUseCase.showProfile(token: token){
+        profileUseCase.showProfile(token: ChitChatDefaultsManager.shared.token){
             response in
             switch response {
                 
             case .success(let data):
-                self.nick=data.nick ?? "null"
-                self.avatar=data.avatar
-                self.login=data.login ?? "null"
+                self.nick = data.nick ?? "null"
+                self.avatar = ChitChatDefaultsManager.shared.avatar
+                self.login = data.login ?? "null"
             case .failure(let error):
-                guard let code = error.code else { return }
                 print("fallo ViewModel")
             }
         }
-        completion()
     }
     
     

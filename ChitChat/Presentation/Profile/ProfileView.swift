@@ -10,10 +10,6 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUsecase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
     
-    @State private var nick: String = ""
-    @State private var avatar: String = ""
-    @State private var login: String = ""
-    
     var body: some View {
         
         NavigationView {
@@ -35,11 +31,6 @@ struct ProfileView: View {
                     
                     Button(action: {
                         // Acción del botón de notificaciones
-                        viewModel.showProfile(token:  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNCIsImlhdCI6MTcxODM1MDg3NywiZXhwIjoxNzIwOTQyODc3fQ.kg0sIg7KmVMg0-ExOnC9P2UhWCi43lDbemu0zX0y_MY"){
-                            nick = viewModel.nick
-                            avatar = viewModel.avatar
-                            login = viewModel.login
-                        }
                     }) {
                         Image("notificationIcon").resizable().scaledToFit().frame(width: 30,height: 30)
                             .foregroundColor(.black)
@@ -53,7 +44,7 @@ struct ProfileView: View {
                 // Profile Picture and Info
                 HStack() {
                     ZStack{
-                        Image("userPicDefault")
+                        Image(viewModel.avatar)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 120, height: 120)
@@ -69,11 +60,11 @@ struct ProfileView: View {
                             .offset(x: 30, y: 20)
                     }
                     VStack(){
-                        Text(nick)
+                        Text(viewModel.nick)
                             .font(.headline)
                             .fontWeight(.bold)
                         
-                        Text(login)
+                        Text(viewModel.login)
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
@@ -94,11 +85,7 @@ struct ProfileView: View {
             }
             .background(Color.white)
             .navigationBarHidden(true).onAppear {
-                viewModel.showProfile(token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MyIsImlhdCI6MTcxODcyMjc4MSwiZXhwIjoxNzIxMzE0NzgxfQ.uN6s5CGApRUqjl58Lpfro6lpUlvlaL0u4fvGYK6cQC4") {
-                    nick = viewModel.nick
-                    avatar = viewModel.avatar
-                    login = viewModel.login
-                }
+                viewModel.showProfile()
             }
         }
     }

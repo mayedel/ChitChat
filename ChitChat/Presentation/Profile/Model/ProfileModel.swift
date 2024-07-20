@@ -2,7 +2,7 @@
 //  ProfileModel.swift
 //  ChitChat
 //
-//  Created by Alex Jumbo on 12/7/24.
+//  Created by Andres Cordón on 20/7/24.
 //
 
 import Foundation

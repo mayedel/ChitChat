@@ -32,7 +32,7 @@ enum AlertType {
     var leftActionText: String {
         switch self {
         case .error( _, _):
-            return ""
+            return LocalizedStringKey("Cancel").stringValue()
         case .success:
             return LocalizedStringKey("Cancel").stringValue()
         }

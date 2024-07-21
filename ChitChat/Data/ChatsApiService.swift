@@ -82,7 +82,7 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
     
     func getActiveChats(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/chats/view", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatView], AFError>) in
+        apiManager.request(endpoint: "api/chats/list", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatView], AFError>) in
             switch result {
             case .success(let response):
                 completion(.success(response))

@@ -98,7 +98,7 @@ struct LoginView: View {
                         }
                     }.padding(.horizontal, 50)
                     
-                    NavigationLink(destination:ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager())))),
+                    NavigationLink(destination:ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))),
                         isActive: $navigate,
                         label: {
                             EmptyView()

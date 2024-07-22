@@ -19,15 +19,9 @@ struct UsersListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-            //    HStack {
-//                    Image(systemName: "chevron.left")
-//                        .foregroundColor(.black)
                     Text("Contactos")
                         .font(.largeTitle)
                         .bold()
-             //   }
-             //   .padding([.top, .horizontal])
-             //   .background(Color(.systemGray6))
                 
                 SearchBar(text: $viewModel.searchText)
        
@@ -36,18 +30,26 @@ struct UsersListView: View {
                     .padding([.leading, .top], 16)
                 
                 List(viewModel.filteredContacts) { user in
-                   NavigationLink(destination: Conversation2View(contact: user)) {
+                   NavigationLink( destination: LazyView(ConversationView(conversation: viewModel.createConversation(for: user))),
+                                   label: {
                         ContactRow(contact: user)
-                    }
+                    })
                 }
                 .listStyle(PlainListStyle())
             }
             .navigationBarHidden(true)
-            .onAppear {
-                viewModel.getUsers(token: "your_token_here") { result in
-                }
-            }
         }
+    }
+}
+
+struct LazyView<Content: View>: View {
+    let build: () -> Content
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+
+    var body: Content {
+        build()
     }
 }
 
@@ -79,10 +81,7 @@ struct ContactRow: View {
     
     var body: some View {
         HStack {
-            //            Circle()
-            //                .fill(Color.gray)
-            //                .frame(width: 40, height: 40)
-            Image(contact.avatar)
+            Image("userPicDefault")
                 .resizable()
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
@@ -103,6 +102,6 @@ struct ChatWithView: View {
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
-        UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
+        UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))
     }
 }

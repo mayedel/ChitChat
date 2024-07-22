@@ -58,7 +58,7 @@ struct ActiveChatsView: View {
                 
                 HStack {
                     Spacer()
-                    NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))) {
+                    NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
                         Circle()
                             .fill(Color.customBlue)
                             .frame(width: 56, height: 56)

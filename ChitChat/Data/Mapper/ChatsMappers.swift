@@ -12,10 +12,8 @@ class ChatMapper {
         return chats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
-                print("CHATMAPPER. No user profile found for user ID: \(otherUserId)")
                 return nil
             }
-            print("CHATMAPPER. Mapping chat with ID: \(chat.id), other user ID: \(otherUserId)")
             return Conversation(
                 id: chat.id,
                 name: otherUser.nick ?? "",

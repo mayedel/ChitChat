@@ -14,12 +14,29 @@ protocol APIManagerProtocol {
 }
 
 class APIManager: APIManagerProtocol {
-    private let baseURL: String
-    private let session: Session
-    
-    init(baseURL: String = "https://mock-movilidad.vass.es/chatvass/", session: Session = .default) {
-        self.baseURL = baseURL
-        self.session = session
+    private let baseURL = "https://mock-movilidad.vass.es/chatvass/"
+    private var session: Alamofire.Session
+        
+        class WildcardServerTrustPolicyManager: ServerTrustManager {
+            override func serverTrustEvaluator(forHost host: String) throws -> ServerTrustEvaluating? {
+                if let policy = evaluators[host] {
+                    return policy
+                }
+                var domainComponents = host.split(separator: ".")
+                if domainComponents.count > 2 {
+                    domainComponents[0] = "*"
+                    let wildcardHost = domainComponents.joined(separator: ".")
+                    return evaluators[wildcardHost]
+                }
+                return nil
+            }
+        }
+    init() {
+        let serverTrustPolicies: [String: ServerTrustEvaluating] = [
+            "*_.vass.es": PinnedCertificatesTrustEvaluator()
+        ]
+        let wildcard = WildcardServerTrustPolicyManager(evaluators: serverTrustPolicies)
+        self.session = Session(configuration: URLSessionConfiguration.default, serverTrustManager: wildcard)
     }
     
     func request<T: Decodable>(endpoint: String, method: HTTPMethod, headers: HTTPHeaders?, body: Data?, completion: @escaping (Result<T, AFError>) -> Void) {

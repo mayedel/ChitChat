@@ -22,19 +22,21 @@ struct ActiveChatsView: View {
                             .font(.title)
                             .bold()
                         Spacer()
-                        Image("userPicDefault")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
+                        NavigationLink(destination: ProfileView()) {
+                            Image("userPicDefault")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 70, height: 70)
+                        }
                     }
                     HStack{
                         Text(LocalizedStringKey("Conversaciones"))
-                        .font(.headline)
+                            .font(.headline)
                         Spacer()
                     }
                 }.padding(20)
                 SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
-                if viewModel.conversations.isEmpty {
+                if viewModel.filteredConversations.isEmpty {
                     Text("No se han encontrado")
                         .foregroundColor(.gray)
                         .padding()
@@ -53,10 +55,10 @@ struct ActiveChatsView: View {
                 }
                 
                 Spacer()
-
+                
                 HStack {
                     Spacer()
-                    NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))) {
+                    NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
                         Circle()
                             .fill(Color.customBlue)
                             .frame(width: 56, height: 56)
@@ -74,13 +76,29 @@ struct ActiveChatsView: View {
                 viewModel.getActiveChats { _ in }
             }
         }.navigationBarBackButtonHidden(true)
+        
+        if viewModel.showCustomAlert {
+            CustomAlert(
+                presentAlert: $viewModel.showCustomAlert,
+                alertType: viewModel.alertType,
+                leftButtonAction: {
+                    viewModel.showCustomAlert = false
+                },
+                rightButtonAction: {
+                    if let conversation = viewModel.conversationToDelete {
+                        viewModel.hideConversation(conversation: conversation)
+                    }
+                }
+            )
+        }
     }
+    
     
     
     private func deleteConversation(at offsets: IndexSet) {
         offsets.forEach { index in
             let conversation = viewModel.filteredConversations[index]
-            viewModel.deleteChat(conversation: conversation)
+            viewModel.showDeleteConfirmation(conversation: conversation)
         }
     }
 }
@@ -142,6 +160,6 @@ struct ConversationRow: View {
 
 struct ActiveChatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()))))
+        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager()))))
     }
 }

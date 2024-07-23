@@ -10,15 +10,17 @@ import Foundation
 struct ActiveChatsUseCase {
     let chatDataProvider: ChatDataProvider
     let messageDataProvider: MessageDataProvider
+    private let userDataProvider: UserDataProvider
     
-    init(chatDataProvider: ChatDataProvider, messageDataProvider: MessageDataProvider) {
+    init(chatDataProvider: ChatDataProvider, messageDataProvider: MessageDataProvider, userDataProvider: UserDataProvider) {
         self.chatDataProvider = chatDataProvider
         self.messageDataProvider = messageDataProvider
+        self.userDataProvider = userDataProvider
     }
     
-    func getActiveChats(token: String, completion: @escaping (Result<[ChatModel], Error>) -> Void) {
-        chatDataProvider.getActiveChats(token: token, completion: completion)
-    }
+    func getActiveChats(token: String, completion: @escaping (Result<[Chat], Error>) -> Void) {
+            chatDataProvider.getChats(token: token, completion: completion)
+        }
     
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         chatDataProvider.deleteChat(id: id, token: token, completion: completion)
@@ -38,6 +40,15 @@ struct ActiveChatsUseCase {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func getUserProfile(token: String, completion: @escaping (Result<User, ErrorModel>) -> Void) {
+            userDataProvider.getUserProfile(token: token, completion: completion)
+        }
+
+
+func getUsersProfile(token: String, completion: @escaping (Result<[User], ErrorModel>) -> Void) {
+        userDataProvider.getUsers(token: token, completion: completion)
     }
 
 }

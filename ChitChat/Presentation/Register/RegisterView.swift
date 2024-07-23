@@ -4,7 +4,6 @@
 //
 //  Created by Alex Jumbo on 23/6/24.
 //
-
 import SwiftUI
 
 struct RegisterView: View {
@@ -25,113 +24,156 @@ struct RegisterView: View {
         NavigationView {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
-                    HStack {
-                        Image("back_arrow")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                        Text(LocalizedStringKey("UserRegistration").stringValue())
-                            .font(.title2)
-                    }
-                    .padding(5)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        RegistrationTextField(
-                            title: LocalizedStringKey("User").stringValue(),
-                            text: $username, validation: viewModel.userExistError,
-                            hint: LocalizedStringKey("EnterYourUser").stringValue()
-                        )
-                        if viewModel.userExistError {
-                            Text(LocalizedStringKey("UserExist"))
-                                .foregroundColor(.red)
-                        }
-                        if viewModel.userError {
-                            Text(LocalizedStringKey("UserError"))
-                                .foregroundColor(.red)
-                        }
-                        
-                        RegistrationSecureField(
-                            title: LocalizedStringKey("Password").stringValue(),
-                            text: $password,
-                            hint: LocalizedStringKey("EnterYourPass").stringValue()
-                        )
-                        if viewModel.passError {
-                            Text(LocalizedStringKey("PasswordError"))
-                                .foregroundColor(.red)
-                        }
-                        
-                        RegistrationSecureField(title: LocalizedStringKey("RepeatYourPassword").stringValue(), text: $repeatPassword, validation: viewModel.passCorrectRepeatedError, hint: LocalizedStringKey("RepeatYourPassword").stringValue())
-                        if viewModel.passCorrectRepeatedError {
-                            Text(LocalizedStringKey("PasswordsDontMatch").stringValue())
-                                .foregroundColor(.red)
-                        }
-                        
-                        RegistrationTextField(title: "Nick", text: $nickname, validation: viewModel.nickError, hint: LocalizedStringKey("EnterYourNick").stringValue())
-                        
-                        if viewModel.nickError {
-                            Text(LocalizedStringKey("EnterYourNick"))
-                                .foregroundColor(.red)
-                        }
-                        
-                        HStack() {
-                            Text(LocalizedStringKey("SelectAnAvatar"))
-                            Image(viewModel.avatarSelected?.image ?? "empty_avatar")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .clipped()
-                                .clipShape(Circle())
-                        }
-                        
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 10) {
-                                ForEach(viewModel.avatars) { avatar in
-                                    Button(action: {
-                                        viewModel.avatarSelected = avatar
-                                    }, label: {
-                                        Image(avatar.image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 100, height: 150)
-                                            .clipped()
-                                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    })
-                                }
-                            }
-                        }
-                    }
-                    .padding(15)
-                    
-                    Button(action: {
-                        viewModel.registerUser(
-                            login: username,
-                            password: password,
-                            repeatPassword: repeatPassword,
-                            nick: nickname, completion: { success in
-                                if success {
-                                    navigate = true
-                                }
-                            }
-                        )
-                    }) {
-                        Text(LocalizedStringKey("Register").stringValue())
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.black)
-                            .cornerRadius(8)
-                    }
-                    .padding(.horizontal, 15)
-                    
+                    HeaderView()
+                    FormView(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname)
+                    RegisterButton(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname, navigate: $navigate)
                     Spacer()
                 }
-                NavigationLink(destination:ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager())))),
+                NavigationLink(destination: ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))),
                     isActive: $navigate,
                     label: {
                         EmptyView()
                     })
             }
         }
+    }
+}
+
+struct HeaderView: View {
+    var body: some View {
+        HStack {
+            Image("back_arrow")
+                .resizable()
+                .frame(width: 30, height: 30)
+            Text(LocalizedStringKey("UserRegistration").stringValue())
+                .font(.title2)
+        }
+        .padding(5)
+    }
+}
+
+struct FormView: View {
+    @ObservedObject var viewModel: RegisterViewModel
+    @Binding var username: String
+    @Binding var password: String
+    @Binding var repeatPassword: String
+    @Binding var nickname: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            RegistrationTextField(
+                title: LocalizedStringKey("User").stringValue(),
+                text: $username, validation: viewModel.userExistError,
+                hint: LocalizedStringKey("EnterYourUser").stringValue()
+            )
+            if viewModel.userExistError {
+                Text(LocalizedStringKey("UserExist"))
+                    .foregroundColor(.red)
+            }
+            if viewModel.userError {
+                Text(LocalizedStringKey("UserError"))
+                    .foregroundColor(.red)
+            }
+            
+            RegistrationSecureField(
+                title: LocalizedStringKey("Password").stringValue(),
+                text: $password,
+                hint: LocalizedStringKey("EnterYourPass").stringValue()
+            )
+            if viewModel.passError {
+                Text(LocalizedStringKey("PasswordError"))
+                    .foregroundColor(.red)
+            }
+            
+            RegistrationSecureField(
+                title: LocalizedStringKey("RepeatYourPassword").stringValue(),
+                text: $repeatPassword, validation: viewModel.passCorrectRepeatedError, hint: LocalizedStringKey("RepeatYourPassword").stringValue()
+            )
+            if viewModel.passCorrectRepeatedError {
+                Text(LocalizedStringKey("PasswordsDontMatch").stringValue())
+                    .foregroundColor(.red)
+            }
+            
+            RegistrationTextField(
+                title: "Nick", text: $nickname, validation: viewModel.nickError, hint: LocalizedStringKey("EnterYourNick").stringValue()
+            )
+            
+            if viewModel.nickError {
+                Text(LocalizedStringKey("EnterYourNick"))
+                    .foregroundColor(.red)
+            }
+            
+            AvatarSelectionView(viewModel: viewModel)
+        }
+        .padding(15)
+    }
+}
+
+struct AvatarSelectionView: View {
+    @ObservedObject var viewModel: RegisterViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text(LocalizedStringKey("SelectAnAvatar"))
+                Image(viewModel.avatarSelected?.image ?? "empty_avatar")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .clipped()
+                    .clipShape(Circle())
+            }
+            
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 10) {
+                    ForEach(viewModel.avatars) { avatar in
+                        Button(action: {
+                            viewModel.avatarSelected = avatar
+                        }) {
+                            Image(avatar.image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 150)
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct RegisterButton: View {
+    @ObservedObject var viewModel: RegisterViewModel
+    @Binding var username: String
+    @Binding var password: String
+    @Binding var repeatPassword: String
+    @Binding var nickname: String
+    @Binding var navigate: Bool
+    
+    var body: some View {
+        Button(action: {
+            viewModel.registerUser(
+                login: username,
+                password: password,
+                repeatPassword: repeatPassword,
+                nick: nickname, completion: { success in
+                    if success {
+                        navigate = true
+                    }
+                }
+            )
+        }) {
+            Text(LocalizedStringKey("Register").stringValue())
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.black)
+                .cornerRadius(8)
+        }
+        .padding(.horizontal, 15)
     }
 }
 

@@ -20,7 +20,7 @@ struct ProfileView: View {
                         // Acción del botón de retroceso
                         
                     }) {
-                        Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                     //   Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
                     }
                     
                     

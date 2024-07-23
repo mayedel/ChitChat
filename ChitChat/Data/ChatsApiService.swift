@@ -12,8 +12,8 @@ protocol ChatsAPIServiceProtocol {
     func getChats(token: String, completion: @escaping (Result<[Chat], ErrorModel>) -> Void)
     func createChat(source: String, target: String, token: String, completion: @escaping (Result<(Bool, Bool, Chat), ErrorModel>) -> Void)
     func deleteChat(id: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
-    func getChatViews(token: String, completion: @escaping (Result<[ChatModel], ErrorModel>) -> Void)
-    func getActiveChats(token: String, completion: @escaping (Result<[ChatModel], ErrorModel>) -> Void)
+    func getChatViews(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void)
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void)
 }
 
 class ChatsAPIService: ChatsAPIServiceProtocol {
@@ -68,9 +68,9 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
         }
     }
     
-    func getChatViews(token: String, completion: @escaping (Result<[ChatModel], ErrorModel>) -> Void) {
+    func getChatViews(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void) {
             let headers: HTTPHeaders = ["Authorization": "\(token)"]
-            apiManager.request(endpoint: "api/chats/view", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatModel], AFError>) in
+            apiManager.request(endpoint: "api/chats/view", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatView], AFError>) in
                 switch result {
                 case .success(let response):
                     completion(.success(response))
@@ -80,9 +80,9 @@ class ChatsAPIService: ChatsAPIServiceProtocol {
             })
         }
     
-    func getActiveChats(token: String, completion: @escaping (Result<[ChatModel], ErrorModel>) -> Void) {
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/chats/view", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatModel], AFError>) in
+        apiManager.request(endpoint: "api/chats/list", method: .get, headers: headers, body: nil, completion: { (result: Result<[ChatView], AFError>) in
             switch result {
             case .success(let response):
                 completion(.success(response))

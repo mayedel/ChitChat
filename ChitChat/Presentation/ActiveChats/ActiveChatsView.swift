@@ -43,7 +43,7 @@ struct ActiveChatsView: View {
                 } else {
                     List {
                         ForEach(viewModel.filteredConversations) { conversation in
-                            NavigationLink(destination: ConversationView(conversation: conversation)) {
+                            NavigationLink(destination: ChatView(conversation: conversation)) {
                                 ConversationRow(conversation: conversation)
                             }
                             .listRowSeparator(.hidden)

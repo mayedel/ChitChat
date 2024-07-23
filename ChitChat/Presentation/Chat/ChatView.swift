@@ -9,11 +9,11 @@ import SwiftUI
 
 // Vista principal de Chat
 struct ChatView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State private var messageText: String = ""
     
-    let userName: String
-    let userImage: String
-    let isOnline: Bool
+    let conversation: Conversation
     
     @ObservedObject var viewModel = ChatViewModel(
         getMessagesListUseCase: GetMessagesListUseCase(messageDataProvider: MessageDataProvider(apiManager: APIManager())),
@@ -26,21 +26,20 @@ struct ChatView: View {
                 // Encabezado del chat
                 HStack {
                     Button(action: {
-                        // Acción del botón de retroceso
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
                     }.padding(.trailing,50)
                     
                     VStack{
                         HStack {
-                            Image(userImage)
+                            Image(conversation.avatar.isEmpty ? "empty_avatar" : conversation.avatar)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 70, height: 70)
                                 .clipShape(Circle())
                             
-                            Text(userName)
+                            Text(conversation.name)
                                 .font(.title2)
                                 .bold()
                             Spacer()
@@ -50,9 +49,9 @@ struct ChatView: View {
                 }
                 .padding(.horizontal)
                 .background(Color.white)
-                Text(isOnline ? "En línea" : "Desconectado")
+                Text(conversation.isOnline ? "En línea" : "Desconectado")
                     .font(.subheadline)
-                    .foregroundColor(isOnline ? .green : .gray)
+                    .foregroundColor(conversation.isOnline ? .green : .gray)
                 Divider()
                 
                 // Lista de mensajes
@@ -130,7 +129,7 @@ struct MessageBubble: View {
 
 struct chatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(userName: "Daniel", userImage: "userPicDefault", isOnline: false)
+        ChatView(conversation: Conversation(id: "10", name: "Andres", message: "Hola qué tal?", time: "10/08/2023", avatar: "avatar1", isUnread: true, isOnline: true, source: "10"))
     }
 }
 

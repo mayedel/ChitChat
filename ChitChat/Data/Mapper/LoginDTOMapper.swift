@@ -14,7 +14,7 @@ protocol LoginDTOMapper {
 
 struct LoginDTOMapperImpl: LoginDTOMapper {
     func map(_ response: UserLoginResponse) -> LoginModel {
-        .init(token: response.token)
+        .init(token: response.token, userId: response.user.id)
     }
 }
 

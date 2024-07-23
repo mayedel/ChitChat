@@ -8,7 +8,7 @@
 import Foundation
 
 class ChatMapper {
-    static func map(chatViews: [ChatView]) -> [Conversation] {
+    static func map(chatViews: [ChatModel]) -> [Conversation] {
         return chatViews.map { chatView in
             let formattedDate = DateFormatter.formatDate(dateString: chatView.chatcreated)
 

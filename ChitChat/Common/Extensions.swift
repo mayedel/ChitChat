@@ -41,7 +41,7 @@ extension Color {
 
 
 extension DateFormatter {
-    static func formatDate(dateString: String?) -> String {
+    static func formatDate(dateString: String?, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") -> String {
         guard let dateString = dateString, !dateString.isEmpty else {
             return "Hora no disponible"
         }
@@ -59,6 +59,12 @@ extension DateFormatter {
             return dateFormatter.string(from: date)
         }
         return "Fecha incorrecta"
+    }
+    
+    static func getActualDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: Date())
     }
 }
 

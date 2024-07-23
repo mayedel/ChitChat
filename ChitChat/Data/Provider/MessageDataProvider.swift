@@ -11,7 +11,7 @@ protocol MessageDataProviderProtocol {
     func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
     func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
     func viewMessages(token: String, completion: @escaping (Result<[MessageView], ErrorModel>) -> Void)
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void)
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
 }
 
 class MessageDataProvider: MessageDataProviderProtocol {
@@ -54,11 +54,11 @@ class MessageDataProvider: MessageDataProviderProtocol {
         }
     }
     
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void) {
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
         messagesService.getMessagesList(token: token, chatId: chatId, offset: offset, limit: limit) { result in
             switch result {
-            case .success(let messagesListResponse):
-                completion(.success(messagesListResponse))
+            case .success(let response):
+                completion(.success(response))
             case .failure(let error):
                 completion(.failure(error))
             }

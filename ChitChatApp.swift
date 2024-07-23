@@ -12,7 +12,7 @@ struct ChitChatApp: App {
     var body: some Scene {
         WindowGroup {
             //SplashView(viewModel: LoginViewModel(loginUseCase: LoginUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
-            ProfileView()
+            ChatView(userName: "Andres", userImage: "avatar1", isOnline: true)
         }
     }
 }

@@ -12,10 +12,11 @@ protocol MessagesAPIServiceProtocol {
     func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
     func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
     func viewMessages(token: String, completion: @escaping (Result<[MessageView], ErrorModel>) -> Void)
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void)
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
 }
 
 class MessagesAPIService: MessagesAPIServiceProtocol {
+    
     private let apiManager: APIManagerProtocol
     private let errorMapper: ErrorMapper = ErrorMapper()
     
@@ -26,10 +27,10 @@ class MessagesAPIService: MessagesAPIServiceProtocol {
     //Problema redireccionamiento a HTTP
     func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/messages/", method: .get, headers: headers, body: nil, completion: { (result: Result<[Message], AFError>) in
+        apiManager.request(endpoint: "api/messages/", method: .get, headers: headers, body: nil, completion: { (result: Result<MessagesListResponse, AFError>) in
             switch result {
             case .success(let response):
-                completion(.success(response))
+                completion(.success(GetMessagesDTOMapperImpl().map(response)))
             case .failure(let error):
                 completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
             }
@@ -68,13 +69,13 @@ class MessagesAPIService: MessagesAPIServiceProtocol {
         })
     }
     
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<MessagesListResponse, ErrorModel>) -> Void) {
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
         let endpoint = "api/messages/list/\(chatId)?offset=\(offset)&limit=\(limit)"
         apiManager.request(endpoint: endpoint, method: .get, headers: headers, body: nil, completion: {  (result: Result<MessagesListResponse, AFError>) in
             switch result {
             case .success(let response):
-                completion(.success(response))
+                completion(.success(GetMessagesDTOMapperImpl().map(response)))
             case .failure(let error):
                 completion(.failure(self.errorMapper.mapErrorResponse(error: error)))
             }

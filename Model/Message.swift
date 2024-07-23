@@ -25,16 +25,11 @@ struct MessageView: Codable {
     let date: String
 }
 
-struct MessagesListResponse: Codable {
-    let count: Int
-    let rows: [Message]
-}
-
 struct CreateMessageResponse: Codable {
     let success: Bool
 }
 
-struct message: Identifiable {
+struct ChatMessage: Identifiable {
     let id = UUID()
     let text: String
     let isReceived: Bool

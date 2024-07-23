@@ -16,7 +16,7 @@ struct ActiveChatsUseCase {
         self.messageDataProvider = messageDataProvider
     }
     
-    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatModel], Error>) -> Void) {
         chatDataProvider.getActiveChats(token: token, completion: completion)
     }
     
@@ -28,7 +28,7 @@ struct ActiveChatsUseCase {
         messageDataProvider.getMessagesList(token: token, chatId: chatId, offset: 0, limit: 1) { result in
             switch result {
             case .success(let messagesListResponse):
-                if let lastMessage = messagesListResponse.rows.first {
+                if let lastMessage = messagesListResponse.first {
                     let messageDetails = (message: lastMessage.message, date: lastMessage.date)
                     completion(.success(messageDetails))
                 } else {

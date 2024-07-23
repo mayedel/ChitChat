@@ -8,18 +8,17 @@
 import SwiftUI
 
 // Vista principal de Chat
-struct chatView: View {
+struct ChatView: View {
     @State private var messageText: String = ""
     
     let userName: String
     let userImage: String
     let isOnline: Bool
     
-    //bucle que recorra mensajes, mensajes de ejemplo:
-    let messages: [message] = [
-        message(text: "Hola", isReceived: false, time: "20:50"),
-        message(text: "Mensaje más largo", isReceived: true, time: "20:55")
-    ]
+    @ObservedObject var viewModel = ChatViewModel(
+        getMessagesListUseCase: GetMessagesListUseCase(messageDataProvider: MessageDataProvider(apiManager: APIManager())),
+        createMessageUseCase: CreateMessageUseCase(messageDataProvider: MessageDataProvider(apiManager: APIManager()))
+    )
     
     var body: some View {
         NavigationView {
@@ -28,6 +27,7 @@ struct chatView: View {
                 HStack {
                     Button(action: {
                         // Acción del botón de retroceso
+                        
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
                     }.padding(.trailing,50)
@@ -48,7 +48,7 @@ struct chatView: View {
                     }
                     
                 }
-                .padding()
+                .padding(.horizontal)
                 .background(Color.white)
                 Text(isOnline ? "En línea" : "Desconectado")
                     .font(.subheadline)
@@ -58,19 +58,21 @@ struct chatView: View {
                 // Lista de mensajes
                 ScrollView {
                     VStack(spacing: 8) {
-                        ForEach(messages) { message in
+                        ForEach(viewModel.messages) { message in
                             HStack {
-                                if message.isReceived {
-                                    MessageBubble(message: message.text, time: message.time, isReceived: true)
+                                if(ChitChatDefaultsManager.shared.userId != message.source) {
+                                    MessageBubble(message: message.message, time: DateFormatter.formatDate(dateString: message.date), isReceived: true)
                                     Spacer()
                                 } else {
                                     Spacer()
-                                    MessageBubble(message: message.text, time: message.time, isReceived: false)
+                                    MessageBubble(message: message.message, time: DateFormatter.formatDate(dateString: message.date), isReceived: false)
                                 }
                             }
                         }
                     }
                     .padding()
+                }.refreshable {
+                    viewModel.getMessagesList()
                 }
                 
                 // Campo de entrada de mensaje
@@ -81,7 +83,12 @@ struct chatView: View {
                         .cornerRadius(20)
                     
                     Button(action: {
-                        // Acción para enviar el mensaje
+                        viewModel.createNewMessage(message: messageText) { completion in
+                            if completion {
+                                viewModel.getMessagesList()
+                                messageText = ""
+                            }
+                        }
                     }) {
                         Image(systemName: "paperplane.fill")
                             .foregroundColor(Color(red: 0/255, green: 148/255, blue: 184/255))
@@ -89,6 +96,9 @@ struct chatView: View {
                 }
                 .padding()
                 .background(Color.white)
+                .onAppear(perform: {
+                    viewModel.getMessagesList()
+                })
             }
             .navigationBarHidden(true)
         }
@@ -120,7 +130,7 @@ struct MessageBubble: View {
 
 struct chatView_Previews: PreviewProvider {
     static var previews: some View {
-        chatView(userName: "Daniel", userImage: "userPicDefault", isOnline: false)
+        ChatView(userName: "Daniel", userImage: "userPicDefault", isOnline: false)
     }
 }
 

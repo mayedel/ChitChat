@@ -36,12 +36,12 @@ struct DeleteChatResponse: Codable {
 }
 
 struct ChatDisplay {
-    let chatView: ChatView
+    let chatView: ChatModel
     var lastMessage: String?
     var lastMessageDate: String?
 }
 
-struct ChatView: Identifiable, Decodable {
+struct ChatModel: Identifiable, Decodable {
     let id: String
     let chat: String
     let source: String

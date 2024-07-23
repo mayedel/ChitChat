@@ -34,6 +34,7 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
                 self.passCorrect = true
                 self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
                 ChitChatDefaultsManager.shared.token = data.token
+                ChitChatDefaultsManager.shared.userId = data.userId
                 completion(true)
             case .failure(let error):
                 guard let code = error.code else { return }

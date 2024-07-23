@@ -46,5 +46,9 @@
 //ACTIVE CHATS
 "Conversations" = "Conversaciones";
 
+//CHAT
+"NoQueryParams" = "Sin querys";
+"Unauthorized" = "No autorizado";
+
 //PROFILE
 "Profile" = "Perfil";

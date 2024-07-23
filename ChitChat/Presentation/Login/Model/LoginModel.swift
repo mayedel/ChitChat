@@ -9,4 +9,5 @@ import Foundation
 
 struct LoginModel {
     let token: String
+    let userId: String
 }

@@ -33,7 +33,7 @@ struct ChatView: View {
                     
                     VStack{
                         HStack {
-                            Image(conversation.avatar.isEmpty ? "empty_avatar" : conversation.avatar)
+                            Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 70, height: 70)
@@ -54,24 +54,34 @@ struct ChatView: View {
                     .foregroundColor(conversation.isOnline ? .green : .gray)
                 Divider()
                 
-                // Lista de mensajes
-                ScrollView {
-                    VStack(spacing: 8) {
-                        ForEach(viewModel.messages) { message in
-                            HStack {
-                                if(ChitChatDefaultsManager.shared.userId != message.source) {
-                                    MessageBubble(message: message.message, time: DateFormatter.formatDate(dateString: message.date), isReceived: true)
-                                    Spacer()
-                                } else {
-                                    Spacer()
-                                    MessageBubble(message: message.message, time: DateFormatter.formatDate(dateString: message.date), isReceived: false)
+                ScrollViewReader { scrollView in
+                    // Lista de mensajes
+                    ScrollView {
+                        LazyVStack(spacing: 8) {
+                            ForEach(viewModel.messages) { message in
+                                HStack {
+                                    if(ChitChatDefaultsManager.shared.userId != message.source) {
+                                        MessageBubble(message: message.message, time: DateFormatter.fixedServerHour(messageTime:  message.date), isReceived: true)
+                                        Spacer()
+                                    } else {
+                                        Spacer()
+                                        MessageBubble(message: message.message, time: DateFormatter.fixedServerHour(messageTime:  message.date), isReceived: false)
+                                    }
                                 }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
-                }.refreshable {
-                    viewModel.getMessagesList()
+                    .onAppear {
+                        viewModel.getMessagesService(chatId: conversation.id) {}
+                    }
+                    .onChange(of: viewModel.messages.count) { count in
+                        if let last = viewModel.messages.last {
+                            withAnimation {
+                                scrollView.scrollTo(last.id)
+                            }
+                        }
+                    }
                 }
                 
                 // Campo de entrada de mensaje
@@ -82,9 +92,9 @@ struct ChatView: View {
                         .cornerRadius(20)
                     
                     Button(action: {
-                        viewModel.createNewMessage(message: messageText) { completion in
+                        viewModel.createNewMessage(message: messageText, chatId: conversation.id) { completion in
                             if completion {
-                                viewModel.getMessagesList()
+                                viewModel.getMessagesList(chatId: conversation.id) {}
                                 messageText = ""
                             }
                         }
@@ -95,12 +105,8 @@ struct ChatView: View {
                 }
                 .padding()
                 .background(Color.white)
-                .onAppear(perform: {
-                    viewModel.getMessagesList()
-                })
             }
-            .navigationBarHidden(true)
-        }
+        }.navigationBarHidden(true)
     }
 }
 

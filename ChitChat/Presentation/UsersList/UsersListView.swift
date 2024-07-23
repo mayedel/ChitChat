@@ -9,6 +9,9 @@ import SwiftUI
 import Combine
 
 struct UsersListView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject private var viewModel: UsersListViewModel
     
     init(viewModel: UsersListViewModel) {
@@ -19,9 +22,19 @@ struct UsersListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                    Text("Contactos")
-                        .font(.largeTitle)
-                        .bold()
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                    }
+                    
+                    
+                    Text(LocalizedStringKey("Contacts"))
+                        .font(.title)
+                }
+                .padding()
+                .background(Color.white)
                 
                 SearchBar(text: $viewModel.searchText)
        
@@ -30,15 +43,14 @@ struct UsersListView: View {
                     .padding([.leading, .top], 16)
                 
                 List(viewModel.filteredContacts) { user in
-                   NavigationLink( destination: LazyView(ConversationView(conversation: viewModel.createConversation(for: user))),
+                   NavigationLink( destination: LazyView(ChatView(conversation: viewModel.createConversation(for: user))),
                                    label: {
                         ContactRow(contact: user)
                     })
                 }
                 .listStyle(PlainListStyle())
             }
-            .navigationBarHidden(true)
-        }
+        }.navigationBarHidden(true)
     }
 }
 

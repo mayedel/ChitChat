@@ -7,6 +7,9 @@
 import SwiftUI
 
 struct RegisterView: View {
+    
+    @Environment(\.dismiss) var dismiss
+
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var repeatPassword: String = ""
@@ -24,7 +27,18 @@ struct RegisterView: View {
         NavigationView {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
-                    HeaderView()
+                    HStack {
+                        Button(action: {
+                           dismiss()
+                        }) {
+                            Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                        }
+                        
+                        Text(LocalizedStringKey("UserRegistration").stringValue())
+                            .font(.title2)
+                    }
+                    .padding(5)
+                    
                     FormView(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname)
                     RegisterButton(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname, navigate: $navigate)
                     Spacer()
@@ -35,20 +49,7 @@ struct RegisterView: View {
                         EmptyView()
                     })
             }
-        }
-    }
-}
-
-struct HeaderView: View {
-    var body: some View {
-        HStack {
-            Image("back_arrow")
-                .resizable()
-                .frame(width: 30, height: 30)
-            Text(LocalizedStringKey("UserRegistration").stringValue())
-                .font(.title2)
-        }
-        .padding(5)
+        }.navigationBarHidden(true)
     }
 }
 

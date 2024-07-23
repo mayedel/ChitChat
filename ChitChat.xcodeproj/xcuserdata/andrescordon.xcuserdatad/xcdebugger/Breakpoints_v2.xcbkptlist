@@ -174,8 +174,8 @@
             filePath = "ChitChat/Presentation/Register/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "ChitChat/Presentation/Register/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "ChitChat/Presentation/Register/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "ChitChat/Presentation/Register/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -254,26 +254,10 @@
             filePath = "ChitChat/Presentation/Register/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A96CADBB-A95C-4783-897C-12408DA7FCD9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "getMessagesList()"
-            landmarkType = "7">
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,8 +270,8 @@
             filePath = "ChitChat/Presentation/Chat/ChatView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -302,8 +286,8 @@
             filePath = "ChitChat/Presentation/Chat/ChatView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -311,80 +295,172 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FEDD2551-F597-4394-8D9D-F1593EE1A904"
-            shouldBeEnabled = "No"
+            uuid = "9336EC79-07C3-4861-91EE-72E37B9D7662"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
+            filePath = "ChitChat/Presentation/UsersList/UsersListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "getMessagesList()"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "createConversation(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BA0EAD0C-B238-430E-81E9-121602EE3898"
-            shouldBeEnabled = "No"
+            uuid = "52D850A7-8B3B-400A-8CE2-0AE595A40EEB"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
+            filePath = "ChitChat/Presentation/UsersList/UsersListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "getMessagesList()"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "createConversation(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "52D850A7-8B3B-400A-8CE2-0AE595A40EEB - 98df801d011ffcae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;ChitChat.Conversation, ChitChat.ErrorModel&gt;) -&gt; () in ChitChat.UsersListViewModel.createConversation(for: ChitChat.UserList) -&gt; ChitChat.Conversation"
+                  moduleName = "ChitChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrescordon/Desktop/FinalProject/ChitChat/ChitChat/Presentation/UsersList/UsersListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101">
+               </Location>
+               <Location
+                  uuid = "52D850A7-8B3B-400A-8CE2-0AE595A40EEB - 98df801d011ffcae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;ChitChat.Conversation, ChitChat.ErrorModel&gt;) -&gt; () in ChitChat.UsersListViewModel.createConversation(for: ChitChat.UserList) -&gt; ChitChat.Conversation"
+                  moduleName = "ChitChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrescordon/Desktop/FinalProject/ChitChat/ChitChat/Presentation/UsersList/UsersListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101">
+               </Location>
+               <Location
+                  uuid = "52D850A7-8B3B-400A-8CE2-0AE595A40EEB - 98df801d011ffcae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;ChitChat.Conversation, ChitChat.ErrorModel&gt;) -&gt; () in ChitChat.UsersListViewModel.createConversation(for: ChitChat.UserList) -&gt; ChitChat.Conversation"
+                  moduleName = "ChitChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrescordon/Desktop/FinalProject/ChitChat/ChitChat/Presentation/UsersList/UsersListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC04916C-9AEE-4254-BE1A-FC113507C8F5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChitChat/Presentation/UsersList/UsersListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "createConversation(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7A226DBA-9C98-4256-9DAB-BE1E7BDA0EC0"
+            uuid = "50C37A90-ED91-44F7-9A55-AF5CDAC0DC60"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
+            filePath = "ChitChat/Common/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "getMessagesList()"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "fixedServerHour(messageTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7FD13E42-6E94-4D98-BFCB-8D2765614F21"
+            uuid = "B4051EBB-4FB1-45EE-B7B8-CF9E1370A9EC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
+            filePath = "ChitChat/Common/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "getMessagesList()"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "fixedServerHour(messageTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9EF1401E-A0BE-4CDA-A7FE-3C613E3973A2"
+            uuid = "13CE11B0-46A3-4515-8763-CCB987F917DD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChitChat/Presentation/Chat/ChatView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68D15AF7-F9C7-4351-877D-E6FE89C771DE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "getMessagesList()"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "getMessagesService(chatId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BEB86E6A-6D2C-4730-8F90-35F549ECBB82"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChitChat/Presentation/Chat/ChatViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getMessagesService(chatId:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

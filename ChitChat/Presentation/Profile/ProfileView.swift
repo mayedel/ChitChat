@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUsecase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
     
     var body: some View {
@@ -17,10 +19,9 @@ struct ProfileView: View {
                 // Header
                 HStack {
                     Button(action: {
-                        // Acción del botón de retroceso
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
-                     //   Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                        Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
                     }
                     
                     
@@ -49,15 +50,6 @@ struct ProfileView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 120, height: 120)
                             .clipShape(Circle())
-                        
-                        Image(systemName: "camera.fill")
-                            .resizable()
-                            .frame(width: 15, height: 15)
-                            .padding(6)
-                            .background(Color.customBlue)
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                            .offset(x: 30, y: 20)
                     }
                     VStack(){
                         Text(viewModel.nick)
@@ -84,9 +76,8 @@ struct ProfileView: View {
                 Spacer()
             }
             .background(Color.white)
-            .navigationBarHidden(true).onAppear {
-                viewModel.showProfile()
-            }
+        }.navigationBarHidden(true).onAppear {
+            viewModel.showProfile()
         }
     }
 }

@@ -21,30 +21,40 @@ class ChatViewModel: ObservableObject {
         self.createMessageUseCase = createMessageUseCase
     }
     
-    func getMessagesList() {
-        getMessagesListUseCase.getMessagesList(chatId: "1532") { response in
-            switch response {
-            case .success(let data):
-                self.messages = data.sorted(by: { message, message2 in
-                    message.date < message2.date
-                })
-                print(data)
-            case .failure(let error):
-                guard let code = error.code else { return }
-                switch code {
-                case 401:
-                    self.error = LocalizedStringKey.init("Unauthorized").stringValue()
-                case 400:
-                    self.error = LocalizedStringKey.init("NoQueryParams").stringValue()
-                default:
-                    self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+    func getMessagesService(chatId: String, completion: @escaping () -> Void) {
+        self.getMessagesList(chatId: chatId, completion: completion)
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            self.getMessagesList(chatId: chatId, completion: completion)
+        }
+    }
+    
+    
+    func getMessagesList(chatId: String, completion: @escaping () -> Void) {
+        DispatchQueue.global().async {
+            self.getMessagesListUseCase.getMessagesList(chatId: chatId) { response in
+                switch response {
+                case .success(let data):
+                    self.messages = data.sorted(by: { message, message2 in
+                        message.date < message2.date
+                    })
+                    completion()
+                case .failure(let error):
+                    guard let code = error.code else { return }
+                    switch code {
+                    case 401:
+                        self.error = LocalizedStringKey.init("Unauthorized").stringValue()
+                    case 400:
+                        self.error = LocalizedStringKey.init("NoQueryParams").stringValue()
+                    default:
+                        self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+                    }
                 }
             }
         }
     }
     
-    func createNewMessage(message: String, completion: @escaping (Bool) -> Void) {
-        createMessageUseCase.createNewMessage(chatId: "1532", message: message) { response in
+    func createNewMessage(message: String, chatId: String, completion: @escaping (Bool) -> Void) {
+        createMessageUseCase.createNewMessage(chatId: chatId, message: message) { response in
             switch response {
             case .success(let data):
                 completion(data)

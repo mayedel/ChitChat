@@ -41,7 +41,7 @@ extension Color {
 
 
 extension DateFormatter {
-    static func formatDate(dateString: String?, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") -> String {
+    static func formatDate(dateString: String?) -> String {
         guard let dateString = dateString, !dateString.isEmpty else {
             return "Hora no disponible"
         }
@@ -65,6 +65,30 @@ extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: Date())
+    }
+    
+    static func fixedServerHour(messageTime: String?) -> String {
+        guard let messageTime = messageTime else { return "" }
+        
+        let deviceTime = Date()
+        let offsetInSeconds = TimeZone.current.secondsFromGMT(for: deviceTime)
+        let offsetInHours = Double(offsetInSeconds) / 3600.0
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        if let zonedDateTime = dateFormatter.date(from: messageTime) {
+            
+            let updatedZonedDateTime = zonedDateTime.addingTimeInterval((2 + offsetInHours) * 3600)
+            
+            dateFormatter.dateFormat = "HH:mm"
+            
+            return dateFormatter.string(from: updatedZonedDateTime)
+        }
+        
+        return "Fecha incorrecta"
     }
 }
 

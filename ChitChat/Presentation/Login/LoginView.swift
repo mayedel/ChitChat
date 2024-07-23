@@ -88,9 +88,10 @@ struct LoginView: View {
                             .padding(.top, 16)
                             Spacer().frame(height: 200)
                             Text(LocalizedStringKey("DontHaveAnAccount"))
-                            Button(action: {
-                                // Acción de registro
-                            }) {
+                            
+                            NavigationLink {
+                                RegisterView(viewModel: RegisterViewModel(registerUseCase: RegisterUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
+                            } label: {
                                 Text(LocalizedStringKey("Register"))
                                     .font(.headline)
                                     .foregroundStyle(.black)

@@ -15,6 +15,7 @@ protocol MessageDataProviderProtocol {
 }
 
 class MessageDataProvider: MessageDataProviderProtocol {
+    
     private let messagesService: MessagesAPIServiceProtocol
     
     init(apiManager: APIManagerProtocol) {

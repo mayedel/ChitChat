@@ -16,6 +16,7 @@ protocol ChatDataProviderProtocol {
 }
 
 class ChatDataProvider: ChatDataProviderProtocol {
+    
     private let chatsService: ChatsAPIServiceProtocol
     
     init(apiManager: APIManagerProtocol) {
@@ -55,7 +56,7 @@ class ChatDataProvider: ChatDataProviderProtocol {
         }
     }
     
-    func getChatViews(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
+    func getChatViews(token: String, completion: @escaping (Result<[ChatModel], Error>) -> Void) {
         chatsService.getChatViews(token: token) { result in
             switch result {
             case .success(let chatViews):
@@ -66,7 +67,7 @@ class ChatDataProvider: ChatDataProviderProtocol {
         }
     }
     
-    func getActiveChats(token: String, completion: @escaping (Result<[ChatView], Error>) -> Void) {
+    func getActiveChats(token: String, completion: @escaping (Result<[ChatModel], Error>) -> Void) {
         chatsService.getActiveChats(token: token) { result in
             switch result {
             case .success(let chats):

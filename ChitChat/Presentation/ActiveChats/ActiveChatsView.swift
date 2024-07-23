@@ -23,7 +23,7 @@ struct ActiveChatsView: View {
                             .bold()
                         Spacer()
                         NavigationLink(destination: ProfileView()) {
-                            Image("userPicDefault")
+                            Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 70, height: 70)

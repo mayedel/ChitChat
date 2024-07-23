@@ -31,7 +31,7 @@ struct MessageResponse: Codable {
 }
 
 struct UserList: Identifiable {
-    let id: UUID
+    let id: String
     let name: String
     let avatar: String
 }

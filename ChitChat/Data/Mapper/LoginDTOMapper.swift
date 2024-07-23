@@ -21,7 +21,7 @@ struct LoginDTOMapperImpl: LoginDTOMapper {
 struct UserMapper {
     static func map(users: [User]) -> [UserList] {
         return users.map { user in
-            UserList(id: UUID(), name: user.nick ?? user.login ?? "Unknown", avatar: user.avatar)
+            UserList(id: user.id, name: user.nick ?? user.login ?? "Unknown", avatar: user.avatar)
         }
     }
 }

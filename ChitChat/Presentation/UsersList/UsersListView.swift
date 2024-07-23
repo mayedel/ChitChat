@@ -11,6 +11,7 @@ import Combine
 struct UsersListView: View {
     
     @Environment(\.dismiss) var dismiss
+    @State var navigate: Bool = false
     
     @StateObject private var viewModel: UsersListViewModel
     
@@ -43,13 +44,26 @@ struct UsersListView: View {
                     .padding([.leading, .top], 16)
                 
                 List(viewModel.filteredContacts) { user in
-                   NavigationLink( destination: LazyView(ChatView(conversation: viewModel.createConversation(for: user))),
-                                   label: {
+                    Button {
+                        viewModel.createConversation(for: user) { success in
+                            if success {
+                                navigate.toggle()
+                            }
+                        }
+                    } label: {
                         ContactRow(contact: user)
-                    })
+                    }
                 }
                 .listStyle(PlainListStyle())
+                
+                NavigationLink(
+                    destination: LazyView(ChatView(conversation: viewModel.createdConversation)),
+                    isActive: $navigate,
+                    label: {
+                        EmptyView()
+                    })
             }
+            
         }.navigationBarHidden(true)
     }
 }

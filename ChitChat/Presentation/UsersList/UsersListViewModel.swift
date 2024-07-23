@@ -18,6 +18,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     @Published var users: [User] = []
     @Published var error: ErrorModel?
     @Published var searchText: String = ""
+    @Published var createdConversation: Conversation = Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, date: "", isOnline: false, source: "")
     private var currentUserId: String?
     private let userslistUseCase: UsersListUseCase   
     
@@ -69,7 +70,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     
     func createChatWith(user: User, completion: @escaping (Result<Conversation, ErrorModel>) -> Void) {
         let token = ChitChatDefaultsManager.shared.token
-        userslistUseCase.createChat(source: currentUserId ?? "", target: user.id, token: token) { result in
+        userslistUseCase.createChat(source: ChitChatDefaultsManager.shared.userId, target: user.id, token: token) { result in
             switch result {
             case .success(let chatResponse):
                 let conversation = Conversation(
@@ -90,23 +91,21 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
         }
     }
     
-    func createConversation(for userList: UserList) -> Conversation {
-        guard let user = users.first(where: { $0.id == userList.id.uuidString }) else {
-            return Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, date: "", isOnline: false, source: "")
+    func createConversation(for userList: UserList, completion: @escaping (Bool) -> Void) {
+        guard let user = users.first(where: { $0.id == userList.id }) else {
+            return
         }
-        let semaphore = DispatchSemaphore(value: 0)
-        var createdConversation: Conversation? = nil
+        
         createChatWith(user: user) { result in
             switch result {
             case .success(let conversation):
-                createdConversation = conversation
+                self.createdConversation = conversation
+                completion(true)
             case .failure(let error):
                 print("Failed to create conversation: \(error)")
+                completion(false)
             }
-            semaphore.signal()
         }
-        semaphore.wait()
-        return createdConversation ?? Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, date: "", isOnline: false, source: "")
     }
     
 }

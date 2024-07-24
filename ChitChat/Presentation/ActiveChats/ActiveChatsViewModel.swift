@@ -79,8 +79,8 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
             switch result {
             case .success(let users):
                 let userProfiles = Dictionary(uniqueKeysWithValues: users.map { ($0.id, $0) })
-                self?.conversations = ChatMapper.map(chats: filteredChats, userProfiles: userProfiles, currentUserId: currentUserId)
-                self?.getLastMessage(token: token)
+             //   self?.conversations = ChatMapper.map(chats: filteredChats, userProfiles: userProfiles, currentUserId: currentUserId)
+                self?.getLastMessage(chats: filteredChats, userProfiles: userProfiles, currentUserId: currentUserId, token: token)
             case .failure(let error):
                 DispatchQueue.main.async {
                     self?.error = error
@@ -121,29 +121,35 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
         showCustomAlert = false
     }
     
-    func getLastMessage(token: String) {
+    func getLastMessage(chats: [Chat], userProfiles: [String: User], currentUserId: String, token: String) {
         let group = DispatchGroup()
-        var messagesDetails = [String: (message: String, date: String)]()
+        var lastMessages = [String: (message: String, date: String)]()
         
-        for conversation in conversations {
-            group.enter()
-            let chatId = conversation.id
-            chatsListUseCase.getLastMessage(token: token, chatId: chatId) { result in
-                switch result {
-                case .success(let messageDetails):
-                    messagesDetails[chatId] = (message: messageDetails.message, date: messageDetails.date)
-                case .failure(let error):
-                    print("Error fetching last message for \(chatId): \(error)")
-                    messagesDetails[chatId] = (message: "No hay mensajes.", date: "")
+        for chat in chats  {
+                    group.enter()
+                  //  let chatId = conversation.id
+                    chatsListUseCase.getLastMessage(token: token, chatId: chat.id) { result in
+                        switch result {
+                        case .success(let messageDetails):
+                            lastMessages[chat.id] = (message: messageDetails.message, date: messageDetails.date)
+                        case .failure(let error):
+                            print("Error fetching last message for \(chat.id): \(error)")
+                            lastMessages[chat.id] = (message: "No hay mensajes.", date: "")
+                        }
+                        group.leave()
+                    }
                 }
-                group.leave()
+                
+                group.notify(queue: .main) {
+                    self.conversations = ChatMapper.map(chats: chats, userProfiles: userProfiles, currentUserId: currentUserId, lastMessages: lastMessages)
+               //     self.conversations = ChatMapper.updateConversations(self.conversations, withMessages: messagesDetails)
+                }
             }
-        }
-        
-        group.notify(queue: .main) {
-            self.conversations = ChatMapper.updateConversations(self.conversations, withMessages: messagesDetails)
-        }
-    }
+            
+            func markMessageAsRead(chatId: String, messageId: String, date: String) {
+                    ChitChatDefaultsManager.shared.saveLastReadMessage(chatId: chatId, messageId: messageId, date: date)
+                }
+            
     
     
     

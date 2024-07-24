@@ -8,20 +8,25 @@
 import Foundation
 
 class ChatMapper {
-    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String) -> [Conversation] {
+    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)]) -> [Conversation] {
         return chats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
                 return nil
             }
+            
+            let lastReadMessage = ChitChatDefaultsManager.shared.getLastReadMessage(chatId: chat.id)
+            let lastMessage = lastMessages[chat.id]
+            let isUnread = lastReadMessage?.messageId != lastMessage?.message
+            
             return Conversation(
                 id: chat.id,
                 name: otherUser.nick ?? "",
-                message: "",
-                time: DateFormatter.formatDate(dateString: chat.created),
+                message: lastMessage?.message ?? "",
+                time: DateFormatter.formatDate(dateString:  lastMessage?.date ?? chat.created),
                 avatar: otherUser.avatar,
                 isUnread: false,
-                date: chat.created,
+                date: lastMessage?.date ?? chat.created,
                 isOnline: otherUser.online,
                 source: chat.source
             )

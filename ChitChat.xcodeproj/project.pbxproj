@@ -17,8 +17,6 @@
 		6C53332D2C1B5AE100CA76C4 /* MessagesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53332C2C1B5AE100CA76C4 /* MessagesApiService.swift */; };
 		6C57108A2C3DB08600DD9E9D /* ActiveChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5710892C3DB08600DD9E9D /* ActiveChatsViewModel.swift */; };
 		6C57108D2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C57108C2C3DB1CF00DD9E9D /* ActiveChatsUseCase.swift */; };
-		6C6332AB2C3C62E00028C748 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6332AA2C3C62E00028C748 /* ConversationView.swift */; };
-		6C849ED82C4D1BC0002C551B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6C849ED72C4D1BC0002C551B /* Alamofire */; };
 		6C8E70C02C38680400AC903E /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70BF2C38680400AC903E /* UsersListView.swift */; };
 		6C8E70C62C3873AF00AC903E /* AddNewChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70C52C3873AF00AC903E /* AddNewChatModel.swift */; };
 		6C8E70C82C38759300AC903E /* UsersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E70C72C38759300AC903E /* UsersListViewModel.swift */; };
@@ -30,6 +28,7 @@
 		6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA1E2B42C08F5CD0023546E /* Assets.xcassets */; };
 		6CAE37F02C235EE400E3AE16 /* ChatDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37EF2C235EE400E3AE16 /* ChatDataProvider.swift */; };
 		6CAE37F22C235F2E00E3AE16 /* MessageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE37F12C235F2E00E3AE16 /* MessageDataProvider.swift */; };
+		6CBBFB642C5170D900FE77DC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6CBBFB632C5170D900FE77DC /* Alamofire */; };
 		6CDC8D792C484EC90041B1CB /* ChitChatDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9230FD2C45958600C69E3C /* ChitChatDefaultsManager.swift */; };
 		6CDE5F362C46D73700FABCA7 /* ChatsMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE5F352C46D73700FABCA7 /* ChatsMappers.swift */; };
 		6CDE5F382C46E58200FABCA7 /* MessagesMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE5F372C46E58200FABCA7 /* MessagesMappers.swift */; };
@@ -144,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C849ED82C4D1BC0002C551B /* Alamofire in Frameworks */,
+				6CBBFB642C5170D900FE77DC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,7 +471,7 @@
 			);
 			name = ChitChat;
 			packageProductDependencies = (
-				6C849ED72C4D1BC0002C551B /* Alamofire */,
+				6CBBFB632C5170D900FE77DC /* Alamofire */,
 			);
 			productName = ChitChat;
 			productReference = 6CA1E2AD2C08F5C90023546E /* ChitChat.app */;
@@ -504,7 +503,7 @@
 			);
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
-				6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6CBBFB622C5170D900FE77DC /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6CA1E2AE2C08F5C90023546E /* Products */;
 			projectDirPath = "";
@@ -801,7 +800,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		6CBBFB622C5170D900FE77DC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -812,9 +811,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6C849ED72C4D1BC0002C551B /* Alamofire */ = {
+		6CBBFB632C5170D900FE77DC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 6CBBFB622C5170D900FE77DC /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -9,8 +9,12 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUsecase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
+    
+    @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUseCase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())), logoutUseCase: LogoutUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
+    
+    @Binding var popToLogin: Bool
+    
+    @State var isBiometric = ChitChatDefaultsManager.shared.isBiometricEnabled
     
     var body: some View {
         
@@ -45,7 +49,7 @@ struct ProfileView: View {
                 // Profile Picture and Info
                 HStack() {
                     ZStack{
-                        Image(viewModel.avatar)
+                        Image(viewModel.avatar.isEmpty ? "userPicDefault" : viewModel.avatar)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 120, height: 120)
@@ -65,11 +69,29 @@ struct ProfileView: View {
                 
                 // Opciones
                 VStack(spacing: 0) {
-                    OptionRow(iconName: "passwordIcon", text: "Cambiar contraseña")
+                    
+                    HStack{
+                        Text(LocalizedStringKey("Biometric"))
+                            .font(.headline)
+                        Spacer()
+                        Toggle("", isOn: $isBiometric)
+                            .labelsHidden()
+                    }.padding(20)
+//                    OptionRow(iconName: "passwordIcon", text: "Cambiar contraseña")
+//                    
+//                    Divider().padding(.leading, 16)
+
+                    Button(action: {
+                        viewModel.logout {
+                            self.popToLogin = false
+                        }
+                    }, label: {
+                        OptionRow(iconName: "logoutIcon", text: "Cerrar sesión")
+                    })
                     
                     Divider().padding(.leading, 16)
                     
-                    OptionRow(iconName: "logoutIcon", text: "Cerrar sesión")
+                    
                 }
                 .padding()
                 
@@ -78,6 +100,9 @@ struct ProfileView: View {
             .background(Color.white)
         }.navigationBarHidden(true).onAppear {
             viewModel.showProfile()
+        }
+        .onChange(of: isBiometric) { isBiometric in
+            viewModel.onBiometricToggleTouch(newValue: isBiometric)
         }
     }
 }
@@ -107,9 +132,9 @@ struct OptionRow: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
+//struct ProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileView()
+//    }
+//}
 

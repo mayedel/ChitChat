@@ -43,11 +43,11 @@ struct RegisterView: View {
                     RegisterButton(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname, navigate: $navigate)
                     Spacer()
                 }
-                NavigationLink(destination: ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))),
-                    isActive: $navigate,
-                    label: {
-                        EmptyView()
-                    })
+//                NavigationLink(destination: ActiveChatsView(rootIsActive: <#Binding<Bool>#>),
+//                    isActive: $navigate,
+//                    label: {
+//                        EmptyView()
+//                    })
             }
         }.navigationBarHidden(true)
     }

@@ -7,11 +7,9 @@
 import SwiftUI
 
 struct ActiveChatsView: View {
-    @StateObject private var viewModel: ActiveChatsViewModel
+    @StateObject private var viewModel: ActiveChatsViewModel = ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))
     
-    init(viewModel: ActiveChatsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @Binding var rootIsActive: Bool
     
     var body: some View {
         NavigationView {
@@ -22,7 +20,7 @@ struct ActiveChatsView: View {
                             .font(.title)
                             .bold()
                         Spacer()
-                        NavigationLink(destination: ProfileView()) {
+                        NavigationLink(destination: ProfileView(popToLogin: self.$rootIsActive)) {
                             Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
                                 .resizable()
                                 .scaledToFit()
@@ -157,9 +155,9 @@ struct ConversationRow: View {
 
 
 
-
-struct ActiveChatsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager()))))
-    }
-}
+//
+//struct ActiveChatsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActiveChatsView(rootIsActive: false)
+//    }
+//}

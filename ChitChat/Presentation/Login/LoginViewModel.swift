@@ -20,9 +20,11 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
     @Published var error: String = ""
 
     private let loginUseCase: LoginUseCase
+    private let loginWithBiometricUseCase: LoginWithBiometricUseCase
    
-    init(loginUseCase: LoginUseCase) {
+    init(loginUseCase: LoginUseCase, loginWithBiometricUseCase: LoginWithBiometricUseCase) {
         self.loginUseCase = loginUseCase
+        self.loginWithBiometricUseCase = loginWithBiometricUseCase
     }
 
     
@@ -53,6 +55,25 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
                 completion(false)
             }
         }
-        
+    }
+    
+    func loginWithBiometric(completion: @escaping () -> Void) {
+        loginWithBiometricUseCase.loginWithBiometric { response in
+            switch response {
+            case .success(let data):
+                ChitChatDefaultsManager.shared.token = data.token
+                completion()
+            case .failure(let error):
+                guard let code = error.code else { return }
+                switch code {
+                case 401:
+                    self.userExist = true
+                    self.passCorrect = false
+                    self.error = LocalizedStringKey.init("Unauthorized").stringValue()
+                default:
+                    self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+                }
+            }
+        }
     }
 }

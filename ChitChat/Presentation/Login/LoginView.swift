@@ -12,7 +12,7 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var useBiometrics: Bool = false
-    @State var navigate = false
+    @State var isActive: Bool = false
     
     @State var presentAlert = false
     
@@ -58,19 +58,11 @@ struct LoginView: View {
                             Text(viewModel.error).foregroundColor(.red)
                         }
                         
-                        
-                        HStack{
-                            Text(LocalizedStringKey("Biometric"))
-                                .font(.headline)
-                            Spacer()
-                            Toggle("", isOn: $useBiometrics)
-                                .labelsHidden()
-                        }
                         VStack{
                             Button(action: {
                                 viewModel.userLogin(login: self.username, password: self.password) { success in
                                     if(success) {
-                                        navigate = true
+                                        isActive = true
                                     } else {
                                         presentAlert.toggle()
                                     }
@@ -87,6 +79,26 @@ struct LoginView: View {
                             .padding(.horizontal, 60)
                             .padding(.top, 16)
                             Spacer().frame(height: 200)
+                            
+                            if ChitChatDefaultsManager.shared.isBiometricEnabled {
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        BiometricAuthentication().authenticationWithBiometric {
+                                            viewModel.loginWithBiometric {
+                                                isActive = true
+                                            }
+                                        } onFailure: { error in
+                                            
+                                        }
+
+                                    }, label: {
+                                        Image("biometric")
+                                    })
+                                    Spacer()
+                                }.padding(.bottom, 20)
+                            }
+                            
                             Text(LocalizedStringKey("DontHaveAnAccount"))
                             
                             NavigationLink {
@@ -99,11 +111,12 @@ struct LoginView: View {
                         }
                     }.padding(.horizontal, 50)
                     
-                    NavigationLink(destination:ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))),
-                        isActive: $navigate,
-                        label: {
-                            EmptyView()
-                        })
+                    NavigationLink(
+                        destination: ActiveChatsView(rootIsActive: self.$isActive),
+                        isActive: self.$isActive
+                    ) {
+                        EmptyView()
+                    }.isDetailLink(false)
                 }
                 
                 if presentAlert{
@@ -122,6 +135,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(loginUseCase: LoginUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
+        LoginView(viewModel: LoginViewModel(loginUseCase: LoginUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())), loginWithBiometricUseCase: LoginWithBiometricUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))
     }
 }

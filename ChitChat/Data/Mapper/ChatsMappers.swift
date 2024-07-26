@@ -12,7 +12,7 @@ class ChatMapper {
         return chats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
-                return nil
+                return Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, isOnline: false, source: "")
             }
             
             let lastReadMessage = ChitChatDefaultsManager.shared.getLastReadMessage(chatId: chat.id)

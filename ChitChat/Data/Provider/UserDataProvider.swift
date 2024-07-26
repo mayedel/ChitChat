@@ -14,7 +14,7 @@ protocol UserDataProviderProtocol {
     func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void)
     func biometricLogin(token: String, completion: @escaping (Result<LoginBiometricModel, ErrorModel>) -> Void)
     func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
+    func changeOnlineStatus(status: Bool, token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
     func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, ErrorModel>) -> Void)
 }
 
@@ -92,8 +92,8 @@ class UserDataProvider: UserDataProviderProtocol {
         }
     }
     
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
-        usersService.changeOnlineStatus(token: token) { result in
+    func changeOnlineStatus(status: Bool, token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
+        usersService.changeOnlineStatus(status: status, token: token) { result in
             switch result {
             case .success(let message):
                 completion(.success(message))

@@ -62,6 +62,8 @@ struct LoginView: View {
                             Button(action: {
                                 viewModel.userLogin(login: self.username, password: self.password) { success in
                                     if(success) {
+                                        username = ""
+                                        password = ""
                                         isActive = true
                                     } else {
                                         presentAlert.toggle()
@@ -86,6 +88,8 @@ struct LoginView: View {
                                     Button(action: {
                                         BiometricAuthentication().authenticationWithBiometric {
                                             viewModel.loginWithBiometric {
+                                                username = ""
+                                                password = ""
                                                 isActive = true
                                             }
                                         } onFailure: { error in

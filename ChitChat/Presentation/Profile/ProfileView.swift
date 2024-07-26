@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUseCase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())), logoutUseCase: LogoutUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
+    @ObservedObject var viewModel: ProfileViewModelImpl = ProfileViewModelImpl(profileUseCase: ProfileUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())), logoutUseCase: LogoutUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())), changeOnlineStatusUseCase: ChangeOnlineStatusUseCase(userDataProvider: UserDataProvider(apiManager: APIManager())))
     
     @Binding var popToLogin: Bool
     

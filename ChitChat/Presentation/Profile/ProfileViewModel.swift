@@ -21,10 +21,12 @@ class ProfileViewModelImpl: ProfileViewModel, ObservableObject {
 
     private let profileUseCase: ProfileUseCase
     private let logoutUseCase: LogoutUseCase
+    private let changeOnlineStatusUseCase: ChangeOnlineStatusUseCase
     
-    init(profileUseCase: ProfileUseCase, logoutUseCase: LogoutUseCase) {
+    init(profileUseCase: ProfileUseCase, logoutUseCase: LogoutUseCase, changeOnlineStatusUseCase: ChangeOnlineStatusUseCase) {
         self.profileUseCase = profileUseCase
         self.logoutUseCase = logoutUseCase
+        self.changeOnlineStatusUseCase = changeOnlineStatusUseCase
     }
     
     func showProfile() {
@@ -50,6 +52,7 @@ class ProfileViewModelImpl: ProfileViewModel, ObservableObject {
                 ChitChatDefaultsManager.shared.token = ""
                 ChitChatDefaultsManager.shared.avatar = ""
                 ChitChatDefaultsManager.shared.userId = ""
+                self.changeOnlineStatus(status: false)
                 completion()
             case .failure(let error):
                 guard let code = error.code else { return }
@@ -67,5 +70,22 @@ class ProfileViewModelImpl: ProfileViewModel, ObservableObject {
         ChitChatDefaultsManager.shared.isBiometricEnabled = newValue
     }
     
+    func changeOnlineStatus(status: Bool) {
+        changeOnlineStatusUseCase.changeOnlineStatusUseCase(status: status) { response in
+            switch response {
+            case .success(_): break
+            case .failure(let error):
+                guard let code = error.code else { return }
+                switch code {
+                case 400:
+                    self.error = LocalizedStringKey.init("UnknowParameterError").stringValue()
+                case 401:
+                    self.error = LocalizedStringKey.init("Unauthorized").stringValue()
+                default:
+                    self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+                }
+            }
+        }
+    }
     
 }

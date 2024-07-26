@@ -99,8 +99,7 @@ struct ChatView: View {
                             }
                         }
                     }) {
-                        Image(systemName: "paperplane.fill")
-                            .foregroundColor(Color(red: 0/255, green: 148/255, blue: 184/255))
+                        Image("send_message")
                     }
                 }
                 .padding()

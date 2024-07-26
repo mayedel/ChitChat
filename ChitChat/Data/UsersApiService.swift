@@ -14,7 +14,7 @@ protocol UsersAPIServiceProtocol {
     func loginUser(login: String, password: String, completion: @escaping (Result<LoginModel, ErrorModel>) -> Void)
     func biometricLogin(token: String, completion: @escaping (Result<LoginBiometricModel, ErrorModel>) -> Void)
     func logoutUser(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
+    func changeOnlineStatus(status: Bool, token: String, completion: @escaping (Result<String, ErrorModel>) -> Void)
     func registerUser(user: RegisterUserModel, completion: @escaping (Result<RegisterModel, ErrorModel>) -> Void)
     func uploadUser(id: String, token: String, parameters: [String: String], file: Data?, completion: @escaping (Result<String, ErrorModel>) -> Void)
 }
@@ -98,9 +98,9 @@ class UsersAPIService: UsersAPIServiceProtocol {
         }
     }
     
-    func changeOnlineStatus(token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
+    func changeOnlineStatus(status: Bool, token: String, completion: @escaping (Result<String, ErrorModel>) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "\(token)"]
-        apiManager.request(endpoint: "api/users/online/true", method: .put, headers: headers, body: nil) { (result: Result<MessageResponse, AFError>) in
+        apiManager.request(endpoint: "api/users/online/\(status)", method: .put, headers: headers, body: nil) { (result: Result<MessageResponse, AFError>) in
             switch result {
             case .success(let response):
                 completion(.success(response.message))

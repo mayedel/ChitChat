@@ -9,42 +9,40 @@ import SwiftUI
 
 enum AlertType {
     case success
-    case error(title: String, message: String = "")
+    case error(title: String, message: String, icon: String)
     
-    func title() -> String {
+    var title: String {
         switch self {
-        case .error(title: let title, message: _):
+        case .error(let title, _, _):
             return title
         case .success:
             return ""
         }
     }
     
-    func message() -> String {
+    var message: String {
         switch self {
-        case .error(_, message: let message):
+        case .error(_, let message, _):
             return message
         case .success:
             return ""
         }
     }
     
-    var leftActionText: String {
+    var icon: String {
         switch self {
-        case .error( _, _):
-            return LocalizedStringKey("Cancel").stringValue()
+        case .error(_, _, let icon):
+            return icon
         case .success:
-            return LocalizedStringKey("Cancel").stringValue()
+            return ""
         }
     }
     
+    var leftActionText: String {
+        return "Cancelar"
+    }
+    
     var rightActionText: String {
-        switch self {
-        case .error(title: _, message: _):
-            return LocalizedStringKey("Accept").stringValue()
-        case .success:
-            return LocalizedStringKey("Accept").stringValue()
-        }
+        return "Aceptar"
     }
 }
-

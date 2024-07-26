@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State private var isActive = false
+    @State private var navigationEnter: NavigationEnter = .splash
     @State private var opacity = 0.5
     @State private var size = 0.8
     @StateObject var viewModel: LoginViewModel
@@ -18,35 +18,46 @@ struct SplashView: View {
     }
     
     var body: some View {
-           if isActive {
-              LoginView(viewModel: viewModel)
-           } else {
-               VStack {
-                   VStack {
-                       Image("logo")
-                           .resizable()
-                           .scaledToFit()
-                           .frame(width: 150,height: 150)
-                      
-                   }
-                   .scaleEffect(size)
-                   .opacity(opacity)
-                   .onAppear {
-                       withAnimation(.easeIn(duration: 1.2)) {
-                           self.size = 0.9
-                           self.opacity = 1.00
-                       }
-                   }
-               }
-               .onAppear {
-                   DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                       withAnimation {
-                           self.isActive = true
-                       }
-                   }
-               }
-           }
-       }
+        switch navigationEnter {
+        case .login:
+            LoginView(viewModel: viewModel)
+        case .activeChats:
+            ActiveChatsView()
+        case .splash:
+            VStack {
+                VStack {
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150,height: 150)
+                   
+                }
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.2)) {
+                        self.size = 0.9
+                        self.opacity = 1.00
+                    }
+                }
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    viewModel.loginWithBiometric { success in
+                        if success {
+                            withAnimation {
+                                self.navigationEnter = .activeChats
+                            }
+                        } else {
+                            withAnimation {
+                                self.navigationEnter = .login
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 struct SplashView_Previews: PreviewProvider {
     static var previews: some View {

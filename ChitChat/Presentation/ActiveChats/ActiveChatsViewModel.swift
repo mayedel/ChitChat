@@ -111,7 +111,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
             deleteChat(conversation: conversation)
         } else {
             self.conversationToDelete = conversation
-            self.alertType = .error(title: "No puedes eliminar esta conversación de la base de datos", message: "¿Quieres eliminarla de tu lista de conversaciones?")
+            self.alertType = .error(title: "No puedes eliminar esta conversación de la base de datos", message: "¿Quieres eliminarla de tu lista de conversaciones?", icon: "")
             self.showCustomAlert = true
         }
     }

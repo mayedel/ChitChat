@@ -12,9 +12,9 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var useBiometrics: Bool = false
-    @State var isActive: Bool = false
     
-    @State var presentAlert = false
+    @State var presentAlertBiometric = false
+    @State var navigate: Bool = false
     
     @StateObject var viewModel: LoginViewModel
     
@@ -48,7 +48,7 @@ struct LoginView: View {
                         
                         Text(LocalizedStringKey("Password"))
                             .font(.headline)
-                        TextField(LocalizedStringKey("EnterYourPass"), text: $password)
+                        SecureField(LocalizedStringKey("EnterYourPass"), text: $password)
                             .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
@@ -64,9 +64,8 @@ struct LoginView: View {
                                     if(success) {
                                         username = ""
                                         password = ""
-                                        isActive = true
+                                        presentAlertBiometric.toggle()
                                     } else {
-                                        presentAlert.toggle()
                                     }
                                 }
                             }) {
@@ -87,15 +86,14 @@ struct LoginView: View {
                                     Spacer()
                                     Button(action: {
                                         BiometricAuthentication().authenticationWithBiometric {
-                                            viewModel.loginWithBiometric {
+                                            viewModel.loginWithBiometric { _ in
                                                 username = ""
                                                 password = ""
-                                                isActive = true
+                                                navigate = true
                                             }
                                         } onFailure: { error in
                                             
                                         }
-
                                     }, label: {
                                         Image("biometric")
                                     })
@@ -114,24 +112,37 @@ struct LoginView: View {
                             }
                         }
                     }.padding(.horizontal, 50)
-                    
-                    NavigationLink(
-                        destination: ActiveChatsView(rootIsActive: self.$isActive),
-                        isActive: self.$isActive
-                    ) {
-                        EmptyView()
-                    }.isDetailLink(false)
                 }
                 
-                if presentAlert{
-                    CustomAlert(presentAlert: $presentAlert, alertType: .error(title: LocalizedStringKey("Error").stringValue(), message: viewModel.error)) {
-                        presentAlert.toggle()
+                if presentAlertBiometric {
+                    CustomAlert(presentAlert: $presentAlertBiometric, alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "message")) {
+                        presentAlertBiometric.toggle()
+                        ChitChatDefaultsManager.shared.isBiometricEnabled = false
                     } rightButtonAction: {
-                        presentAlert.toggle()
+                        presentAlertBiometric.toggle()
+                        ChitChatDefaultsManager.shared.isBiometricEnabled = true
+                        navigate = true
                     }
                 }
+                
+                NavigationLink(
+                    destination: ActiveChatsView(),
+                    isActive: self.$navigate
+                ) {
+                    EmptyView()
+                }.isDetailLink(false)
             }
-        }
+        }.onAppear {
+            if ChitChatDefaultsManager.shared.isBiometricEnabled {
+                BiometricAuthentication().authenticationWithBiometric {
+                    viewModel.loginWithBiometric { _ in
+                        navigate = true
+                    }
+                } onFailure: { error in
+                    
+                }
+            }
+        }.navigationBarHidden(true)
     }
 }
 

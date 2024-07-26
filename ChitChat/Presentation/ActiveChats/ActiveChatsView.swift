@@ -9,8 +9,6 @@ import SwiftUI
 struct ActiveChatsView: View {
     @StateObject private var viewModel: ActiveChatsViewModel = ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))
     
-    @Binding var rootIsActive: Bool
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -20,10 +18,11 @@ struct ActiveChatsView: View {
                             .font(.title)
                             .bold()
                         Spacer()
-                        NavigationLink(destination: ProfileView(popToLogin: self.$rootIsActive)) {
+                        NavigationLink(destination: ProfileView()) {
                             Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
                                 .resizable()
                                 .scaledToFit()
+                                .clipShape(Circle())
                                 .frame(width: 70, height: 70)
                         }
                     }
@@ -155,9 +154,9 @@ struct ConversationRow: View {
 
 
 
-//
-//struct ActiveChatsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ActiveChatsView(rootIsActive: false)
-//    }
-//}
+
+struct ActiveChatsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ActiveChatsView()
+    }
+}

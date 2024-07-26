@@ -19,14 +19,21 @@ struct BiometricAuthentication {
     
     public func authenticationWithBiometric(policy: LAPolicy = .deviceOwnerAuthenticationWithBiometrics, reason: String = "Autenticación requerida para continuar", onSuccess: @escaping () -> Void, onFailure: @escaping (LAError) -> Void) {
         
-        localAuthenticationContext.evaluatePolicy(policy, localizedReason: reason) { success, error in
-            if success {
-                onSuccess()
-            } else {
-                if let error = error as? LAError {
-                    onFailure(error)
+        var error: NSError?
+        
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            localAuthenticationContext.evaluatePolicy(policy, localizedReason: reason) { success, error in
+                if success {
+                    onSuccess()
+                } else {
+                    if let error = error as? LAError {
+                        print(error.localizedDescription)
+                    }
                 }
             }
+            
+        } else {
+            print("El dispositivo no soporta autenticación biométrica")
         }
     }
 }

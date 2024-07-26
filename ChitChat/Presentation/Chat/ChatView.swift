@@ -42,6 +42,7 @@ struct ChatView: View {
                             Text(conversation.name)
                                 .font(.title2)
                                 .bold()
+                                .multilineTextAlignment(.leading)
                             Spacer()
                         }
                     }

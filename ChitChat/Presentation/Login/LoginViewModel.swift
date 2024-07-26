@@ -57,12 +57,12 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
         }
     }
     
-    func loginWithBiometric(completion: @escaping () -> Void) {
+    func loginWithBiometric(completion: @escaping (Bool) -> Void) {
         loginWithBiometricUseCase.loginWithBiometric { response in
             switch response {
             case .success(let data):
                 ChitChatDefaultsManager.shared.token = data.token
-                completion()
+                completion(true)
             case .failure(let error):
                 guard let code = error.code else { return }
                 switch code {
@@ -73,6 +73,7 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
                 default:
                     self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
                 }
+                completion(false)
             }
         }
     }

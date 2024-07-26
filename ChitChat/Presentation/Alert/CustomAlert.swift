@@ -25,12 +25,12 @@ struct CustomAlert: View {
             
             VStack(spacing: 0) {
                 HStack {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.system(size: 24))
+                    Image(alertType.icon).resizable().scaledToFit()
+                        .frame(width: 20,height: 20)
                         .foregroundColor(.black)
                         .padding(.leading, 16)
                     
-                    Text(alertType.title())
+                    Text(alertType.title)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
@@ -40,47 +40,50 @@ struct CustomAlert: View {
                     Spacer()
                 }
                 
-                Text(alertType.message())
-                    .font(.system(size: 14))
-                    .foregroundColor(.black)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
-                    .minimumScaleFactor(0.5)
+                HStack {
+                    Text(alertType.message)
+                        .font(.system(size: 14))
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.leading)
+                        .padding(.bottom, 16)
+                        .minimumScaleFactor(0.5)
+                    .background(Color.white)
+                }
                 
-                Divider()
-                    .background(Color.gray)
-                
-                HStack(spacing: 0) {
-                        Button {
-                            leftButtonAction?()
-                            presentAlert = false
-                        } label: {
-                            Text(alertType.leftActionText)
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.black)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
-                        }
-                        Divider()
-                            .background(Color.gray)
-                    
+                HStack(spacing: 5) {
+                    Button {
+                        leftButtonAction?()
+                        presentAlert = false
+                    } label: {
+                        Text(alertType.leftActionText)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
+                    }
+                    .background(Color.gray.opacity(0.3))
+                    .buttonBorderShape(.roundedRectangle).cornerRadius(10.0)
+                    Spacer(minLength: 3)
                     Button {
                         rightButtonAction?()
                         presentAlert = false
                     } label: {
                         Text(alertType.rightActionText)
                             .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.customBlue)
+                            .foregroundColor(.black)
+                            .padding()
                             .multilineTextAlignment(.center)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
                     }
+                    .background(Color.customBlue)
+                    .buttonBorderShape(.roundedRectangle).cornerRadius(10.0)
                     
-                }
+                }.padding(.horizontal, 15)
+                .padding(.bottom, 15)
                 
             }
-            .frame(width: 270, height: 220)
+            .frame(width: 270)
             .background(
                 Color.white
             )
@@ -96,7 +99,7 @@ struct CustomAlert_Previews: PreviewProvider {
     static var previews: some View {
         CustomAlert(
             presentAlert: $showAlert,
-            alertType: .error(title: "¿Eliminar chat?", message: "Al no ser el creador de la conversación no puedes borrarla de la base de datos, ¿quieres eliminarla de tu lista de conversaciones?"),
+            alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "message"),
             leftButtonAction: {
                 showAlert = false
             },
@@ -104,6 +107,6 @@ struct CustomAlert_Previews: PreviewProvider {
                 showAlert = false
             }
         )
-            .previewLayout(.sizeThatFits)
+        .previewLayout(.sizeThatFits)
     }
 }

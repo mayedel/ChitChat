@@ -7,11 +7,7 @@
 import SwiftUI
 
 struct ActiveChatsView: View {
-    @StateObject private var viewModel: ActiveChatsViewModel
-    
-    init(viewModel: ActiveChatsViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @StateObject private var viewModel: ActiveChatsViewModel = ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))
     
     var body: some View {
         NavigationView {
@@ -26,6 +22,7 @@ struct ActiveChatsView: View {
                             Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
                                 .resizable()
                                 .scaledToFit()
+                                .clipShape(Circle())
                                 .frame(width: 70, height: 70)
                         }
                     }
@@ -160,6 +157,6 @@ struct ConversationRow: View {
 
 struct ActiveChatsView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager()))))
+        ActiveChatsView()
     }
 }

@@ -17,11 +17,7 @@ struct RegisterView: View {
     
     @State var navigate = false
     
-    @StateObject private var viewModel: RegisterViewModel
-    
-    init(viewModel: RegisterViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @ObservedObject var viewModel: RegisterViewModel
     
     var body: some View {
         NavigationView {
@@ -43,7 +39,7 @@ struct RegisterView: View {
                     RegisterButton(viewModel: viewModel, username: $username, password: $password, repeatPassword: $repeatPassword, nickname: $nickname, navigate: $navigate)
                     Spacer()
                 }
-                NavigationLink(destination: ActiveChatsView(viewModel: ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))),
+                NavigationLink(destination: ActiveChatsView(),
                     isActive: $navigate,
                     label: {
                         EmptyView()

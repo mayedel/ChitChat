@@ -25,6 +25,8 @@
 "DontHaveAnAccount" = "¿Don't have an account?";
 "Register" = "Register";
 "Error" = "Error";
+"BiometricAccess" = "Biometric Access";
+"BiometricMessage" = "Would you like to enable biometric access?";
 
 //REGISTRO
 "UserRegistration" = "User Registration";
@@ -51,6 +53,9 @@
 
 //PROFILE
 "Profile" = "Profile";
+"UnknowParameterError" = "Unknow parameter";
+"LogOut" = "¿Log out?";
+"LogOutMessage" = "Are you sure you want to log out?";
 
 //CONTACTOS
 "Contacts" = "Contacts";

@@ -26,6 +26,9 @@
 "DontHaveAnAccount" = "¿No tienes una cuenta?";
 "Register" = "Regístrate";
 "Error" = "Error";
+"BiometricAccess" = "Acceso Biométrico";
+"BiometricMessage" = "¿Desea activar el acceso biométrico?";
+
 
 //REGISTRO
 "UserRegistration" = "Registro de usuario";
@@ -52,6 +55,9 @@
 
 //PROFILE
 "Profile" = "Perfil";
+"UnknowParameterError" = "Parámetro desconocido";
+"LogOut" = "¿Cerrar sesión?";
+"LogOutMessage" = "¿Estás seguro de que quieres cerrar sesión?";
 
 //CONTACTOS
 "Contacts" = "Contactos";

@@ -52,7 +52,7 @@ extension DateFormatter {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         if let date = dateFormatter.date(from: dateString) {
             if Calendar.current.isDateInToday(date) {
-                dateFormatter.dateFormat = "HH:mm"
+                return fixedServerHour(messageTime: dateString)
             } else {
                 dateFormatter.dateFormat = "dd/MM/yy" 
             }

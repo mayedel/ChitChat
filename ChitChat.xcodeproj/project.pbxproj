@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		470D55622C4A9B72003C9545 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470D55612C4A9B72003C9545 /* SplashView.swift */; };
 		471C32382C4949A600BA02FD /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C32372C4949A600BA02FD /* ChatView.swift */; };
+		47ACCD7B2C548C0D003B2971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47ACCD7A2C548C0D003B2971 /* GoogleService-Info.plist */; };
+		47ACCD7E2C548C6F003B2971 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 47ACCD7D2C548C6F003B2971 /* FirebaseAnalytics */; };
+		47ACCD802C548C6F003B2971 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 47ACCD7F2C548C6F003B2971 /* FirebaseCrashlytics */; };
+		47ACCD822C548C6F003B2971 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 47ACCD812C548C6F003B2971 /* FirebaseMessaging */; };
 		6C20B5562C4EC3EF00207C6E /* _.vass.es.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6C20B5552C4EC3EF00207C6E /* _.vass.es.pem */; };
 		6C5333202C1B557300CA76C4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53331F2C1B557300CA76C4 /* ApiManager.swift */; };
 		6C5333272C1B56A600CA76C4 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */; };
@@ -89,6 +93,7 @@
 /* Begin PBXFileReference section */
 		470D55612C4A9B72003C9545 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		471C32372C4949A600BA02FD /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		47ACCD7A2C548C0D003B2971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6C20B5552C4EC3EF00207C6E /* _.vass.es.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _.vass.es.pem; sourceTree = "<group>"; };
 		6C53331F2C1B557300CA76C4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		6C5333262C1B56A600CA76C4 /* UserDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
@@ -160,6 +165,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47ACCD822C548C6F003B2971 /* FirebaseMessaging in Frameworks */,
+				47ACCD802C548C6F003B2971 /* FirebaseCrashlytics in Frameworks */,
+				47ACCD7E2C548C6F003B2971 /* FirebaseAnalytics in Frameworks */,
 				6C849ED82C4D1BC0002C551B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +275,7 @@
 		6CA1E2AF2C08F5C90023546E /* ChitChat */ = {
 			isa = PBXGroup;
 			children = (
+				47ACCD7A2C548C0D003B2971 /* GoogleService-Info.plist */,
 				7E0F4BE62C5117F400C15222 /* Info.plist */,
 				6C9F1BF02C21987400DF0E7B /* Model */,
 				7E6F6DC02C3808FD001EFAB4 /* Resources */,
@@ -490,6 +499,7 @@
 				6CA1E2AA2C08F5C90023546E /* Frameworks */,
 				6CA1E2AB2C08F5C90023546E /* Resources */,
 				471C323F2C494B3E00BA02FD /* Embed Frameworks */,
+				47ACCD832C548CBE003B2971 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -498,6 +508,9 @@
 			name = ChitChat;
 			packageProductDependencies = (
 				6C849ED72C4D1BC0002C551B /* Alamofire */,
+				47ACCD7D2C548C6F003B2971 /* FirebaseAnalytics */,
+				47ACCD7F2C548C6F003B2971 /* FirebaseCrashlytics */,
+				47ACCD812C548C6F003B2971 /* FirebaseMessaging */,
 			);
 			productName = ChitChat;
 			productReference = 6CA1E2AD2C08F5C90023546E /* ChitChat.app */;
@@ -530,6 +543,7 @@
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
 				6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				47ACCD7C2C548C6F003B2971 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 6CA1E2AE2C08F5C90023546E /* Products */;
 			projectDirPath = "";
@@ -546,12 +560,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */,
+				47ACCD7B2C548C0D003B2971 /* GoogleService-Info.plist in Resources */,
 				6C20B5562C4EC3EF00207C6E /* _.vass.es.pem in Resources */,
 				7E6F6DC32C380980001EFAB4 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47ACCD832C548CBE003B2971 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6CA1E2A92C08F5C90023546E /* Sources */ = {
@@ -670,7 +711,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -759,6 +800,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = UMG3XG3ASF;
 				ENABLE_PREVIEWS = YES;
@@ -838,6 +880,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		47ACCD7C2C548C6F003B2971 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.29.0;
+			};
+		};
 		6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -849,6 +899,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		47ACCD7D2C548C6F003B2971 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47ACCD7C2C548C6F003B2971 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		47ACCD7F2C548C6F003B2971 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47ACCD7C2C548C6F003B2971 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		47ACCD812C548C6F003B2971 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47ACCD7C2C548C6F003B2971 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		6C849ED72C4D1BC0002C551B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */;

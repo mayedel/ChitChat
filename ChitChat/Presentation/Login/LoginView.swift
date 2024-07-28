@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import Firebase
+import FirebaseAnalytics
 
 struct LoginView: View {
     @State private var username: String = ""
@@ -65,6 +67,10 @@ struct LoginView: View {
                                         username = ""
                                         password = ""
                                         presentAlertBiometric.toggle()
+                                        Analytics.logEvent(AnalyticsEventScreenView,
+                                                                   parameters: [AnalyticsParameterScreenName: "\(LoginView.self)",
+                                                                                AnalyticsParameterScreenClass: "\(LoginView.self)"])
+                                    
                                     } else {
                                     }
                                 }
@@ -115,9 +121,10 @@ struct LoginView: View {
                 }
                 
                 if presentAlertBiometric {
-                    CustomAlert(presentAlert: $presentAlertBiometric, alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "message")) {
+                    CustomAlert(presentAlert: $presentAlertBiometric, alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "biometric")) {
                         presentAlertBiometric.toggle()
                         ChitChatDefaultsManager.shared.isBiometricEnabled = false
+                        navigate = true
                     } rightButtonAction: {
                         presentAlertBiometric.toggle()
                         ChitChatDefaultsManager.shared.isBiometricEnabled = true

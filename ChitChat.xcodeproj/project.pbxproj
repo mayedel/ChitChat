@@ -62,6 +62,9 @@
 		7E8890832C5183C300903931 /* LoginBiometricModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8890822C5183C300903931 /* LoginBiometricModel.swift */; };
 		7ED081802C54025000FE9885 /* ChangeOnlineStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED0817F2C54025000FE9885 /* ChangeOnlineStatusUseCase.swift */; };
 		7ED081822C542A2C00FE9885 /* NavigationEnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED081812C542A2C00FE9885 /* NavigationEnter.swift */; };
+		7ED081852C54411600FE9885 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED081842C54411600FE9885 /* FirebaseAnalytics */; };
+		7ED0818A2C54458D00FE9885 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED081892C54458D00FE9885 /* FirebaseAnalyticsSwift */; };
+		7ED0818C2C544F9800FE9885 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ED0818B2C544F9800FE9885 /* GoogleService-Info.plist */; };
 		7ED4EC452C4BE03700B50563 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED4EC442C4BE03700B50563 /* ProfileView.swift */; };
 		7ED4EC472C4BE05400B50563 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED4EC462C4BE05400B50563 /* ProfileViewModel.swift */; };
 		7ED4EC4A2C4BE09200B50563 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED4EC492C4BE09200B50563 /* ProfileModel.swift */; };
@@ -144,6 +147,7 @@
 		7E9230FD2C45958600C69E3C /* ChitChatDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChitChatDefaultsManager.swift; sourceTree = "<group>"; };
 		7ED0817F2C54025000FE9885 /* ChangeOnlineStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeOnlineStatusUseCase.swift; sourceTree = "<group>"; };
 		7ED081812C542A2C00FE9885 /* NavigationEnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEnter.swift; sourceTree = "<group>"; };
+		7ED0818B2C544F9800FE9885 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7ED4EC442C4BE03700B50563 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		7ED4EC462C4BE05400B50563 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		7ED4EC492C4BE09200B50563 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ED0818A2C54458D00FE9885 /* FirebaseAnalyticsSwift in Frameworks */,
+				7ED081852C54411600FE9885 /* FirebaseAnalytics in Frameworks */,
 				6C849ED82C4D1BC0002C551B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,7 +258,9 @@
 				6CA1E2AF2C08F5C90023546E /* ChitChat */,
 				6CA1E2B02C08F5C90023546E /* ChitChatApp.swift */,
 				6CA1E2B42C08F5CD0023546E /* Assets.xcassets */,
+				7ED0818B2C544F9800FE9885 /* GoogleService-Info.plist */,
 				6CA1E2AE2C08F5C90023546E /* Products */,
+				7ED081882C54458D00FE9885 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -420,6 +428,13 @@
 			path = Defaults;
 			sourceTree = "<group>";
 		};
+		7ED081882C54458D00FE9885 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7ED4EC432C4BDFFF00B50563 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +513,8 @@
 			name = ChitChat;
 			packageProductDependencies = (
 				6C849ED72C4D1BC0002C551B /* Alamofire */,
+				7ED081842C54411600FE9885 /* FirebaseAnalytics */,
+				7ED081892C54458D00FE9885 /* FirebaseAnalyticsSwift */,
 			);
 			productName = ChitChat;
 			productReference = 6CA1E2AD2C08F5C90023546E /* ChitChat.app */;
@@ -530,6 +547,7 @@
 			mainGroup = 6CA1E2A42C08F5C90023546E;
 			packageReferences = (
 				6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7ED081832C54411600FE9885 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 6CA1E2AE2C08F5C90023546E /* Products */;
 			projectDirPath = "";
@@ -546,6 +564,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CA1E2B52C08F5CD0023546E /* Assets.xcassets in Resources */,
+				7ED0818C2C544F9800FE9885 /* GoogleService-Info.plist in Resources */,
 				6C20B5562C4EC3EF00207C6E /* _.vass.es.pem in Resources */,
 				7E6F6DC32C380980001EFAB4 /* Localizable.strings in Resources */,
 			);
@@ -760,7 +779,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = UMG3XG3ASF;
+				DEVELOPMENT_TEAM = 4LP75YDTX4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChitChat/Info.plist;
@@ -791,7 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = UMG3XG3ASF;
+				DEVELOPMENT_TEAM = 4LP75YDTX4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChitChat/Info.plist;
@@ -846,6 +865,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		7ED081832C54411600FE9885 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.29.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -853,6 +880,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C849ED62C4D1BC0002C551B /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		7ED081842C54411600FE9885 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7ED081832C54411600FE9885 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		7ED081892C54458D00FE9885 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7ED081832C54411600FE9885 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

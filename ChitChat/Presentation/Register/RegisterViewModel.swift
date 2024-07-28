@@ -21,11 +21,11 @@ class RegisterViewModel: ObservableObject {
     
     @Published var avatarSelected: AvatarItem? = nil
     
-    @Published var userExistError: Bool = false
-    @Published var userError: Bool = false
-    @Published var passError: Bool = false
-    @Published var passCorrectRepeatedError: Bool = false
+    @Published var loginError: Bool = false
+    @Published var passwordError: Bool = false
+    @Published var repeatPasswordError: Bool = false
     @Published var nickError: Bool = false
+    
     @Published var errorMessage: String = ""
     
     private let registerUseCase: RegisterUseCase
@@ -41,34 +41,44 @@ class RegisterViewModel: ObservableObject {
         nick: String,
         completion: @escaping (Bool) -> Void
     ) {
+        resetErrors()
+        
         let newUser = RegisterUserModel(login: login, password: password, nick: nick)
         
-        if (login.isEmpty) {
-            userError = true
-            passError = false
-            passCorrectRepeatedError = false
-            nickError = false
-        } else if (password.isEmpty) {
-            userError = false
-            passError = true
-            passCorrectRepeatedError = false
-            nickError = false
-        } else if (password != repeatPassword) {
-            userError = false
-            passError = false
-            passCorrectRepeatedError = true
-            nickError = false
-        } else if (nick.isEmpty)  {
-            userError = false
-            passError = false
-            passCorrectRepeatedError = false
+        if login.isEmpty {
+            loginError = true
+            errorMessage = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        if password.isEmpty {
+            passwordError = true
+            errorMessage = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        if repeatPassword.isEmpty {
+            repeatPasswordError = true
+            errorMessage = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        if nick.isEmpty {
             nickError = true
-        } else {
-            registerUseCase.registerUser(user: newUser) { response in
+            errorMessage = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        
+        if (password != repeatPassword && errorMessage.isEmpty) {
+            self.repeatPasswordError = true
+            errorMessage = LocalizedStringKey.init("PasswordsDontMatch").stringValue()
+        } else if (errorMessage.isEmpty && login.count > 25) {
+            self.loginError = true
+            errorMessage = LocalizedStringKey.init("UserLengthError").stringValue()
+        } else if (errorMessage.isEmpty && nick.count > 25) {
+            self.nickError = true
+            errorMessage = LocalizedStringKey.init("NickLengthError").stringValue()
+        } else if errorMessage.isEmpty {
+            self.registerUseCase.registerUser(user: newUser) { response in
                 switch response {
                 case .success(let data):
-                    self.userExistError = false
-                    self.passCorrectRepeatedError = false
                     self.errorMessage = LocalizedStringKey.init("LoginSuccess").stringValue()
                     ChitChatDefaultsManager.shared.token = data.token
                     ChitChatDefaultsManager.shared.avatar = self.avatarSelected?.image ?? "empty_avatar"
@@ -77,8 +87,10 @@ class RegisterViewModel: ObservableObject {
                     guard let code = error.code else { return }
                     switch code {
                     case 401:
-                        self.userExistError = true
-                        self.passCorrectRepeatedError = false
+                        self.loginError = true
+                        self.repeatPasswordError = false
+                        self.passwordError = false
+                        self.nickError = false
                         self.errorMessage = LocalizedStringKey.init("UserError").stringValue()
                     default:
                         self.errorMessage = LocalizedStringKey.init("LoginDefaultError").stringValue()
@@ -87,5 +99,13 @@ class RegisterViewModel: ObservableObject {
                }
             }
         }
+    }
+    
+    func resetErrors() {
+        errorMessage = ""
+        loginError = false
+        nickError = false
+        passwordError = false
+        repeatPasswordError = false
     }
 }

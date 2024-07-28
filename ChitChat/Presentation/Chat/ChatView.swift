@@ -12,6 +12,7 @@ struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State private var messageText: String = ""
+    @State var textSearch: String = ""
     
     let conversation: Conversation
     
@@ -26,6 +27,7 @@ struct ChatView: View {
                 // Encabezado del chat
                 HStack {
                     Button(action: {
+                        viewModel.isInChat = false
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
@@ -50,7 +52,7 @@ struct ChatView: View {
                 }
                 .padding(.horizontal)
                 .background(Color.white)
-                Text(conversation.isOnline ? "En línea" : "Desconectado")
+                Text(conversation.isOnline ? "En línea" : "")
                     .font(.subheadline)
                     .foregroundColor(conversation.isOnline ? .green : .gray)
                 Divider()
@@ -86,6 +88,7 @@ struct ChatView: View {
                 }
                 
                 // Campo de entrada de mensaje
+                
                 HStack {
                     TextField("Escribe un mensaje...", text: $messageText)
                         .padding()

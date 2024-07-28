@@ -9,8 +9,10 @@
 "Accept" = "Aceptar";
 "Cancel" = "Cancelar";
 
-"UserError" = "Usuario no encontrado";
+"UserError" = "El usuario ya existe";
 "PasswordError" = "Contraseña incorrecta";
+
+"EmptyFieldError" = "Empty Field";
 
 
 //LOGIN
@@ -31,14 +33,16 @@
 
 
 //REGISTRO
-"UserRegistration" = "Registro de usuario";
+"UserRegistration" = "Registro";
 "RepeatYourPassword" = "Repite tu contraseña";
-"EnterYourNick" = "Introduce tu nick";
+"EnterYourNick" = "Ingresa tu nick";
 "EnterYourAvatar" = "Introduce tu avatar";
 "PasswordsDontMatch" = "Las contraseñas no coinciden";
-"SelectAnAvatar" = "Selecciona un avatar";
+"SelectAnAvatar" = "Avatar seleccionado:";
 "UsernameError" = "Introduce un nombre de usuario";
 "UserExistError" = "El usuario ya existe";
+"UserLengthError" = "El usuario no debe exceder 25 caracteres";
+"NickLengthError" = "El nick no debe exceder 25 caracteres";
 
 //ADD NEW CHAT
 "Contacts" = "Contactos";

@@ -16,8 +16,8 @@ struct GetMessagesListUseCase {
         self.messageDataProvider = messageDataProvider
     }
     
-    func getMessagesList(chatId: String, completion: @escaping GetMessagesListResultClosure) {
-        messageDataProvider.getMessagesList(token: ChitChatDefaultsManager.shared.token, chatId: chatId, offset: 0, limit: 100, completion: { result in
+    func getMessagesList(chatId: String, offset: Int = 0, limit: Int = 100, completion: @escaping GetMessagesListResultClosure) {
+        messageDataProvider.getMessagesList(token: ChitChatDefaultsManager.shared.token, chatId: chatId, offset: offset, limit: limit, completion: { result in
             switch result {
             case .success(let data):
                 completion(.success(data))

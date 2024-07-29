@@ -18,6 +18,7 @@ struct Conversation: Identifiable {
     let id: String
     var name: String
     var message: String
+    var messagesUnread: [Message]
     var time: String
     let avatar: String
     var isUnread: Bool

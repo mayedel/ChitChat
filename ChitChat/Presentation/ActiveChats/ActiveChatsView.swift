@@ -51,6 +51,11 @@ struct ActiveChatsView: View {
                             .onDelete(perform: deleteConversation)
                         }
                         .listStyle(PlainListStyle())
+                        .refreshable {
+                            viewModel.getActiveChats { result in
+                                
+                            }
+                        }
                         
                     }
                     

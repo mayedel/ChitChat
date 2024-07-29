@@ -8,11 +8,11 @@
 import Foundation
 
 class ChatMapper {
-    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)]) -> [Conversation] {
+    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)], messagesUnread: [String : [Message]]) -> [Conversation] {
         return chats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
-                return Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, isOnline: false, source: "")
+                return Conversation(id: "", name: "", message: "", messagesUnread: [], time: "", avatar: "", isUnread: false, isOnline: false, source: "")
             }
             
             let lastReadMessage = ChitChatDefaultsManager.shared.getLastReadMessage(chatId: chat.id)
@@ -23,6 +23,7 @@ class ChatMapper {
                 id: chat.id,
                 name: otherUser.nick ?? "",
                 message: lastMessage?.message ?? "",
+                messagesUnread: [],
                 time: DateFormatter.formatDate(dateString:  lastMessage?.date ?? chat.created),
                 avatar: otherUser.avatar,
                 isUnread: false,

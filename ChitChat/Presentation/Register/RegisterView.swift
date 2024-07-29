@@ -60,34 +60,31 @@ struct FormView: View {
         VStack(alignment: .leading, spacing: 10) {
             RegistrationTextField(
                 title: LocalizedStringKey("User").stringValue(),
-                text: $username, validation: viewModel.userExistError,
+                text: $username, validation: viewModel.loginError,
                 hint: LocalizedStringKey("EnterYourUser").stringValue()
             )
-            if viewModel.userExistError {
-                Text(LocalizedStringKey("UserExist"))
-                    .foregroundColor(.red)
-            }
-            if viewModel.userError {
-                Text(LocalizedStringKey("UserError"))
+            if viewModel.loginError {
+                Text(viewModel.errorMessage)
                     .foregroundColor(.red)
             }
             
             RegistrationSecureField(
                 title: LocalizedStringKey("Password").stringValue(),
                 text: $password,
+                validation: viewModel.passwordError,
                 hint: LocalizedStringKey("EnterYourPass").stringValue()
             )
-            if viewModel.passError {
-                Text(LocalizedStringKey("PasswordError"))
+            if viewModel.passwordError {
+                Text(LocalizedStringKey("EmptyFieldError"))
                     .foregroundColor(.red)
             }
             
             RegistrationSecureField(
                 title: LocalizedStringKey("RepeatYourPassword").stringValue(),
-                text: $repeatPassword, validation: viewModel.passCorrectRepeatedError, hint: LocalizedStringKey("RepeatYourPassword").stringValue()
+                text: $repeatPassword, validation: viewModel.repeatPasswordError, hint: LocalizedStringKey("RepeatYourPassword").stringValue()
             )
-            if viewModel.passCorrectRepeatedError {
-                Text(LocalizedStringKey("PasswordsDontMatch").stringValue())
+            if viewModel.repeatPasswordError {
+                Text(viewModel.errorMessage)
                     .foregroundColor(.red)
             }
             
@@ -96,7 +93,7 @@ struct FormView: View {
             )
             
             if viewModel.nickError {
-                Text(LocalizedStringKey("EnterYourNick"))
+                Text(viewModel.errorMessage)
                     .foregroundColor(.red)
             }
             
@@ -113,7 +110,7 @@ struct AvatarSelectionView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(LocalizedStringKey("SelectAnAvatar"))
-                Image(viewModel.avatarSelected?.image ?? "empty_avatar")
+                Image(viewModel.avatarSelected?.image ?? "userPicDefault")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50, height: 50)

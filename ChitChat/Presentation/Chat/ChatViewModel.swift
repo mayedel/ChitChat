@@ -12,6 +12,7 @@ class ChatViewModel: ObservableObject {
     
     @Published var messages: [Message] = []
     @Published var error: String = ""
+    @Published var isInChat: Bool = true
     
     private let getMessagesListUseCase: GetMessagesListUseCase
     private let createMessageUseCase: CreateMessageUseCase
@@ -23,7 +24,7 @@ class ChatViewModel: ObservableObject {
     
     func getMessagesService(chatId: String, completion: @escaping () -> Void) {
         self.getMessagesList(chatId: chatId, completion: completion)
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: isInChat) { timer in
             self.getMessagesList(chatId: chatId, completion: completion)
         }
     }
@@ -57,6 +58,7 @@ class ChatViewModel: ObservableObject {
         createMessageUseCase.createNewMessage(chatId: chatId, message: message) { response in
             switch response {
             case .success(let data):
+                NotificationsManager.sendNotification(message: message)
                 completion(data)
             case .failure(let error):
                 guard let code = error.code else { return }

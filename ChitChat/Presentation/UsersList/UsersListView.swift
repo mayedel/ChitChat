@@ -19,7 +19,6 @@ struct UsersListView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -37,11 +36,11 @@ struct UsersListView: View {
                 .padding()
                 .background(Color.white)
                 
-                SearchBar(text: $viewModel.searchText)
-       
-                Text("Awesome to Chat With")
+                Text(LocalizedStringKey("FindSomeoneToChat").stringValue())
                     .font(.headline)
                     .padding([.leading, .top], 16)
+                
+                SearchBar(text: $viewModel.searchText, textSearchBar: LocalizedStringKey("SearchContact").stringValue())
                 
                 List(viewModel.filteredContacts) { user in
                     Button {
@@ -55,6 +54,9 @@ struct UsersListView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                .refreshable {
+                    viewModel.getUsers()
+                }
                 
                 NavigationLink(
                     destination: LazyView(ChatView(conversation: viewModel.createdConversation)),
@@ -81,10 +83,11 @@ struct LazyView<Content: View>: View {
 
 struct SearchBar: View {
     @Binding var text: String
+    var textSearchBar: String = LocalizedStringKey("SearchConversation").stringValue()
     
     var body: some View {
         HStack {
-            TextField("Buscar...", text: $text)
+            TextField(textSearchBar, text: $text)
                 .padding(7)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)

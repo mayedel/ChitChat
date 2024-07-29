@@ -13,11 +13,14 @@
 "UserError" = "User not found";
 "PasswordError" = "Invalid password";
 
+"EmptyFieldError" = "Campo vacío";
+
+
 //LOGIN
 "LoginDefaultError" = "Some error";
 "LoginSuccess" = "Login successful";
 "User" = "User";
-"EnterYourUser" = "Enter your user";
+"EnterYourUser" = "Enter your username";
 "Password" = "Password";
 "EnterYourPass" = "Enter your password";
 "Biometric" = "Enter with biometric";
@@ -34,18 +37,20 @@
 "EnterYourNick" = "Enter your nick";
 "EnterYourAvatar" = "Enter your avatar";
 "PasswordsDontMatch" = "Passwords do not match";
-"SelectAnAvatar" = "Select an avatar";
+"SelectAnAvatar" = "Selected avatar";
 "UsernameError" = "Enter a username";
-"UserExistError" = "User exist";
+"UserExistError" = "User already exist";
 
 //ADD NEW CHAT
 "Contacts" = "Contacts";
-"SearchForPeople" = "Search for people";
 "FindSomeoneToChat" = "Find someone to chat with";
 "AwesomeToChatWith" = "Awesome to chat with";
+"SearchContact" = "Search contact...";
+
 
 //ACTIVE CHATS
 "Conversations" = "Conversations";
+"SearchConversation" = "Buscar conversación...";
 
 //CHAT
 "NoQueryParams" = "No query params";

@@ -11,86 +11,86 @@ struct ActiveChatsView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                VStack{
-                    HStack{
-                        Text("ChitChat")
-                            .font(.title)
-                            .bold()
-                        Spacer()
-                        NavigationLink(destination: ProfileView()) {
-                            Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
-                                .resizable()
-                                .scaledToFit()
-                                .clipShape(Circle())
-                                .frame(width: 70, height: 70)
-                        }
-                    }
-                    HStack{
-                        Text(LocalizedStringKey("Conversaciones"))
-                            .font(.headline)
-                        Spacer()
-                    }
-                }.padding(20)
-                SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
-                if viewModel.filteredConversations.isEmpty {
-                    Text("No se han encontrado")
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    List {
-                        ForEach(viewModel.filteredConversations) { conversation in
-                            NavigationLink(destination: ChatView(conversation: conversation)) {
-                                ConversationRow(conversation: conversation)
+            ZStack {
+                VStack(spacing: 0) {
+                    VStack {
+                        HStack{
+                            Text("ChitChat")
+                                .font(.title)
+                                .bold()
+                            Spacer()
+                            NavigationLink(destination: ProfileView()) {
+                                Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                                    .frame(width: 48, height: 48)
                             }
-                            .listRowSeparator(.hidden)
                         }
-                        .onDelete(perform: deleteConversation)
+                        HStack{
+                            Text(LocalizedStringKey("Conversaciones"))
+                                .font(.headline)
+                            Spacer()
+                        }
+                    }.padding(20)
+                    SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
+                    if viewModel.filteredConversations.isEmpty {
+                        Text("No se han encontrado")
+                            .foregroundColor(.gray)
+                            .padding()
+                    } else {
+                        List() {
+                            ForEach(viewModel.filteredConversations) { conversation in
+                                ZStack {
+                                    ConversationRow(conversation: conversation)
+                                    NavigationLink(destination: ChatView(conversation: conversation)) {
+                                        EmptyView()
+                                    }.opacity(0.0)
+                                }
+                            }
+                            .onDelete(perform: deleteConversation)
+                        }
+                        .listStyle(PlainListStyle())
+                        
                     }
-                    .listStyle(PlainListStyle())
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
+                            Circle()
+                                .fill(Color.customBlue)
+                                .frame(width: 56, height: 56)
+                                .overlay(
+                                    Image("addChatIcon")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                )
+                        }
+                        .padding()
+                    }
                     
                 }
                 
-                Spacer()
                 
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
-                        Circle()
-                            .fill(Color.customBlue)
-                            .frame(width: 56, height: 56)
-                            .overlay(
-                                Image("addChatIcon")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                            )
-                    }
-                    .padding()
+                if viewModel.showCustomAlert {
+                    CustomAlert(
+                        presentAlert: $viewModel.showCustomAlert,
+                        alertType: viewModel.alertType,
+                        leftButtonAction: {
+                            viewModel.showCustomAlert = false
+                        },
+                        rightButtonAction: {
+                            if let conversation = viewModel.conversationToDelete {
+                                viewModel.hideConversation(conversation: conversation)
+                            }
+                        }
+                    )
                 }
-            }
-            .navigationBarHidden(true)
-            .onAppear {
-                viewModel.getActiveChats { _ in }
             }
         }.navigationBarBackButtonHidden(true)
-        
-        if viewModel.showCustomAlert {
-            CustomAlert(
-                presentAlert: $viewModel.showCustomAlert,
-                alertType: viewModel.alertType,
-                leftButtonAction: {
-                    viewModel.showCustomAlert = false
-                },
-                rightButtonAction: {
-                    if let conversation = viewModel.conversationToDelete {
-                        viewModel.hideConversation(conversation: conversation)
-                    }
-                }
-            )
-        }
     }
-    
-    
     
     private func deleteConversation(at offsets: IndexSet) {
         offsets.forEach { index in
@@ -124,6 +124,7 @@ struct ConversationRow: View {
                     .font(.headline)
                     .fontWeight(.bold)
                 Text(conversation.message)
+                    .lineLimit(1)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .opacity(0.7)

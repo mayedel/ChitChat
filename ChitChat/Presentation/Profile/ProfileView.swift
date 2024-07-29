@@ -35,13 +35,6 @@ struct ProfileView: View {
                             .font(.title)
                         
                         Spacer()
-                        
-                        Button(action: {
-                            // Acción del botón de notificaciones
-                        }) {
-                            Image("notificationIcon").resizable().scaledToFit().frame(width: 30,height: 30)
-                                .foregroundColor(.black)
-                        }
                     }
                     .padding()
                     .background(Color.white)
@@ -78,22 +71,19 @@ struct ProfileView: View {
                             Spacer()
                             Toggle("", isOn: $isBiometric)
                                 .labelsHidden()
-                        }.padding(20)
-    //                    OptionRow(iconName: "passwordIcon", text: "Cambiar contraseña")
-    //
-    //                    Divider().padding(.leading, 16)
+                        }.padding(.horizontal, 10)
 
                         Button(action: {
                             self.presentLogoutAlert = true
                         }, label: {
-                            OptionRow(iconName: "logoutIcon", text: "Cerrar sesión")
+                            OptionRow(iconName: "logout", text: "Cerrar sesión")
                         })
                         
                         Divider().padding(.leading, 16)
                         
                         
                     }
-                    .padding()
+                    .padding(.horizontal, 10)
                     
                     Spacer()
                     

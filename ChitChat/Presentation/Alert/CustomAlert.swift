@@ -28,24 +28,22 @@ struct CustomAlert: View {
                     Image(alertType.icon).resizable().scaledToFit()
                         .frame(width: 20,height: 20)
                         .foregroundColor(.black)
-                        .padding(.leading, 16)
                     
                     Text(alertType.title)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
-                        .padding(.vertical, 16)
-                        .padding(.trailing, 16)
                     
                     Spacer()
-                }
+                }.padding(.top, 16)
+                .padding(.horizontal, 16)
                 
                 HStack {
                     Text(alertType.message)
                         .font(.system(size: 14))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
-                        .padding(.bottom, 16)
+                        .padding(16)
                         .minimumScaleFactor(0.5)
                     .background(Color.white)
                 }

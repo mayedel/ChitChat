@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import Firebase
+import FirebaseAnalytics
 
 struct LoginView: View {
     @State private var username: String = ""
@@ -22,6 +24,13 @@ struct LoginView: View {
     
     init(viewModel: LoginViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        UNUserNotificationCenter.current().requestAuthorization(options:[.alert, .sound, .badge]) { success, error in
+            if success {
+                print("permission granted")
+            }else if let error {
+                print (error.localizedDescription)
+            }
+        }
     }
     
     var body: some View {
@@ -66,6 +75,10 @@ struct LoginView: View {
                                         username = ""
                                         password = ""
                                         presentAlertBiometric.toggle()
+                                        Analytics.logEvent(AnalyticsEventScreenView,
+                                                                   parameters: [AnalyticsParameterScreenName: "\(LoginView.self)",
+                                                                                AnalyticsParameterScreenClass: "\(LoginView.self)"])
+                                    
                                     } else {
                                     }
                                 }
@@ -116,9 +129,10 @@ struct LoginView: View {
                 }
                 
                 if presentAlertBiometric {
-                    CustomAlert(presentAlert: $presentAlertBiometric, alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "message")) {
+                    CustomAlert(presentAlert: $presentAlertBiometric, alertType: .error(title: LocalizedStringKey("BiometricAccess").stringValue(), message: LocalizedStringKey("BiometricMessage").stringValue(), icon: "biometric")) {
                         presentAlertBiometric.toggle()
                         ChitChatDefaultsManager.shared.isBiometricEnabled = false
+                        navigate = true
                     } rightButtonAction: {
                         presentAlertBiometric.toggle()
                         ChitChatDefaultsManager.shared.isBiometricEnabled = true

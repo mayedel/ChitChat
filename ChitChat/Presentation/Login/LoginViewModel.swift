@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import FirebaseAnalytics
 
 protocol LoginViewModelProtocol {
     func userLogin(login: String, password: String, completion: @escaping (Bool) -> Void)

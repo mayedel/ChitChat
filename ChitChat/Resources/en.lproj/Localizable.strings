@@ -43,12 +43,14 @@
 
 //ADD NEW CHAT
 "Contacts" = "Contacts";
-"SearchForPeople" = "Search for people";
 "FindSomeoneToChat" = "Find someone to chat with";
 "AwesomeToChatWith" = "Awesome to chat with";
+"SearchContact" = "Search contact...";
+
 
 //ACTIVE CHATS
 "Conversations" = "Conversations";
+"SearchConversation" = "Buscar conversación...";
 
 //CHAT
 "NoQueryParams" = "No query params";

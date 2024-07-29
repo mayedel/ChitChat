@@ -46,12 +46,15 @@
 
 //ADD NEW CHAT
 "Contacts" = "Contactos";
-"SearchForPeople" = "Buscar personas";
 "FindSomeoneToChat" = "Encuentra a alguien con quien chatear";
 "AwesomeToChatWith" = "Increíble charlar con";
+"SearchContact" = "Buscar contacto...";
 
 //ACTIVE CHATS
 "Conversations" = "Conversaciones";
+"SearchConversation" = "Search conversation...";
+"EliminateChatDialogTitle" = "¿Eliminar chat?";
+"EliminateChatDialogMessage" = "Al no ser el creador de la conversación no puedes borrarla de la base de datos, ¿quieres eliminarla de tu lista de conversaciones?";
 
 //CHAT
 "NoQueryParams" = "Sin querys";

@@ -58,6 +58,7 @@ class ChatViewModel: ObservableObject {
         createMessageUseCase.createNewMessage(chatId: chatId, message: message) { response in
             switch response {
             case .success(let data):
+                NotificationsManager.sendNotification(message: message)
                 completion(data)
             case .failure(let error):
                 guard let code = error.code else { return }

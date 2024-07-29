@@ -76,7 +76,7 @@ struct ProfileView: View {
                         Button(action: {
                             self.presentLogoutAlert = true
                         }, label: {
-                            OptionRow(iconName: "logoutIcon", text: "Cerrar sesión")
+                            OptionRow(iconName: "logout", text: "Cerrar sesión")
                         })
                         
                         Divider().padding(.leading, 16)

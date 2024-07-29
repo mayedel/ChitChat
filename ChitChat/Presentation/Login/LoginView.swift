@@ -24,6 +24,13 @@ struct LoginView: View {
     
     init(viewModel: LoginViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        UNUserNotificationCenter.current().requestAuthorization(options:[.alert, .sound, .badge]) { success, error in
+            if success {
+                print("permission granted")
+            }else if let error {
+                print (error.localizedDescription)
+            }
+        }
     }
     
     var body: some View {

@@ -39,12 +39,14 @@ struct ActiveChatsView: View {
                             .foregroundColor(.gray)
                             .padding()
                     } else {
-                        List {
+                        List() {
                             ForEach(viewModel.filteredConversations) { conversation in
-                                NavigationLink(destination: ChatView(conversation: conversation)) {
+                                ZStack {
                                     ConversationRow(conversation: conversation)
+                                    NavigationLink(destination: ChatView(conversation: conversation)) {
+                                        EmptyView()
+                                    }.opacity(0.0)
                                 }
-                                .listRowSeparator(.hidden)
                             }
                             .onDelete(perform: deleteConversation)
                         }
@@ -70,9 +72,7 @@ struct ActiveChatsView: View {
                     }
                     
                 }
-                .onAppear {
-                    viewModel.getActiveChats { _ in }
-                }
+                
                 
                 if viewModel.showCustomAlert {
                     CustomAlert(
@@ -91,8 +91,6 @@ struct ActiveChatsView: View {
             }
         }.navigationBarBackButtonHidden(true)
     }
-    
-    
     
     private func deleteConversation(at offsets: IndexSet) {
         offsets.forEach { index in
@@ -126,6 +124,7 @@ struct ConversationRow: View {
                     .font(.headline)
                     .fontWeight(.bold)
                 Text(conversation.message)
+                    .lineLimit(1)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .opacity(0.7)

@@ -28,6 +28,7 @@ struct ChatView: View {
                 HStack {
                     Button(action: {
                         viewModel.isInChat = false
+                        viewModel.eliminateAllUnreadMessages(conversation: conversation)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
@@ -138,7 +139,7 @@ struct MessageBubble: View {
 
 struct chatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(conversation: Conversation(id: "10", name: "Andres", message: "Hola qué tal?", time: "10/08/2023", avatar: "avatar1", isUnread: true, isOnline: true, source: "10"))
+        ChatView(conversation: Conversation(id: "10", name: "Andres", message: "Hola qué tal?", unreadMessages: [], time: "10/08/2023", avatar: "avatar1", isUnread: true, isOnline: true, source: "10"))
     }
 }
 

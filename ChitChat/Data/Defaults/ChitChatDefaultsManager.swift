@@ -14,7 +14,8 @@ class ChitChatDefaultsManager {
     private let AVATAR_KEY = "AvatarKey"
     private let USERID_KEY = "UserIdKey"
     private let BIOMETRIC_KEY = "BiometricKey"
-    private let LAST_READ_MESSAGE_KEY_PREFIX = "LastReadMessage_"
+    private let CONVERSATIONS_KEY = "ConversationsKey"
+    private let MESSAGES_KEY = "MessagesKey"
     
     private let userDefaults: UserDefaults
     
@@ -68,28 +69,35 @@ class ChitChatDefaultsManager {
         }
     }
     
-    func saveLastReceivedMessage(chatId: String, messageId: String, date: String) {
-            let key = "\(LAST_READ_MESSAGE_KEY_PREFIX)\(chatId)"
-            let data = ["messageId": messageId, "date": date]
-            print("Saving last received message for chat: \(chatId) with data: \(data)")
-            userDefaults.setValue(data, forKey: key)
-        }
-
-        
-        func saveLastReadMessage(chatId: String, messageId: String, date: String) {
-            let key = "\(LAST_READ_MESSAGE_KEY_PREFIX)\(chatId)"
-            let data = ["messageId": messageId, "date": date]
-            print("CCDM. Saving last read message for chat: \(chatId) with data: \(data)")
-            userDefaults.setValue(data, forKey: key)
-        }
-        
-        func getLastReadMessage(chatId: String) -> (messageId: String, date: String)? {
-            let key = "\(LAST_READ_MESSAGE_KEY_PREFIX)\(chatId)"
-            if let data = userDefaults.dictionary(forKey: key) as? [String: String],
-               let messageId = data["messageId"],
-               let date = data["date"] {
-                return (messageId, date)
+    var conversations: [Conversation] {
+        get {
+            if let data = userDefaults.data(forKey: CONVERSATIONS_KEY),
+               let array = try? PropertyListDecoder().decode([Conversation].self, from: data) {
+                return array
+            } else {
+                return []
             }
-            return nil
         }
+        set {
+            if let data = try? PropertyListEncoder().encode(newValue) {
+                userDefaults.set(data, forKey: CONVERSATIONS_KEY)
+            }
+        }
+    }
+    
+    var messages: [MessageModel] {
+        get {
+            if let data = userDefaults.data(forKey: MESSAGES_KEY),
+               let array = try? PropertyListDecoder().decode([MessageModel].self, from: data) {
+                return array
+            } else {
+                return []
+            }
+        }
+        set {
+            if let data = try? PropertyListEncoder().encode(newValue) {
+                userDefaults.set(data, forKey: MESSAGES_KEY)
+            }
+        }
+    }
 }

@@ -14,11 +14,11 @@ struct Chat: Identifiable, Codable {
     let created: String
 }
 
-struct Conversation: Identifiable {
+struct Conversation: Identifiable, Codable, Equatable {
     let id: String
     var name: String
     var message: String
-    var messagesUnread: [Message]
+    var unreadMessages: [MessageModel]
     var time: String
     let avatar: String
     var isUnread: Bool

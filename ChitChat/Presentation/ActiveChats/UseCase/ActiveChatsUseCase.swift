@@ -26,7 +26,7 @@ struct ActiveChatsUseCase {
         chatDataProvider.deleteChat(id: id, token: token, completion: completion)
     }
     
-    func getLastMessages(token: String, chatId: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
+    func getLastMessages(token: String, chatId: String, completion: @escaping (Result<[MessageModel], ErrorModel>) -> Void) {
         messageDataProvider.getMessagesList(token: token, chatId: chatId, offset: 0, limit: 50) { result in
             switch result {
             case .success(let response):

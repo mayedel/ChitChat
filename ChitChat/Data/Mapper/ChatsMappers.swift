@@ -8,22 +8,25 @@
 import Foundation
 
 class ChatMapper {
-    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)], messagesUnread: [String : [Message]]) -> [Conversation] {
+    static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)], unreadMessages: [String : [MessageModel]]) -> [Conversation] {
         return chats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
-                return Conversation(id: "", name: "", message: "", messagesUnread: [], time: "", avatar: "", isUnread: false, isOnline: false, source: "")
+                return Conversation(id: "", name: "", message: "", unreadMessages: [], time: "", avatar: "", isUnread: false, isOnline: false, source: "")
             }
             
-            let lastReadMessage = ChitChatDefaultsManager.shared.getLastReadMessage(chatId: chat.id)
             let lastMessage = lastMessages[chat.id]
-            let isUnread = lastReadMessage?.messageId != lastMessage?.message
+            var unreadMessagesChat = unreadMessages[chat.id]
+            
+            unreadMessagesChat?.indices.forEach({ messageIndex in
+                unreadMessagesChat?[messageIndex].isRead = false
+            })
             
             return Conversation(
                 id: chat.id,
                 name: otherUser.nick ?? "",
                 message: lastMessage?.message ?? "",
-                messagesUnread: [],
+                unreadMessages: unreadMessagesChat ?? [],
                 time: DateFormatter.formatDate(dateString:  lastMessage?.date ?? chat.created),
                 avatar: otherUser.avatar,
                 isUnread: false,

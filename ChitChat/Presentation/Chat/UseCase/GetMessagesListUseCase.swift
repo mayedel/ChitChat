@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias GetMessagesListResultClosure = (Result<[Message], ErrorModel>) -> Void
+typealias GetMessagesListResultClosure = (Result<[MessageModel], ErrorModel>) -> Void
 
 struct GetMessagesListUseCase {
     let messageDataProvider: MessageDataProvider

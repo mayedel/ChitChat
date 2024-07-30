@@ -8,10 +8,10 @@
 import Foundation
 
 protocol MessageDataProviderProtocol {
-    func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
+    func getAllMessages(token: String, completion: @escaping (Result<[MessageModel], ErrorModel>) -> Void)
     func createMessage(chat: String, source: String, message: String, token: String, completion: @escaping (Result<Bool, ErrorModel>) -> Void)
     func viewMessages(token: String, completion: @escaping (Result<[MessageView], ErrorModel>) -> Void)
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void)
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[MessageModel], ErrorModel>) -> Void)
 }
 
 class MessageDataProvider: MessageDataProviderProtocol {
@@ -22,7 +22,7 @@ class MessageDataProvider: MessageDataProviderProtocol {
         self.messagesService = MessagesAPIService(apiManager: apiManager)
     }
 
-    func getAllMessages(token: String, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
+    func getAllMessages(token: String, completion: @escaping (Result<[MessageModel], ErrorModel>) -> Void) {
         messagesService.getAllMessages(token: token) { result in
             switch result {
             case .success(let messages):
@@ -55,7 +55,7 @@ class MessageDataProvider: MessageDataProviderProtocol {
         }
     }
     
-    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[Message], ErrorModel>) -> Void) {
+    func getMessagesList(token: String, chatId: String, offset: Int, limit: Int, completion: @escaping (Result<[MessageModel], ErrorModel>) -> Void) {
         messagesService.getMessagesList(token: token, chatId: chatId, offset: offset, limit: limit) { result in
             switch result {
             case .success(let response):

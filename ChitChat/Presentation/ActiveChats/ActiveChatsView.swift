@@ -19,12 +19,16 @@ struct ActiveChatsView: View {
                                 .font(.title)
                                 .bold()
                             Spacer()
-                            NavigationLink(destination: ProfileView()) {
-                                Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipShape(Circle())
-                                    .frame(width: 48, height: 48)
+                            Button {
+                                viewModel.isInChatsActiveScreen = false
+                            } label: {
+                                NavigationLink(destination: ProfileView()) {
+                                    Image(ChitChatDefaultsManager.shared.avatar.isEmpty ? "userPicDefault" : ChitChatDefaultsManager.shared.avatar)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .clipShape(Circle())
+                                        .frame(width: 48, height: 48)
+                                }
                             }
                         }
                         HStack{
@@ -46,6 +50,9 @@ struct ActiveChatsView: View {
                                     NavigationLink(destination: ChatView(conversation: conversation)) {
                                         EmptyView()
                                     }.opacity(0.0)
+                                        .onTapGesture {
+                                            viewModel.isInChatsActiveScreen = false
+                                        }
                                 }
                             }
                             .onDelete(perform: deleteConversation)
@@ -74,6 +81,9 @@ struct ActiveChatsView: View {
                                 )
                         }
                         .padding()
+                        .onTapGesture {
+                            viewModel.isInChatsActiveScreen = false
+                        }
                     }
                     
                 }
@@ -93,6 +103,8 @@ struct ActiveChatsView: View {
                         }
                     )
                 }
+            }.onAppear {
+                viewModel.getActiveChatsService()
             }
         }.navigationBarBackButtonHidden(true)
     }
@@ -138,12 +150,12 @@ struct ConversationRow: View {
             Spacer()
             VStack(alignment: .trailing) {
                 HStack {
-                    if conversation.isUnread {
+                    if !conversation.unreadMessages.isEmpty {
                         Circle()
                             .fill(Color.customBlue)
                             .frame(width: 20, height: 20)
                             .overlay(
-                                Text("1")
+                                Text("\(conversation.unreadMessages.count)")
                                     .font(.caption)
                                     .foregroundColor(.black)
                             )

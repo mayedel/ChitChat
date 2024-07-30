@@ -69,7 +69,6 @@ struct LoginView: View {
                         
                         VStack{
                             Button(action: {
-                                fatalError("Primer error bueno")
                                 viewModel.userLogin(login: self.username, password: self.password) { success in
                                     if(success) {
                                         username = ""

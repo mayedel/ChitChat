@@ -10,7 +10,7 @@ import SwiftUI
 
 class ChatViewModel: ObservableObject {
     
-    @Published var messages: [Message] = []
+    @Published var messages: [MessageModel] = []
     @Published var error: String = ""
     @Published var isInChat: Bool = true
     
@@ -70,5 +70,32 @@ class ChatViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func eliminateAllUnreadMessages(conversation: Conversation) {
+        var conversations = ChitChatDefaultsManager.shared.conversations
+        if let updatedConversation = conversations.firstIndex(of: conversation) {
+            
+            var messages = ChitChatDefaultsManager.shared.messages
+            var conversationMessages = messages.filter { message in
+                message.chat == conversation.id
+            }
+            
+            messages.removeAll { message in
+                message.chat == conversation.id
+            }
+            
+            conversationMessages.indices.forEach { index in
+                conversationMessages[index].isRead = true
+            }
+            
+            messages.append(contentsOf: conversationMessages)
+            
+            ChitChatDefaultsManager.shared.messages = messages
+
+            conversations[updatedConversation].unreadMessages.removeAll()
+            
+        }
+        ChitChatDefaultsManager.shared.conversations = conversations
     }
 }

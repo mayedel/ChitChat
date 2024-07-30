@@ -15,7 +15,7 @@ protocol ChatsListViewModelProtocol {
 
 class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     @Published var chats: [Chat] = []
-    @Published var conversations: [Conversation] = []
+    @Published var conversations: [Conversation] = ChitChatDefaultsManager.shared.conversations
     @Published var error: Error?
     @Published var searchText: String = ""
     @Published var showCustomAlert = false
@@ -24,20 +24,26 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     @Published var conversationToDelete: Conversation?
     private var currentUserId: String?
     
+    @Published var isInChatsActiveScreen: Bool = true
+    
     private let chatsListUseCase: ActiveChatsUseCase
     
     init(chatsListUseCase: ActiveChatsUseCase) {
         self.chatsListUseCase = chatsListUseCase
-        getActiveChats { _ in }
-        fetchUserProfile()
     }
     
     var filteredConversations: [Conversation] {
         if searchText.isEmpty {
-            return conversations.filter { !hiddenConversations.contains($0.id) }
+            return conversations.filter { !hiddenConversations.contains($0.id) }.sorted(by: { conversation, conversation2 in
+                conversation.time < conversation2.time
+            })
         } else {
             return conversations.filter { !hiddenConversations.contains($0.id) && $0.name.lowercased().contains(searchText.lowercased()) }
         }
+    }
+    
+    func getActiveChatsService() {
+        self.fetchUserProfile()
     }
     
     func fetchUserProfile() {
@@ -124,7 +130,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     func getLastMessages(chats: [Chat], userProfiles: [String: User], currentUserId: String, token: String) {
         let group = DispatchGroup()
         var lastMessages = [String: (message: String, date: String)]()
-        var messagesUnread = [String: [Message]]()
+        var unreadMessages = [String: [MessageModel]]()
         
         for chat in chats  {
             group.enter()
@@ -133,6 +139,50 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
                 case .success(let messages):
                     if let lastMessage = messages.first {
                         lastMessages[chat.id] = (message: lastMessage.message, date: lastMessage.date)
+                    }
+                    
+                    
+                    messages.forEach { newMessage in
+                        let messageDB = ChitChatDefaultsManager.shared.messages.first { messageDB in
+                            messageDB.id == newMessage.id
+                        }
+                        
+                        if messageDB == nil {
+                            ChitChatDefaultsManager.shared.messages.append(newMessage)
+                        }
+                    }
+                    
+                    
+                    if let lastCurrentUserMessage = messages.filter({ message in
+                        message.source == currentUserId
+                    }).first {
+                        if let lastUserMessageIndex = messages.firstIndex(of: lastCurrentUserMessage) {
+                            var newMessages: [MessageModel] = []
+                            
+                            var messagesDB = ChitChatDefaultsManager.shared.messages.filter { message in
+                                message.chat == chat.id
+                            }
+                            
+                            print(messagesDB)
+                            
+                            for index in 0...messages.count {
+                                if ((index <= lastUserMessageIndex) && (messagesDB[index].isRead == false)) {
+                                    newMessages.append(messagesDB[index])
+                                }
+                            }
+                            
+                            unreadMessages[chat.id] = newMessages
+                        }
+                    } else {
+                        var chatMessages: [MessageModel] = []
+                        ChitChatDefaultsManager.shared.messages.filter({ message in
+                            message.chat == chat.id
+                        }).forEach { message in
+                            if !message.isRead {
+                                chatMessages.append(message)
+                            }
+                        }
+                        unreadMessages[chat.id] = chatMessages
                     }
                 case .failure(let error):
                     print("Error fetching last message for \(chat.id): \(error)")
@@ -143,15 +193,10 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
         }
         
         group.notify(queue: .main) {
-            self.conversations = ChatMapper.map(chats: chats, userProfiles: userProfiles, currentUserId: currentUserId, lastMessages: lastMessages, messagesUnread: [:])
+            self.conversations = ChatMapper.map(chats: chats, userProfiles: userProfiles, currentUserId: currentUserId, lastMessages: lastMessages, unreadMessages: unreadMessages)
+            
+            ChitChatDefaultsManager.shared.conversations = self.conversations
+            print(ChitChatDefaultsManager.shared.messages.count)
         }
     }
-            
-    func markMessageAsRead(chatId: String, messageId: String, date: String) {
-        ChitChatDefaultsManager.shared.saveLastReadMessage(chatId: chatId, messageId: messageId, date: date)
-    }
-            
-    
-    
-    
 }

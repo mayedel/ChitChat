@@ -8,11 +8,13 @@
 import Foundation
 
 protocol GetMessagesListDT0Mapper {
-    func map(_ response: MessagesListResponse) -> [Message]
+    func map(_ response: MessagesListResponse) -> [MessageModel]
 }
 
 struct GetMessagesDTOMapperImpl: GetMessagesListDT0Mapper {
-    func map(_ response: MessagesListResponse) -> [Message] {
-        .init(response.rows)
+    func map(_ response: MessagesListResponse) -> [MessageModel] {
+        return response.rows.map { message in
+            MessageModel(id: message.id, chat: message.chat, source: message.source, message: message.message, date: message.date)
+        }
     }
 }

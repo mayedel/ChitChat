@@ -18,7 +18,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
     @Published var users: [User] = []
     @Published var error: ErrorModel?
     @Published var searchText: String = ""
-    @Published var createdConversation: Conversation = Conversation(id: "", name: "", message: "", time: "", avatar: "", isUnread: false, date: "", isOnline: false, source: "")
+    @Published var createdConversation: Conversation = Conversation(id: "", name: "", message: "", unreadMessages: [], time: "", avatar: "", isUnread: false, date: "", isOnline: false, source: "")
     private var currentUserId: String?
     private let userslistUseCase: UsersListUseCase   
     
@@ -76,7 +76,7 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
                 let conversation = Conversation(
                     id: chatResponse.id,
                     name: user.nick ?? "",
-                    message: "",
+                    message: "", unreadMessages: [],
                     time: DateFormatter.formatDate(dateString: chatResponse.created),
                     avatar: user.avatar,
                     isUnread: false,

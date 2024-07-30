@@ -45,8 +45,14 @@ struct SplashView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     viewModel.loginWithBiometric { success in
                         if success {
-                            withAnimation {
-                                self.navigationEnter = .activeChats
+                            if ChitChatDefaultsManager.shared.isBiometricEnabled {
+                                withAnimation {
+                                    self.navigationEnter = .login
+                                }
+                            } else {
+                                withAnimation {
+                                    self.navigationEnter = .activeChats
+                                }
                             }
                         } else {
                             withAnimation {

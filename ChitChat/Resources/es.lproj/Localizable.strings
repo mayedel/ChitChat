@@ -9,7 +9,7 @@
 "Accept" = "Aceptar";
 "Cancel" = "Cancelar";
 
-"UserError" = "El usuario ya existe";
+"UserError" = "Usuario inválido";
 "PasswordError" = "Contraseña incorrecta";
 
 "EmptyFieldError" = "Empty Field";

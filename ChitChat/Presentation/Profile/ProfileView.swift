@@ -48,7 +48,7 @@ struct ProfileView: View {
                                 .frame(width: 120, height: 120)
                                 .clipShape(Circle())
                         }
-                        VStack(){
+                        VStack(alignment: .leading){
                             Text(viewModel.nick)
                                 .font(.headline)
                                 .fontWeight(.bold)

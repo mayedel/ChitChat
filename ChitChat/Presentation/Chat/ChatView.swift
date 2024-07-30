@@ -32,22 +32,27 @@ struct ChatView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
-                    }.padding(.trailing,50)
+                    }
                     
                     VStack{
                         HStack {
-                            Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 70, height: 70)
-                                .clipShape(Circle())
-                            
-                            Text(conversation.name)
-                                .font(.title2)
-                                .bold()
-                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            HStack{
+                                Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                                
+                                Text("Andres")
+                                    .font(.title2)
+                                    .bold()
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.trailing,40)
+                            }
                             Spacer()
                         }
+                        
                     }
                     
                 }
@@ -123,7 +128,7 @@ struct MessageBubble: View {
             Text(message)
                 .padding()
                 .background(isReceived ? Color(white: 0.9) : Color(red: 0/255, green: 148/255, blue: 184/255))
-                .foregroundColor(isReceived ? .black : .white)
+                .foregroundColor(Color.black)
                 .cornerRadius(20)
                 .frame(maxWidth: 250, alignment: isReceived ? .leading : .trailing)
             

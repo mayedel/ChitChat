@@ -1,45 +1,48 @@
-/* 
-  Localizable.strings
-  ChitChat
+/*Localizable.strings
+ChitChat
 
-  Created by Andres Cordón on 5/7/24.
-  
+Created by Andres Cordón on 5/7/24.
+
 */
-
-"InvalidUrlError" = "Invalid Url";
+"InvalidUrlError" = "Invalid URL";
 "Accept" = "Accept";
 "Cancel" = "Cancel";
 
-"UserError" = "User not found";
-"PasswordError" = "Invalid password";
+"UserError" = "Invalid user";
+"PasswordError" = "Incorrect password";
 
-"EmptyFieldError" = "Campo vacío";
-"Title" = "ChtisChat";
+"EmptyFieldError" = "Empty Field";
+"Title" = "ChitChat";
+
 
 //LOGIN
 "LoginDefaultError" = "Some error";
 "LoginSuccess" = "Login successful";
+
 "User" = "User";
-"EnterYourUser" = "Enter your username";
+"EnterYourUser" = "Enter your user";
 "Password" = "Password";
 "EnterYourPass" = "Enter your password";
-"Biometric" = "Enter with biometric";
+"Biometric" = "Biometric access";
 "Login" = "Login";
-"DontHaveAnAccount" = "¿Don't have an account?";
+"DontHaveAnAccount" = "Don't have an account?";
 "Register" = "Register";
 "Error" = "Error";
 "BiometricAccess" = "Biometric Access";
-"BiometricMessage" = "Would you like to enable biometric access?";
+"BiometricMessage" = "Do you want to enable biometric access?";
 
-//REGISTRO
-"UserRegistration" = "User Registration";
+
+//REGISTER
+"UserRegistration" = "Registration";
 "RepeatYourPassword" = "Repeat your password";
-"EnterYourNick" = "Enter your nick";
+"EnterYourNick" = "Enter your nickname";
 "EnterYourAvatar" = "Enter your avatar";
 "PasswordsDontMatch" = "Passwords do not match";
-"SelectAnAvatar" = "Selected avatar";
+"SelectAnAvatar" = "Select an avatar:";
 "UsernameError" = "Enter a username";
-"UserExistError" = "User already exist";
+"UserExistError" = "User already exists";
+"UserLengthError" = "Username must not exceed 25 characters";
+"NickLengthError" = "Nickname must not exceed 25 characters";
 
 //ADD NEW CHAT
 "Contacts" = "Contacts";
@@ -47,21 +50,23 @@
 "AwesomeToChatWith" = "Awesome to chat with";
 "SearchContact" = "Search contact...";
 
-
 //ACTIVE CHATS
 "Conversations" = "Conversations";
 "SearchConversation" = "Search conversation...";
-"ConversationsNotFound" = "Conversations Not Found"
+"EliminateChatDialogTitle" = "Delete chat?";
+"EliminateChatDialogMessage" = "Since you are not the creator of the conversation, you cannot delete it from the database. Do you want to remove it from your conversation list?";
+"ConversationsNotFound" = "No conversations found";
 
 //CHAT
-"NoQueryParams" = "No query params";
+"NoQueryParams" = "No queries";
 "Unauthorized" = "Unauthorized";
+"WriteNewMessage" = "Write a message...";
 
 //PROFILE
 "Profile" = "Profile";
-"UnknowParameterError" = "Unknow parameter";
-"LogOut" = "¿Log out?";
+"UnknowParameterError" = "Unknown parameter";
+"LogOut" = "Log out?";
 "LogOutMessage" = "Are you sure you want to log out?";
 
-//CONTACTOS
+//CONTACTS
 "Contacts" = "Contacts";

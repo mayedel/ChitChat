@@ -39,10 +39,10 @@ enum AlertType {
     }
     
     var leftActionText: String {
-        return "Cancelar"
+        return LocalizedStringKey("Cancel")
     }
     
     var rightActionText: String {
-        return "Aceptar"
+        return LocalizedStringKey("Accept")
     }
 }

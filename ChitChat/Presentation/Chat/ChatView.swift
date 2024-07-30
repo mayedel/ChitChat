@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Vista principal de Chat
+
 struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -24,7 +24,7 @@ struct ChatView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Encabezado del chat
+             
                 HStack {
                     Button(action: {
                         viewModel.isInChat = false
@@ -59,7 +59,7 @@ struct ChatView: View {
                 Divider()
                 
                 ScrollViewReader { scrollView in
-                    // Lista de mensajes
+           
                     ScrollView {
                         LazyVStack(spacing: 8) {
                             ForEach(viewModel.messages) { message in
@@ -88,10 +88,9 @@ struct ChatView: View {
                     }
                 }
                 
-                // Campo de entrada de mensaje
                 
                 HStack {
-                    TextField("Escribe un mensaje...", text: $messageText)
+                    TextField(LocalizedStringKey("WriteNewMessage"), text: $messageText)
                         .padding()
                         .background(Color(white: 0.95))
                         .cornerRadius(20)
@@ -114,7 +113,6 @@ struct ChatView: View {
     }
 }
 
-// Vista para burbujas de mensajes
 struct MessageBubble: View {
     let message: String
     let time: String

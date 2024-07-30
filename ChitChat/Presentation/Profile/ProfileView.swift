@@ -22,7 +22,6 @@ struct ProfileView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    // Header
                     HStack {
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
@@ -41,7 +40,6 @@ struct ProfileView: View {
                     
                     Divider()
                     
-                    // Profile Picture and Info
                     HStack() {
                         ZStack{
                             Image(viewModel.avatar.isEmpty ? "userPicDefault" : viewModel.avatar)
@@ -62,7 +60,6 @@ struct ProfileView: View {
                         Spacer()
                     }.padding(10)
                     
-                    // Opciones
                     VStack(spacing: 0) {
                         
                         HStack{

@@ -14,7 +14,7 @@
 "PasswordError" = "Invalid password";
 
 "EmptyFieldError" = "Campo vacío";
-
+"Title" = "ChtisChat";
 
 //LOGIN
 "LoginDefaultError" = "Some error";
@@ -50,7 +50,8 @@
 
 //ACTIVE CHATS
 "Conversations" = "Conversations";
-"SearchConversation" = "Buscar conversación...";
+"SearchConversation" = "Search conversation...";
+"ConversationsNotFound" = "Conversations Not Found"
 
 //CHAT
 "NoQueryParams" = "No query params";

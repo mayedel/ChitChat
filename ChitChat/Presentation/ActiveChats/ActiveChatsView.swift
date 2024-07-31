@@ -15,7 +15,7 @@ struct ActiveChatsView: View {
                 VStack(spacing: 0) {
                     VStack {
                         HStack{
-                            Text("ChitChat")
+                            Text(LocalizedStringKey("Title"))
                                 .font(.title)
                                 .bold()
                             Spacer()
@@ -39,7 +39,7 @@ struct ActiveChatsView: View {
                     }.padding(20)
                     SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
                     if viewModel.filteredConversations.isEmpty {
-                        Text("No se han encontrado")
+                        Text(LocalizedStringKey("ConversationsNotFound"))
                             .foregroundColor(.gray)
                             .padding()
                     } else {

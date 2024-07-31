@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Vista principal de Chat
+
 struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -24,7 +24,7 @@ struct ChatView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Encabezado del chat
+             
                 HStack {
                     Button(action: {
                         viewModel.isInChat = false
@@ -32,22 +32,27 @@ struct ChatView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
-                    }.padding(.trailing,50)
+                    }
                     
                     VStack{
                         HStack {
-                            Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
-                                .clipShape(Circle())
-                            
-                            Text(conversation.name)
-                                .font(.title2)
-                                .bold()
-                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            HStack{
+                                Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                                
+                                Text("Andres")
+                                    .font(.title2)
+                                    .bold()
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.trailing,40)
+                            }
                             Spacer()
                         }
+                        
                     }
                     
                 }
@@ -59,7 +64,7 @@ struct ChatView: View {
                 Divider()
                 
                 ScrollViewReader { scrollView in
-                    // Lista de mensajes
+           
                     ScrollView {
                         LazyVStack(spacing: 8) {
                             ForEach(viewModel.messages) { message in
@@ -88,10 +93,9 @@ struct ChatView: View {
                     }
                 }
                 
-                // Campo de entrada de mensaje
                 
                 HStack {
-                    TextField("Escribe un mensaje...", text: $messageText)
+                    TextField(LocalizedStringKey("WriteNewMessage"), text: $messageText)
                         .padding()
                         .background(Color(white: 0.95))
                         .cornerRadius(20)
@@ -114,7 +118,6 @@ struct ChatView: View {
     }
 }
 
-// Vista para burbujas de mensajes
 struct MessageBubble: View {
     let message: String
     let time: String
@@ -125,7 +128,7 @@ struct MessageBubble: View {
             Text(message)
                 .padding()
                 .background(isReceived ? Color(white: 0.9) : Color(red: 0/255, green: 148/255, blue: 184/255))
-                .foregroundColor(isReceived ? .black : .white)
+                .foregroundColor(Color.black)
                 .cornerRadius(20)
                 .frame(maxWidth: 250, alignment: isReceived ? .leading : .trailing)
             

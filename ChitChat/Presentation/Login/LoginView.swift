@@ -92,7 +92,8 @@ struct LoginView: View {
                             }
                             .padding(.horizontal, 60)
                             .padding(.top, 16)
-                            Spacer().frame(height: 200)
+                            .padding(.bottom, 20)
+                            
                             
                             if ChitChatDefaultsManager.shared.isBiometricEnabled {
                                 HStack {
@@ -125,6 +126,7 @@ struct LoginView: View {
                             }
                         }
                     }.padding(.horizontal, 50)
+                    Spacer()
                 }
                 
                 if presentAlertBiometric {

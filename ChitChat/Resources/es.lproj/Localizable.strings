@@ -9,10 +9,11 @@
 "Accept" = "Aceptar";
 "Cancel" = "Cancelar";
 
-"UserError" = "El usuario ya existe";
+"UserError" = "Usuario inválido";
 "PasswordError" = "Contraseña incorrecta";
 
 "EmptyFieldError" = "Empty Field";
+"Title" = "ChitChat";
 
 
 //LOGIN
@@ -52,13 +53,15 @@
 
 //ACTIVE CHATS
 "Conversations" = "Conversaciones";
-"SearchConversation" = "Search conversation...";
+"SearchConversation" = "Buscar conversación...";
 "EliminateChatDialogTitle" = "¿Eliminar chat?";
 "EliminateChatDialogMessage" = "Al no ser el creador de la conversación no puedes borrarla de la base de datos, ¿quieres eliminarla de tu lista de conversaciones?";
+"ConversationsNotFound" = "No se han encontrado conversaciones";
 
 //CHAT
 "NoQueryParams" = "Sin querys";
 "Unauthorized" = "No autorizado";
+"WriteNewMessage" = "Escribe un mensaje...";
 
 //PROFILE
 "Profile" = "Perfil";

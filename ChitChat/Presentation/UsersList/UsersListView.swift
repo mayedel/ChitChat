@@ -124,7 +124,7 @@ struct ChatWithView: View {
     let contact: UserList
     
     var body: some View {
-        Text("Chat with \(contact.name)")
+        Text(LocalizedStringKey("AwesomeToChatWith \(contact.name)"))
             .navigationTitle(contact.name)
     }
 }

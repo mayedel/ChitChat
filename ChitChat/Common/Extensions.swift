@@ -90,6 +90,17 @@ extension DateFormatter {
         
         return "Fecha incorrecta"
     }
+    
+    static func convertStringToDate(date: String) -> Date {
+
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "HH:mm"
+        
+        return dateFormatter.date(from: date) ?? Date()
+    }
 }
 
 

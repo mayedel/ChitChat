@@ -50,7 +50,7 @@ struct ProfileView: View {
                                 .frame(width: 120, height: 120)
                                 .clipShape(Circle())
                         }
-                        VStack(){
+                        VStack(alignment: .leading){
                             Text(viewModel.nick)
                                 .font(.headline)
                                 .fontWeight(.bold)
@@ -127,9 +127,12 @@ struct OptionRow: View {
                 .background(Color.customBlue)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             
-            Text(text)
-                .foregroundColor(.black)
-                .padding(.leading, 8)
+            VStack(alignment: .center) {
+                Text(text)
+                    .foregroundColor(.black)
+                    .padding(.leading, 8)
+            }
+           
             
             Spacer()
             

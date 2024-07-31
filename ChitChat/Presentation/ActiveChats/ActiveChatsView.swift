@@ -49,10 +49,11 @@ struct ActiveChatsView: View {
                                     ConversationRow(conversation: conversation)
                                     NavigationLink(destination: ChatView(conversation: conversation)) {
                                         EmptyView()
-                                    }.opacity(0.0)
-                                        .onTapGesture {
-                                            viewModel.isInChatsActiveScreen = false
-                                        }
+                                    }
+                                    .opacity(0.0)
+                                    .onTapGesture {
+                                        viewModel.isInChatsActiveScreen = false
+                                    }
                                 }
                             }
                             .onDelete(perform: deleteConversation)

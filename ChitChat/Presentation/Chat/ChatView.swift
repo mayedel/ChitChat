@@ -39,7 +39,7 @@ struct ChatView: View {
                             Image(conversation.avatar.isEmpty ? "userPicDefault" : conversation.avatar)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 70, height: 70)
+                                .frame(width: 40, height: 40)
                                 .clipShape(Circle())
                             
                             Text(conversation.name)

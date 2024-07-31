@@ -34,9 +34,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     
     var filteredConversations: [Conversation] {
         if searchText.isEmpty {
-            return conversations.filter { !hiddenConversations.contains($0.id) }.sorted(by: { conversation, conversation2 in
-                conversation.time < conversation2.time
-            })
+            return conversations.filter { !hiddenConversations.contains($0.id) }
         } else {
             return conversations.filter { !hiddenConversations.contains($0.id) && $0.name.lowercased().contains(searchText.lowercased()) }
         }
@@ -165,13 +163,20 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
                             
                             print(messagesDB)
                             
-                            for index in 0...messages.count {
-                                if ((index <= lastUserMessageIndex) && (messagesDB[index].isRead == false)) {
+                            let userMessageDate = DateFormatter.convertStringToDate(date: messages[lastUserMessageIndex].date)
+                            //comprobar por fecha
+                            for index in 0...messages.count - 1 {
+                                let messageDate = DateFormatter.convertStringToDate(date: messages[index].date)
+                                if ((messageDate > userMessageDate) && (messagesDB[index].isRead == false) && messagesDB[index].source != ChitChatDefaultsManager.shared.userId) {
                                     newMessages.append(messagesDB[index])
                                 }
                             }
                             
                             unreadMessages[chat.id] = newMessages
+                            
+                            newMessages.forEach { message in
+                                self.sendNotification(message: message.message)
+                            }
                         }
                     } else {
                         var chatMessages: [MessageModel] = []
@@ -183,6 +188,10 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
                             }
                         }
                         unreadMessages[chat.id] = chatMessages
+                        
+                        chatMessages.forEach { message in
+                            self.sendNotification(message: message.message)
+                        }
                     }
                 case .failure(let error):
                     print("Error fetching last message for \(chat.id): \(error)")
@@ -198,5 +207,16 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
             ChitChatDefaultsManager.shared.conversations = self.conversations
             print(ChitChatDefaultsManager.shared.messages.count)
         }
+    }
+    
+    func sendNotification(message: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Mensaje nuevo"
+        content.body = message
+        content.sound = UNNotificationSound.default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
     }
 }

@@ -9,7 +9,12 @@ import Foundation
 
 class ChatMapper {
     static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)], unreadMessages: [String : [MessageModel]]) -> [Conversation] {
-        return chats.compactMap { chat in
+        
+        let sortedChats = chats.sorted { chat, chat2 in
+            chat.created < chat2.created
+        }
+        
+        return sortedChats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
             guard let otherUser = userProfiles[otherUserId] else {
                 return Conversation(id: "", name: "", message: "", unreadMessages: [], time: "", avatar: "", isUnread: false, isOnline: false, source: "")

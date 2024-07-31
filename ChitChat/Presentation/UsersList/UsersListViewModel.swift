@@ -44,7 +44,16 @@ class UsersListViewModel: UsersListViewModelProtocol, ObservableObject {
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {
-                    self?.users = users
+                    var usersFiltered = users.filter { user in
+                        user.nick != nil && !user.nick!.isEmpty
+                    }.sorted { $0.nick!.lowercased() < $1.nick!.lowercased() }
+                    
+                    if let actualUserIndex = usersFiltered.firstIndex(where: { user in
+                        user.id == ChitChatDefaultsManager.shared.userId
+                    }) {
+                        usersFiltered.remove(at: actualUserIndex)
+                        self?.users = usersFiltered
+                    }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

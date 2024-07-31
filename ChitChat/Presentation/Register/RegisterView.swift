@@ -27,7 +27,7 @@ struct RegisterView: View {
                         Button(action: {
                            dismiss()
                         }) {
-                            Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                            Image("back_arrow").resizable().scaledToFit().frame(width: 20,height: 25)
                         }
                         
                         Text(LocalizedStringKey("UserRegistration")

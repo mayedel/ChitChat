@@ -13,6 +13,6 @@ protocol RegisterDTOMapper {
 
 struct RegisterDTOMapperImpl: RegisterDTOMapper {
     func map(_ response: UserRegisterResponse) -> RegisterModel {
-        .init(token: response.user.token)
+        .init(token: response.user.token, userId: response.user.id)
     }
 }

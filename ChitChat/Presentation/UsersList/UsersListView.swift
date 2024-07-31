@@ -69,6 +69,8 @@ struct UsersListView: View {
                     label: {
                         EmptyView()
                     })
+            }.onAppear {
+                viewModel.getUsers()
             }
             
         }.navigationBarHidden(true)

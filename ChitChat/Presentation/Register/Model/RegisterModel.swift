@@ -9,4 +9,5 @@ import Foundation
 
 struct RegisterModel {
     let token: String
+    let userId: String
 }

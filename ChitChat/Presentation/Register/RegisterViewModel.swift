@@ -81,6 +81,7 @@ class RegisterViewModel: ObservableObject {
                 case .success(let data):
                     self.errorMessage = LocalizedStringKey.init("LoginSuccess").stringValue()
                     ChitChatDefaultsManager.shared.token = data.token
+                    ChitChatDefaultsManager.shared.userId = data.userId
                     ChitChatDefaultsManager.shared.avatar = self.avatarSelected?.image ?? "empty_avatar"
                     completion(true)
                 case .failure(let error):

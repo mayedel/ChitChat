@@ -18,6 +18,8 @@ struct LoginView: View {
     @State var presentAlertBiometric = false
     @State var navigate: Bool = false
     
+    @FocusState private var textfieldIsFocused: Bool
+    
     @StateObject var viewModel: LoginViewModel
     
     private var cancellables: Set<AnyCancellable> = []
@@ -48,9 +50,10 @@ struct LoginView: View {
                             .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(viewModel.userExist ? Color.gray : Color.red)
+                                    .stroke(!viewModel.userError ? Color.gray : Color.red)
                             )
-                        if(!viewModel.userExist) {
+                            .focused($textfieldIsFocused)
+                        if(viewModel.userError) {
                             Text(viewModel.error)
                                 .foregroundColor(.red)
                         }
@@ -61,9 +64,10 @@ struct LoginView: View {
                             .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(viewModel.passCorrect ? Color.gray : Color.red)
+                                    .stroke(!viewModel.passError ? Color.gray : Color.red)
                             )
-                        if(!viewModel.passCorrect) {
+                            .focused($textfieldIsFocused)
+                        if(viewModel.passError) {
                             Text(viewModel.error).foregroundColor(.red)
                         }
                         
@@ -158,6 +162,9 @@ struct LoginView: View {
                 }
             }
         }.navigationBarHidden(true)
+        .onTapGesture {
+            textfieldIsFocused = false
+        }
     }
 }
 

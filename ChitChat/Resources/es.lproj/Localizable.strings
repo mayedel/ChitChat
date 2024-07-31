@@ -12,7 +12,7 @@
 "UserError" = "Usuario inválido";
 "PasswordError" = "Contraseña incorrecta";
 
-"EmptyFieldError" = "Empty Field";
+"EmptyFieldError" = "Campo vacío";
 "Title" = "ChitChat";
 
 

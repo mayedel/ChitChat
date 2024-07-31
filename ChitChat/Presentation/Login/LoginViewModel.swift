@@ -16,8 +16,8 @@ protocol LoginViewModelProtocol {
 
 class LoginViewModel: LoginViewModelProtocol, ObservableObject {
     
-    @Published var userExist: Bool = true
-    @Published var passCorrect: Bool = true
+    @Published var userError: Bool = false
+    @Published var passError: Bool = false
     @Published var error: String = ""
 
     private let loginUseCase: LoginUseCase
@@ -30,30 +30,45 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
 
     
     func userLogin(login: String, password: String, completion: @escaping (Bool) -> Void) {
-        loginUseCase.userLogin(login: login, password: password) { response in
-            switch response {
-            case .success(let data):
-                self.userExist = true
-                self.passCorrect = true
-                self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
-                ChitChatDefaultsManager.shared.token = data.token
-                ChitChatDefaultsManager.shared.userId = data.userId
-                completion(true)
-            case .failure(let error):
-                guard let code = error.code else { return }
-                switch code {
-                case 401:
-                    self.userExist = true
-                    self.passCorrect = false
-                    self.error = LocalizedStringKey.init("PasswordError").stringValue()
-                case 400:
-                    self.userExist = false
-                    self.passCorrect = true
-                    self.error = LocalizedStringKey.init("UserError").stringValue()
-                default:
-                    self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+        
+        resetErrors()
+        
+        if login.isEmpty {
+            self.userError = true
+            self.error = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        if password.isEmpty {
+            self.passError = true
+            self.error = LocalizedStringKey.init("EmptyFieldError").stringValue()
+        }
+        
+        if(self.error.isEmpty) {
+            loginUseCase.userLogin(login: login, password: password) { response in
+                switch response {
+                case .success(let data):
+                    self.userError = false
+                    self.passError = false
+                    self.error = LocalizedStringKey.init("LoginSuccess").stringValue()
+                    ChitChatDefaultsManager.shared.token = data.token
+                    ChitChatDefaultsManager.shared.userId = data.userId
+                    completion(true)
+                case .failure(let error):
+                    guard let code = error.code else { return }
+                    switch code {
+                    case 401:
+                        self.userError = false
+                        self.passError = true
+                        self.error = LocalizedStringKey.init("PasswordError").stringValue()
+                    case 400:
+                        self.userError = true
+                        self.passError = false
+                        self.error = LocalizedStringKey.init("UserError").stringValue()
+                    default:
+                        self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
+                    }
+                    completion(false)
                 }
-                completion(false)
             }
         }
     }
@@ -68,8 +83,8 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
                 guard let code = error.code else { return }
                 switch code {
                 case 401:
-                    self.userExist = true
-                    self.passCorrect = false
+                    self.userError = true
+                    self.passError = false
                     self.error = LocalizedStringKey.init("Unauthorized").stringValue()
                 default:
                     self.error = LocalizedStringKey.init("LoginDefaultError").stringValue()
@@ -77,5 +92,12 @@ class LoginViewModel: LoginViewModelProtocol, ObservableObject {
                 completion(false)
             }
         }
+    }
+    
+    
+    func resetErrors() {
+        error = ""
+        userError = false
+        passError = false
     }
 }

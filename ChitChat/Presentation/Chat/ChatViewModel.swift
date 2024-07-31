@@ -59,8 +59,6 @@ class ChatViewModel: ObservableObject {
             switch response {
             case .success(let data):
                 NotificationsManager.sendNotification(message: message)
-                var messages = ChitChatDefaultsManager.shared.messages
-                //messages.append(MessageModel(id: ", chat: chatId, source: <#T##String#>, message: <#T##String#>, date: <#T##String#>))
                 completion(data)
             case .failure(let error):
                 guard let code = error.code else { return }

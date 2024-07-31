@@ -10,9 +10,9 @@ import Foundation
 class ChatMapper {
     static func map(chats: [Chat], userProfiles: [String: User], currentUserId: String, lastMessages: [String: (message: String, date: String)], unreadMessages: [String : [MessageModel]]) -> [Conversation] {
         
-        let sortedChats = chats.sorted { chat, chat2 in
-            chat.created < chat2.created
-        }
+        let sortedChats = chats.sorted(by: { chat, chat2 in
+            lastMessages[chat.id]?.date ?? "" > lastMessages[chat2.id]?.date ?? ""
+        })
         
         return sortedChats.compactMap { chat in
             let otherUserId = chat.source == currentUserId ? chat.target : chat.source
@@ -52,7 +52,6 @@ class ChatMapper {
             return updatedConversation
         }
     }
-    
 }
 
 

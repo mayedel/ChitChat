@@ -157,7 +157,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
                         if let lastUserMessageIndex = messages.firstIndex(of: lastCurrentUserMessage) {
                             var newMessages: [MessageModel] = []
                             
-                            var messagesDB = ChitChatDefaultsManager.shared.messages.filter { message in
+                            let messagesDB = ChitChatDefaultsManager.shared.messages.filter { message in
                                 message.chat == chat.id
                             }
                             

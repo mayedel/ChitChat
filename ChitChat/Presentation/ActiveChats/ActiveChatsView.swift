@@ -35,7 +35,7 @@ struct ActiveChatsView: View {
                         .padding(.vertical, 20)
                         
                         HStack{
-                            Text(LocalizedStringKey("Conversaciones"))
+                            Text(LocalizedStringKey("Conversations"))
                                 .font(.headline)
                                 .fontWeight(.medium)
                             Spacer()
@@ -47,52 +47,52 @@ struct ActiveChatsView: View {
                     if viewModel.filteredConversations.isEmpty {
                         Text(LocalizedStringKey("ConversationsNotFound"))
                             .foregroundColor(.gray)
-                            .padding()
-                    } else {
-                        List() {
-                            ForEach(viewModel.filteredConversations) { conversation in
-                                ZStack {
-                                    ConversationRow(conversation: conversation)
-                                        
-                                    NavigationLink(destination: ChatView(conversation: conversation)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0.0)
-                                    .onTapGesture {
-                                        viewModel.isInChatsActiveScreen = false
-                                    }
-                                }.listRowSeparator(.hidden)
-                            }
-                            .onDelete(perform: deleteConversation)
-                        }
-                        .listStyle(PlainListStyle())
-                        .refreshable {
-                            viewModel.getActiveChats { _ in }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    HStack {
-                        Spacer()
+                            .padding(.top, 12)
                         NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
-                            Circle()
-                                .fill(Color.customBlue)
-                                .frame(width: 56, height: 56)
-                                .overlay(
-                                    Image("addChatIcon")
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                )
-                        }
-                        .padding()
-                        .onTapGesture {
-                            viewModel.isInChatsActiveScreen = false
-                        }
+                                Circle()
+                                    .fill(Color.customBlue)
+                                    .frame(width: 56, height: 56)
+                                    .overlay(
+                                        Image("addChatIcon")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                    )
+                            }.position(x:300,y:450)
+                    } else {
+                        
+                        List {
+                           ForEach(viewModel.filteredConversations) { conversation in
+                               ZStack {
+                                   ConversationRow(conversation: conversation)
+                                       
+                                   NavigationLink(destination: ChatView(conversation: conversation)) {
+                                       EmptyView()
+                                   }
+                                   .opacity(0.0)
+                                   .onTapGesture {
+                                       viewModel.isInChatsActiveScreen = false
+                                   }
+                               }.listRowSeparator(.hidden)
+                           }
+                           .onDelete(perform: deleteConversation)
+                       }.overlay(NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase:  UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
+                           Circle()
+                               .fill(Color.customBlue)
+                               .frame(width: 56, height: 56)
+                               .overlay(
+                                   Image("addChatIcon")
+                                       .resizable()
+                                       .frame(width: 30, height: 30)
+                               )
+                            }
+                            .position(x:300,y:450)
+                       )
+                       .listStyle(PlainListStyle())
+                       .refreshable {
+                           viewModel.getActiveChats { _ in }
+                       }
                     }
-                    
                 }
-                
                 
                 if viewModel.showCustomAlert {
                     CustomAlert(

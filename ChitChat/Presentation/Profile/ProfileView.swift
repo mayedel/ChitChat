@@ -44,7 +44,7 @@ struct ProfileView: View {
                             Image(viewModel.avatar.isEmpty ? "userPicDefault" : viewModel.avatar)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 120)
+                                .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                         }
                         VStack(alignment: .leading){

@@ -57,7 +57,6 @@ struct UsersListView: View {
                             }
                         .listRowSeparator(.hidden)
                     }
-                    
                 }
                 .listStyle(PlainListStyle())
                 .refreshable {
@@ -93,17 +92,21 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            TextField(textSearchBar, text: $text)
+            TextField("", text: $text, prompt: Text(textSearchBar).foregroundColor(.gray))
                 .padding(12)
                 .background(Color(.systemGray6))
-                .cornerRadius(8)
+                .cornerRadius(12)
                 .padding(.horizontal, 10)
-                .overlay(
+                .overlay (
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color(.systemGray3), lineWidth: 1)
+                        .padding(.horizontal, 10)
+                )
+                .overlay (
                     HStack {
                         Spacer()
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.black)
-                            .padding(.trailing, 15)
+                        Image("magnifyingglass")
+                            .padding(.horizontal, 25)
                     }
                 )
         }

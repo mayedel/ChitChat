@@ -113,12 +113,14 @@ struct LoginView: View {
                                         }
                                     }, label: {
                                         Image("biometric")
+                                            .padding(.top, 12)
                                     })
                                     Spacer()
-                                }.padding(.bottom, 20)
+                                }
                             }
                             
                             Text(LocalizedStringKey("DontHaveAnAccount"))
+                                .padding(.top,12)
                             
                             NavigationLink {
                                 RegisterView(viewModel: RegisterViewModel(registerUseCase: RegisterUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()))))

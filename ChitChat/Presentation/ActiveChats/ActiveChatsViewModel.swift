@@ -23,6 +23,7 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
     private var hiddenConversations: Set<String> = []
     @Published var conversationToDelete: Conversation?
     private var currentUserId: String?
+    @Published var currentConversation: Conversation? = nil
     
     @Published var isInChatsActiveScreen: Bool = true
     
@@ -38,6 +39,10 @@ class ActiveChatsViewModel: ObservableObject, ChatsListViewModelProtocol {
         } else {
             return conversations.filter { !hiddenConversations.contains($0.id) && $0.name.lowercased().contains(searchText.lowercased()) }
         }
+    }
+    
+    func setCurrentConversation(conversation: Conversation) {
+        self.currentConversation = conversation
     }
     
     func getActiveChatsService() {

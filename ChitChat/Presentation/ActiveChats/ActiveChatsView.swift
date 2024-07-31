@@ -9,9 +9,11 @@ import SwiftUI
 struct ActiveChatsView: View {
     @StateObject private var viewModel: ActiveChatsViewModel = ActiveChatsViewModel(chatsListUseCase: ActiveChatsUseCase(chatDataProvider: ChatDataProvider(apiManager: APIManager()), messageDataProvider: MessageDataProvider(apiManager: APIManager()), userDataProvider: UserDataProvider(apiManager: APIManager())))
     
+    @State var navigatoToChat: Bool = false
+    
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack(alignment: .bottomTrailing) {
                 VStack(spacing: 0) {
                     VStack {
                         HStack{
@@ -31,68 +33,56 @@ struct ActiveChatsView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
-                        
                         HStack{
-                            Text(LocalizedStringKey("Conversations"))
+                            Text(LocalizedStringKey("Conversaciones"))
                                 .font(.headline)
-                                .fontWeight(.medium)
                             Spacer()
-                        }.padding(.horizontal, 20)
-                        .padding(.bottom, 10)
-                    }
-                    SearchBar(text: $viewModel.searchText).padding(.bottom, 12).padding(.horizontal, 10)
-                    
+                        }
+                    }.padding(20)
+                    SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
                     if viewModel.filteredConversations.isEmpty {
                         Text(LocalizedStringKey("ConversationsNotFound"))
                             .foregroundColor(.gray)
-                            .padding(.top, 12)
-                        NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
-                                Circle()
-                                    .fill(Color.customBlue)
-                                    .frame(width: 56, height: 56)
-                                    .overlay(
-                                        Image("addChatIcon")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                    )
-                            }.position(x:300,y:450)
+                            .padding()
                     } else {
-                        
-                        List {
-                           ForEach(viewModel.filteredConversations) { conversation in
-                               ZStack {
-                                   ConversationRow(conversation: conversation)
-                                       
-                                   NavigationLink(destination: ChatView(conversation: conversation)) {
-                                       EmptyView()
-                                   }
-                                   .opacity(0.0)
-                                   .onTapGesture {
-                                       viewModel.isInChatsActiveScreen = false
-                                   }
-                               }.listRowSeparator(.hidden)
-                           }
-                           .onDelete(perform: deleteConversation)
-                       }.overlay(NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase:  UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
-                           Circle()
-                               .fill(Color.customBlue)
-                               .frame(width: 56, height: 56)
-                               .overlay(
-                                   Image("addChatIcon")
-                                       .resizable()
-                                       .frame(width: 30, height: 30)
-                               )
+                        List() {
+                            ForEach(viewModel.filteredConversations) { conversation in
+                                ConversationRow(conversation: conversation)
+                                    .onTapGesture {
+                                        viewModel.setCurrentConversation(conversation: conversation)
+                                        navigatoToChat = true
+                                    }
+                                    .listRowSeparator(.hidden)
                             }
-                            .position(x:300,y:450)
-                       )
-                       .listStyle(PlainListStyle())
-                       .refreshable {
-                           viewModel.getActiveChats { _ in }
-                       }
+                            .onDelete(perform: deleteConversation)
+                        }
+                        .listStyle(PlainListStyle())
+                        .refreshable {
+                            viewModel.getActiveChats { result in
+                                
+                            }
+                        }
+                        
                     }
+                    
+                    Spacer()
                 }
+                
+                NavigationLink(destination: UsersListView(viewModel: UsersListViewModel(userslistUseCase: UsersListUseCase(userDataProvider: UserDataProvider(apiManager: APIManager()), chatDataProvider: ChatDataProvider(apiManager: APIManager()))))) {
+                    Circle()
+                        .fill(Color.customBlue)
+                        .frame(width: 56, height: 56)
+                        .overlay(
+                            Image("addChatIcon")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                        )
+                }
+                .padding()
+                .onTapGesture {
+                    viewModel.isInChatsActiveScreen = false
+                }
+                
                 
                 if viewModel.showCustomAlert {
                     CustomAlert(
@@ -107,6 +97,15 @@ struct ActiveChatsView: View {
                             }
                         }
                     )
+                }
+                
+                if let conversation = viewModel.currentConversation {
+                    NavigationLink(
+                        destination: ChatView(conversation: conversation),
+                        isActive: $navigatoToChat
+                    ) {
+                        EmptyView()
+                    }
                 }
             }.onAppear {
                 viewModel.getActiveChatsService()
@@ -144,7 +143,7 @@ struct ConversationRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(conversation.name)
                     .font(.headline)
-                    .fontWeight(.medium)
+                    .fontWeight(.bold)
                 Text(conversation.message)
                     .lineLimit(1)
                     .font(.subheadline)
@@ -166,10 +165,12 @@ struct ConversationRow: View {
                             )
                     }
                     Text(conversation.time)
+                        .foregroundColor(.gray)
                         .font(.caption)
                 }
             }
         }
+        .padding(.vertical, 8)
     }
 }
 

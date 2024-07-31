@@ -44,7 +44,7 @@ struct ChatView: View {
                                     .frame(width: 40, height: 40)
                                     .clipShape(Circle())
                                 
-                                Text("Andres")
+                                Text(conversation.name)
                                     .font(.title2)
                                     .bold()
                                     .multilineTextAlignment(.leading)

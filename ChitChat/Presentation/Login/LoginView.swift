@@ -92,7 +92,6 @@ struct LoginView: View {
                             }
                             .padding(.horizontal, 60)
                             .padding(.top, 16)
-                            .padding(.bottom, 20)
                             
                             
                             if ChitChatDefaultsManager.shared.isBiometricEnabled {

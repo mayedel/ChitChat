@@ -69,7 +69,6 @@ struct ProfileView: View {
                             Toggle("", isOn: $isBiometric)
                                 .labelsHidden()
                         }.padding(.horizontal, 10)
-
                         Button(action: {
                             self.presentLogoutAlert = true
                         }, label: {
@@ -119,14 +118,17 @@ struct OptionRow: View {
     
     var body: some View {
         HStack {
-            Image(iconName).resizable().scaledToFit().padding(10)
+            Image(iconName)
+                .resizable()
+                .scaledToFit()
+                .padding(10)
                 .frame(width: 43, height: 43)
                 .background(Color.customBlue)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-            
+            Spacer()
             Text(text)
                 .foregroundColor(.black)
-                .padding(.leading, 8)
+                .padding(.trailing,15)
             
             Spacer()
             

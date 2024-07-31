@@ -26,32 +26,38 @@ struct UsersListView: View {
                     Button(action: {
                         dismiss()
                     }) {
-                        Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
-                    }
+                        Image("back_arrow").resizable().scaledToFit().frame(width: 20,height: 20)
+                    }.padding(.horizontal, 10)
                     
                     
                     Text(LocalizedStringKey("Contacts"))
                         .font(.title)
+                        .fontWeight(.bold)
                 }
-                .padding()
+                .padding(10)
                 .background(Color.white)
                 
                 Text(LocalizedStringKey("FindSomeoneToChat").stringValue())
                     .font(.headline)
-                    .padding([.leading, .top], 16)
+                    .fontWeight(.medium)
+                    .padding(.leading, 20)
+                    .padding(.top, 16)
                 
-                SearchBar(text: $viewModel.searchText, textSearchBar: LocalizedStringKey("SearchContact").stringValue())
+                SearchBar(text: $viewModel.searchText, textSearchBar: LocalizedStringKey("SearchContact").stringValue()).padding(.horizontal, 10)
                 
-                List(viewModel.filteredContacts) { user in
-                    Button {
-                        viewModel.createConversation(for: user) { success in
-                            if success {
-                                navigate.toggle()
-                            }
-                        }
-                    } label: {
+                List {
+                    ForEach(viewModel.filteredContacts) { user in
                         ContactRow(contact: user)
+                            .onTapGesture {
+                                viewModel.createConversation(for: user) { success in
+                                    if success {
+                                        navigate.toggle()
+                                    }
+                                }
+                            }
+                        .listRowSeparator(.hidden)
                     }
+                    
                 }
                 .listStyle(PlainListStyle())
                 .refreshable {
@@ -88,7 +94,7 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             TextField(textSearchBar, text: $text)
-                .padding(7)
+                .padding(12)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .padding(.horizontal, 10)
@@ -116,7 +122,6 @@ struct ContactRow: View {
                 .clipShape(Circle())
             Text(contact.name)
         }
-        .padding(.vertical, 5)
     }
 }
 

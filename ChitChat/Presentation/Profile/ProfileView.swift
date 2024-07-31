@@ -26,19 +26,18 @@ struct ProfileView: View {
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                         }) {
-                            Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                            Image("back_arrow").resizable().scaledToFit().frame(width: 20,height: 25).padding(.horizontal, 10)
                         }
                         
                         
                         Text(LocalizedStringKey("Profile"))
                             .font(.title)
+                            .fontWeight(.bold)
                         
                         Spacer()
                     }
                     .padding()
                     .background(Color.white)
-                    
-                    Divider()
                     
                     HStack() {
                         ZStack{
@@ -68,7 +67,7 @@ struct ProfileView: View {
                             Spacer()
                             Toggle("", isOn: $isBiometric)
                                 .labelsHidden()
-                        }.padding(.horizontal, 10)
+                        }.padding([.horizontal, .bottom], 10)
 
                         Button(action: {
                             self.presentLogoutAlert = true
@@ -124,12 +123,9 @@ struct OptionRow: View {
                 .background(Color.customBlue)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             
-            VStack(alignment: .center) {
-                Text(text)
-                    .foregroundColor(.black)
-                    .padding(.leading, 8)
-            }
-           
+            Text(text)
+                .foregroundColor(.black)
+                .padding(.leading, 8)
             
             Spacer()
             

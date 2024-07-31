@@ -40,7 +40,7 @@ struct LoginView: View {
                     Image("logo")
                         .resizable()
                         .scaledToFit()
-                        .padding(.top,20).frame(width: 200)
+                        .padding(.top,20).frame(width: 143, height: 143)
                     VStack(alignment: .leading, spacing: 8) {
                         Text(LocalizedStringKey("User"))
                             .font(.headline)
@@ -123,7 +123,7 @@ struct LoginView: View {
                                 Text(LocalizedStringKey("Register"))
                                     .font(.headline)
                                     .foregroundStyle(.black)
-                            }
+                            }.padding(.top, 12)
                         }
                     }.padding(.horizontal, 50)
                     Spacer()

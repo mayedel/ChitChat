@@ -31,7 +31,7 @@ struct ChatView: View {
                         viewModel.eliminateAllUnreadMessages(conversation: conversation)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        Image("back_arrow").resizable().scaledToFit().frame(width: 40,height: 40)
+                        Image("back_arrow").resizable().scaledToFit().frame(width: 20,height: 25).padding(.leading, 10)
                     }
                     
                     VStack{
@@ -44,7 +44,7 @@ struct ChatView: View {
                                     .frame(width: 40, height: 40)
                                     .clipShape(Circle())
                                 
-                                Text("Andres")
+                                Text(conversation.name)
                                     .font(.title2)
                                     .bold()
                                     .multilineTextAlignment(.leading)
@@ -61,7 +61,6 @@ struct ChatView: View {
                 Text(conversation.isOnline ? "En línea" : "")
                     .font(.subheadline)
                     .foregroundColor(conversation.isOnline ? .green : .gray)
-                Divider()
                 
                 ScrollViewReader { scrollView in
            

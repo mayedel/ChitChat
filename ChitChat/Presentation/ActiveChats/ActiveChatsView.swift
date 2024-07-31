@@ -31,13 +31,19 @@ struct ActiveChatsView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20)
+                        
                         HStack{
                             Text(LocalizedStringKey("Conversaciones"))
                                 .font(.headline)
+                                .fontWeight(.medium)
                             Spacer()
-                        }
-                    }.padding(20)
-                    SearchBar(text: $viewModel.searchText).padding(.horizontal,10)
+                        }.padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                    }
+                    SearchBar(text: $viewModel.searchText).padding(.bottom, 12).padding(.horizontal, 10)
+                    
                     if viewModel.filteredConversations.isEmpty {
                         Text(LocalizedStringKey("ConversationsNotFound"))
                             .foregroundColor(.gray)
@@ -47,6 +53,7 @@ struct ActiveChatsView: View {
                             ForEach(viewModel.filteredConversations) { conversation in
                                 ZStack {
                                     ConversationRow(conversation: conversation)
+                                        
                                     NavigationLink(destination: ChatView(conversation: conversation)) {
                                         EmptyView()
                                     }
@@ -54,17 +61,14 @@ struct ActiveChatsView: View {
                                     .onTapGesture {
                                         viewModel.isInChatsActiveScreen = false
                                     }
-                                }
+                                }.listRowSeparator(.hidden)
                             }
                             .onDelete(perform: deleteConversation)
                         }
                         .listStyle(PlainListStyle())
                         .refreshable {
-                            viewModel.getActiveChats { result in
-                                
-                            }
+                            viewModel.getActiveChats { _ in }
                         }
-                        
                     }
                     
                     Spacer()
@@ -140,7 +144,7 @@ struct ConversationRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(conversation.name)
                     .font(.headline)
-                    .fontWeight(.bold)
+                    .fontWeight(.medium)
                 Text(conversation.message)
                     .lineLimit(1)
                     .font(.subheadline)
@@ -162,12 +166,10 @@ struct ConversationRow: View {
                             )
                     }
                     Text(conversation.time)
-                        .foregroundColor(.gray)
                         .font(.caption)
                 }
             }
         }
-        .padding(.vertical, 8)
     }
 }
 

@@ -111,7 +111,7 @@ struct AvatarSelectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(LocalizedStringKey("SelectAnAvatar"))
+                Text(LocalizedStringKey("SelectAnAvatar")).bold()
                 Image(viewModel.avatarSelected?.image ?? "userPicDefault")
                     .resizable()
                     .scaledToFit()

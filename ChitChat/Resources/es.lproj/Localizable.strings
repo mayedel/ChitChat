@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  ChitChat
+
+  Created by Andres Cordón on 5/7/24.
+  
+*/
+"InvalidUrlError" = "Url no válida";
+"Accept" = "Aceptar";
+"Cancel" = "Cancelar";
+
+"UserError" = "Usuario inválido";
+"PasswordError" = "Contraseña incorrecta";
+
+"EmptyFieldError" = "Campo vacío";
+"Title" = "ChitChat";
+
+
+//LOGIN
+"LoginDefaultError" = "Algún error";
+"LoginSuccess" = "Login correcto";
+
+"User" = "Usuario";
+"EnterYourUser" = "Ingresa tu usuario";
+"Password" = "Contraseña";
+"EnterYourPass" = "Ingresa tu contraseña";
+"Biometric" = "Acceso con biometría";
+"Login" = "Login";
+"DontHaveAnAccount" = "¿No tienes una cuenta?";
+"Register" = "Regístrate";
+"Error" = "Error";
+"BiometricAccess" = "Acceso Biométrico";
+"BiometricMessage" = "¿Desea activar el acceso biométrico?";
+
+
+//REGISTRO
+"UserRegistration" = "Registro";
+"RepeatYourPassword" = "Repite tu contraseña";
+"EnterYourNick" = "Ingresa tu nick";
+"EnterYourAvatar" = "Introduce tu avatar";
+"PasswordsDontMatch" = "Las contraseñas no coinciden";
+"SelectAnAvatar" = "Avatar seleccionado:";
+"UsernameError" = "Introduce un nombre de usuario";
+"UserExistError" = "El usuario ya existe";
+"UserLengthError" = "El usuario no debe exceder 25 caracteres";
+"NickLengthError" = "El nick no debe exceder 25 caracteres";
+
+//ADD NEW CHAT
+"Contacts" = "Contactos";
+"FindSomeoneToChat" = "Encantado de hablar con";
+"AwesomeToChatWith" = "Increíble charlar con";
+"SearchContact" = "Buscar contacto...";
+
+//ACTIVE CHATS
+"Conversations" = "Conversaciones";
+"SearchConversation" = "Buscar conversación...";
+"EliminateChatDialogTitle" = "¿Eliminar chat?";
+"EliminateChatDialogMessage" = "Al no ser el creador de la conversación no puedes borrarla de la base de datos, ¿quieres eliminarla de tu lista de conversaciones?";
+"ConversationsNotFound" = "No se han encontrado conversaciones";
+
+//CHAT
+"NoQueryParams" = "Sin querys";
+"Unauthorized" = "No autorizado";
+"WriteNewMessage" = "Escribe un mensaje...";
+
+//PROFILE
+"Profile" = "Perfil";
+"UnknowParameterError" = "Parámetro desconocido";
+"LogOut" = "¿Cerrar sesión?";
+"LogOutMessage" = "¿Estás seguro de que quieres cerrar sesión?";
+
+//CONTACTOS
+"Contacts" = "Contactos";

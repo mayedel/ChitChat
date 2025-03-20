@@ -1,0 +1,72 @@
+/*Localizable.strings
+ChitChat
+
+Created by Andres Cordón on 5/7/24.
+
+*/
+"InvalidUrlError" = "Invalid URL";
+"Accept" = "Accept";
+"Cancel" = "Cancel";
+
+"UserError" = "Invalid user";
+"PasswordError" = "Incorrect password";
+
+"EmptyFieldError" = "Empty Field";
+"Title" = "ChitChat";
+
+
+//LOGIN
+"LoginDefaultError" = "Some error";
+"LoginSuccess" = "Login successful";
+
+"User" = "User";
+"EnterYourUser" = "Enter your user";
+"Password" = "Password";
+"EnterYourPass" = "Enter your password";
+"Biometric" = "Biometric access";
+"Login" = "Login";
+"DontHaveAnAccount" = "Don't have an account?";
+"Register" = "Register";
+"Error" = "Error";
+"BiometricAccess" = "Biometric Access";
+"BiometricMessage" = "Do you want to enable biometric access?";
+
+
+//REGISTER
+"UserRegistration" = "Registration";
+"RepeatYourPassword" = "Repeat your password";
+"EnterYourNick" = "Enter your nickname";
+"EnterYourAvatar" = "Enter your avatar";
+"PasswordsDontMatch" = "Passwords do not match";
+"SelectAnAvatar" = "Select an avatar:";
+"UsernameError" = "Enter a username";
+"UserExistError" = "User already exists";
+"UserLengthError" = "Username must not exceed 25 characters";
+"NickLengthError" = "Nickname must not exceed 25 characters";
+
+//ADD NEW CHAT
+"Contacts" = "Contacts";
+"FindSomeoneToChat" = "Find someone to chat with";
+"AwesomeToChatWith" = "Awesome to chat with";
+"SearchContact" = "Search contact...";
+
+//ACTIVE CHATS
+"Conversations" = "Conversations";
+"SearchConversation" = "Search conversation...";
+"EliminateChatDialogTitle" = "Delete chat?";
+"EliminateChatDialogMessage" = "Since you are not the creator of the conversation, you cannot delete it from the database. Do you want to remove it from your conversation list?";
+"ConversationsNotFound" = "No conversations found";
+
+//CHAT
+"NoQueryParams" = "No queries";
+"Unauthorized" = "Unauthorized";
+"WriteNewMessage" = "Write a message...";
+
+//PROFILE
+"Profile" = "Profile";
+"UnknowParameterError" = "Unknown parameter";
+"LogOut" = "Log out?";
+"LogOutMessage" = "Are you sure you want to log out?";
+
+//CONTACTS
+"Contacts" = "Contacts";
